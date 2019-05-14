@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: "\u6D6E\u6CFD\u4E16\u754C 2D 2"
+  companyName: "\u6D6E\u6CFD"
+  productName: "\u6D6E\u6CFD\u4E16\u754C"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -278,7 +278,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 9c49fbc2400cf40cb808584bb602dd23, type: 3}
+      m_Icon: {fileID: 2800000, guid: 25e408f0fa7eb624cabd44b1ea5e9a95, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
