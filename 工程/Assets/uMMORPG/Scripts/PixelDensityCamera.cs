@@ -8,12 +8,25 @@ public class PixelDensityCamera: MonoBehaviour
 {
     // The value that all the Sprites use
     public float pixelsToUnits = 16;
+    public float pixelsToUnitsMax = 100;
+    public float pixelsToUnitsMin = 10;
+    public float scaleSpeed = 1;
 
     // Zoom Factor
     public int zoom = 1;
 
-    void Update()
+
+    private void Update()
     {
+        pixelsToUnits += Input.GetAxis("Mouse ScrollWheel") * scaleSpeed;
+        if (pixelsToUnits < pixelsToUnitsMin)
+        {
+            pixelsToUnits = pixelsToUnitsMin;
+        }
+        else if (pixelsToUnits > pixelsToUnitsMax)
+        {
+            pixelsToUnits = pixelsToUnitsMax;
+        }
         GetComponent<Camera>().orthographicSize = Screen.height / pixelsToUnits / zoom / 2;
     }
 }

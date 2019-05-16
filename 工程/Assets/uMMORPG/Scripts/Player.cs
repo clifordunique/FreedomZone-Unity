@@ -3061,15 +3061,21 @@ public partial class Player : Entity
                 // we will slide
                 agent.ResetMovement();
 
+                //Εά²½
+                float f = 1;
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    f = 2;
+                }
                 // casting? then set pending velocity
                 if (state == "CASTING")
                 {
-                    pendingVelocity = direction * speed;
+                    pendingVelocity = direction * speed * f;
                     pendingVelocityValid = true;
                 }
                 else
                 {
-                    agent.velocity = direction * speed;
+                    agent.velocity = direction * speed * f;
                 }
 
                 // clear requested skill in any case because if we clicked
