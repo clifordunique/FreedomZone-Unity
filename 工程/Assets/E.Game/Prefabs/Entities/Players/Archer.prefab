@@ -706,6 +706,7 @@ GameObject:
   - component: {fileID: 212293974572567764}
   - component: {fileID: 114280432514828616}
   - component: {fileID: 58371876617117556}
+  - component: {fileID: -3025649450306253947}
   - component: {fileID: 50382803059724738}
   - component: {fileID: 114533660131814904}
   - component: {fileID: 114588678025470718}
@@ -716,7 +717,7 @@ GameObject:
   - component: {fileID: 114181893080528076}
   - component: {fileID: 82555891082792160}
   m_Layer: 8
-  m_Name: Archer
+  m_Name: Archer 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,7 +782,7 @@ MonoBehaviour:
   serverOnly: 0
   localPlayerAuthority: 0
   m_AssetId: 
-  m_SceneId: 3558043092
+  m_SceneId: 4128972637
 --- !u!212 &212293974572567764
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -856,6 +857,22 @@ CircleCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.6
+--- !u!58 &-3025649450306253947
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505016760143036}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

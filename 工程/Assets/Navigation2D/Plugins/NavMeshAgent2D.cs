@@ -61,6 +61,8 @@ public class NavMeshAgent2D : MonoBehaviour
         agent.obstacleAvoidanceType = _quality;
         agent.avoidancePriority = _priority;
         agent.autoRepath = _autoRepath;
+
+        go.transform.SetParent(GameObject.Find("NavMeshAgents").transform);
     }
 
     bool IsStuck()

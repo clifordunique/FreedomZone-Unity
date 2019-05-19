@@ -11,7 +11,7 @@ namespace E.Game
     {
         private void OnMouseEnter()
         {
-            GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
+            GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
         }
         private void OnMouseOver()
         {
@@ -22,7 +22,7 @@ namespace E.Game
         }
         private void OnMouseDown()
         {
-            GetComponent<SpriteRenderer>().color = new Color(0.5f, 0.5f, 0.5f);
+            GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
         }
         private void OnMouseDrag()
         {
@@ -30,7 +30,7 @@ namespace E.Game
         }
         private void OnMouseUp()
         {
-            GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.7f, 0.7f);
+            GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
         }
         private void OnMouseExit()
         {

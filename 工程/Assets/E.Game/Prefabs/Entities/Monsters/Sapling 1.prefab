@@ -327,7 +327,6 @@ GameObject:
   - component: {fileID: 114311055147890766}
   - component: {fileID: 114756905955995456}
   - component: {fileID: 82769297881392960}
-  - component: {fileID: 8890162275669403727}
   m_Layer: 9
   m_Name: Sapling 1
   m_TagString: Monster
@@ -737,15 +736,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &8890162275669403727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1862907754274882}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2223b78e89c31594f838088827efd62f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

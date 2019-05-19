@@ -83,7 +83,8 @@ public partial class Database : MonoBehaviour
         // we also use Path.Combine for platform independent paths
         // and we need persistentDataPath on android
 #if UNITY_EDITOR
-        string path = Path.Combine(Directory.GetParent(Application.dataPath).FullName, databaseFile);
+        string path = Path.Combine(Directory.GetParent(Application.dataPath).FullName + "\\Databases", databaseFile);
+        Debug.Log("【数据库】" + path);
 #elif UNITY_ANDROID
         string path = Path.Combine(Application.persistentDataPath, databaseFile);
 #elif UNITY_IOS
