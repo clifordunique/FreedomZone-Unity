@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddaeb3ceb9edaa42a207ef610f9456d, type: 3}
+  m_Name: Story-1
+  m_EditorClassIdentifier: 
+  Describe: "\u5B9E\u4F8B\u6545\u4E8B\u6811"
+  IsPassed: 0
+  Nodes:
+  - {fileID: 11400000, guid: bb6af3b063ec17941a3c88547005c0f2, type: 2}
+  - {fileID: 11400000, guid: f4e3024810ee7464aa959eeb368bc802, type: 2}
+  - {fileID: 11400000, guid: 9f851977d0804464db29c5ebb6d9e194, type: 2}
+  - {fileID: 11400000, guid: 3e7ac5b57b1d0194ba0c8dae2a400246, type: 2}
+  - {fileID: 11400000, guid: 1b31034f4dd1bde4d9c4c65ea8c7326f, type: 2}
+  - {fileID: 11400000, guid: 2088d71cd0b8871419e25b579f2b3e12, type: 2}
+  StartNode: {fileID: 11400000, guid: f4e3024810ee7464aa959eeb368bc802, type: 2}
+  EndNodes:
+  - {fileID: 11400000, guid: 3e7ac5b57b1d0194ba0c8dae2a400246, type: 2}
+  - {fileID: 11400000, guid: 2088d71cd0b8871419e25b579f2b3e12, type: 2}
+  - {fileID: 11400000, guid: bb6af3b063ec17941a3c88547005c0f2, type: 2}
+  CompletionPercent: 0
