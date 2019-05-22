@@ -590,12 +590,8 @@ MonoBehaviour:
   lootGoldMin: 0
   lootGoldMax: 10
   dropChances:
-  - item: {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
-    probability: 0.75
-  - item: {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
-    probability: 0.75
-  - item: {fileID: 11400000, guid: 26b404de2c160499bab1fcda06a555f4, type: 2}
-    probability: 0.5
+  - item: {fileID: 11400000, guid: d3348cb9f78edf74ebdf4562a5733759, type: 2}
+    probability: 1
   deathTime: 30
   respawn: 1
   respawnTime: 10

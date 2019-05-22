@@ -2970,18 +2970,19 @@ public partial class Player : Entity
                     }
                     // npc, alive, close enough? => talk
                     // use collider point(s) to also work with big entities
-                    else if (entity is Npc && entity.health > 0 &&
-                             Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
+                    else if (entity is Npc && entity.health > 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
                     {
                         UINpcDialogue.singleton.Show();
                     }
                     // monster, dead, has loot, close enough? => loot
                     // use collider point(s) to also work with big entities
-                    else if (entity is Monster && entity.health == 0 &&
-                             Utils.ClosestDistance(collider, entity.collider) <= interactionRange &&
-                             ((Monster)entity).HasLoot())
+                    else if (entity is Monster && entity.health == 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange && ((Monster)entity).HasLoot())
                     {
                         UILoot.singleton.Show();
+                    }
+                    else if (entity is ItemInstance && entity.health >= 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
+                    {
+                         Debug.Log("左键点击：" + entity.name);
                     }
                     // not attackable, lootable, talkable, etc., but it's
                     // still an entity and double clicking it without doing
@@ -2998,7 +2999,7 @@ public partial class Player : Entity
 
                     // addon system hooks
                     Utils.InvokeMany(typeof(Player), this, "OnSelect_", entity);
-                // clicked a new target
+                    // clicked a new target
                 }
                 else
                 {
@@ -3026,6 +3027,38 @@ public partial class Player : Entity
                 {
                     agent.stoppingDistance = 0;
                     agent.destination = bestDestination;
+                }
+            }
+        }
+        //如果点击鼠标右键
+        if (Input.GetMouseButtonDown(1) && !Utils.IsCursorOverUserInterface() && Input.touchCount <= 1)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = localPlayerClickThrough ? Utils.Raycast2DWithout(ray, gameObject) : Physics2D.GetRayIntersection(ray);
+            useSkillWhenCloser = -1;
+
+            Entity entity = hit.transform != null ? hit.transform.GetComponent<Entity>() : null;
+            //如果点中实体
+            if (entity)
+            {
+                if (entity == target && entity != this && entity != activePet)
+                {
+                    if (entity is Npc && entity.health > 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
+                    {
+                        UINpcDialogue.singleton.Show();
+                    }
+                    else if (entity is Monster && entity.health == 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange && ((Monster)entity).HasLoot())
+                    {
+                        UILoot.singleton.Show();
+                    }
+                    else if (entity is ItemInstance && entity.health >= 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
+                    {
+                        Debug.Log("右键点击：" + entity.name);
+                    }
+                }
+                else
+                {
+                    CmdSetTarget(entity.netIdentity);
                 }
             }
         }

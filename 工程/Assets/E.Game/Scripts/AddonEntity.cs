@@ -19,10 +19,6 @@ public partial class Entity
     }
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonUp(1))
-        {
-            Debug.Log("右键点击了：" + name);
-        }
     }
     private void OnMouseDown()
     {
