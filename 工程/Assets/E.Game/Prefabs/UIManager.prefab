@@ -51452,7 +51452,7 @@ GameObject:
   - component: {fileID: 822305137585916295}
   - component: {fileID: 822305137585916292}
   m_Layer: 5
-  m_Name: UI
+  m_Name: UIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
