@@ -1,4 +1,4 @@
-﻿// All player logic was put into this class. We could also split it into several
+// All player logic was put into this class. We could also split it into several
 // smaller components, but this would result in many GetComponent calls and a
 // more complex syntax.
 //

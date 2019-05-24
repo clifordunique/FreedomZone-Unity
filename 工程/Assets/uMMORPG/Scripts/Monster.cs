@@ -1,4 +1,4 @@
-﻿// The Monster class has a few different features that all aim to make monsters
+// The Monster class has a few different features that all aim to make monsters
 // behave as realistically as possible.
 //
 // - **States:** first of all, the monster has several different states like

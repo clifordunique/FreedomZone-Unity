@@ -1,4 +1,4 @@
-﻿// The Entity class is rather simple. It contains a few basic entity properties
+// The Entity class is rather simple. It contains a few basic entity properties
 // like health, mana and level that all inheriting classes like Players and
 // Monsters can use.
 //
