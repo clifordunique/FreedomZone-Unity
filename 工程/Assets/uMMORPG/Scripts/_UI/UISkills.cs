@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public partial class UISkills : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public partial class UISkills : MonoBehaviour
     public Transform content;
     public Text skillExperienceText;
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

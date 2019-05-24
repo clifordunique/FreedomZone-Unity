@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using System;
 
 public partial class UIGuild : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public partial class UIGuild : MonoBehaviour
     public Color offlineColor = Color.gray;
     public Button leaveButton;
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

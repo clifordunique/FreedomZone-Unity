@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public partial class UIParty : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public partial class UIParty : MonoBehaviour
     public Toggle experienceShareToggle;
     public Toggle goldShareToggle;
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

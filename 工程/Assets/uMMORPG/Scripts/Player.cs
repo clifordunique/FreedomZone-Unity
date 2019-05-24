@@ -1082,6 +1082,7 @@ public partial class Player : Entity
 
     // finite state machine - client ///////////////////////////////////////////
     [Client]
+    [Obsolete]
     protected override void UpdateClient()
     {
         if (state == "IDLE" || state == "MOVING")
@@ -3067,6 +3068,7 @@ public partial class Player : Entity
     }
 
     [Client]
+    [Obsolete]
     void WASDHandling()
     {
         // don't move if currently typing in an input

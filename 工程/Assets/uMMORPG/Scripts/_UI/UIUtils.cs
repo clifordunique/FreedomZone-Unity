@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
+using System;
 
 public class UIUtils
 {
@@ -23,6 +24,7 @@ public class UIUtils
 
     // find out if any input is currently active by using Selectable.all
     // (FindObjectsOfType<InputField>() is far too slow for huge scenes)
+    [Obsolete]
     public static bool AnyInputActive()
     {
         return Selectable.allSelectables.Any(

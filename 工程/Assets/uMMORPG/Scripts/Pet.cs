@@ -567,6 +567,7 @@ public partial class Pet : Summonable
 
     // finite state machine - client ///////////////////////////////////////////
     [Client]
+    [Obsolete]
     protected override void UpdateClient()
     {
 

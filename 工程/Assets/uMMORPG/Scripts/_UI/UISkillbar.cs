@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System;
 
-public partial class UISkillbar : MonoBehaviour {
+public partial class UISkillbar : MonoBehaviour
+{
     public GameObject panel;
     public UISkillbarSlot slotPrefab;
     public Transform content;
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

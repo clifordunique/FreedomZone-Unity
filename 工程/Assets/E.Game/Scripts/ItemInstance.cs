@@ -18,6 +18,7 @@ public class ItemInstance : Entity
     }
 
     [Client]
+    [System.Obsolete]
     protected override void UpdateClient()
     {
     }

@@ -2,6 +2,7 @@
 // always react to the hotkey.
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public partial class UIInventory : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public partial class UIInventory : MonoBehaviour
     public GameObject trashOverlay;
     public Text trashAmountText;
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

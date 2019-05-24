@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public partial class UIQuests : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public partial class UIQuests : MonoBehaviour
     public string expandPrefix = "[+] ";
     public string hidePrefix = "[-] ";
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

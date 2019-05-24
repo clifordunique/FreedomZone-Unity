@@ -2,6 +2,7 @@
 // always react to the hotkey.
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public partial class UICharacterInfo : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public partial class UICharacterInfo : MonoBehaviour
     public Button strengthButton;
     public Button intelligenceButton;
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

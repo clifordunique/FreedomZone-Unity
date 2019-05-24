@@ -31,6 +31,7 @@ public partial class UIItemMall : MonoBehaviour
         scrollRect.verticalNormalizedPosition = 1;
     }
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

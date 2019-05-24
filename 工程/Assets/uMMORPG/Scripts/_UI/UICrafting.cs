@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using System;
 
 public partial class UICrafting : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public partial class UICrafting : MonoBehaviour
     public Color successColor = Color.green;
     public Color failedColor = Color.red;
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

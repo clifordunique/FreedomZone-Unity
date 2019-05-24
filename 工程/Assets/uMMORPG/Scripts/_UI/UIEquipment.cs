@@ -2,6 +2,7 @@
 // always react to the hotkey.
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public partial class UIEquipment : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public partial class UIEquipment : MonoBehaviour
     public UIEquipmentSlot slotPrefab;
     public Transform content;
 
+    [Obsolete]
     void Update()
     {
         Player player = Player.localPlayer;

@@ -578,6 +578,7 @@ public partial class Monster : Entity
 
     // finite state machine - client ///////////////////////////////////////////
     [Client]
+    [System.Obsolete]
     protected override void UpdateClient()
     {
         // addon system hooks

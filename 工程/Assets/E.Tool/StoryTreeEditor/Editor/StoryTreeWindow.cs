@@ -21,7 +21,7 @@ namespace E.Tool
         public ConfigInfo ConfigInfo;
 
         //窗口状态
-        private float m_Scale;
+        //private float m_Scale;
         private Rect m_View;
         private Vector3 m_ScrollPos;
         private Vector2 m_MousePos;
@@ -155,7 +155,7 @@ namespace E.Tool
         /// </summary>
         private void ResetWindowState()
         {
-            m_Scale = 1;
+            //m_Scale = 1;
             m_View = new Rect(0, 0, ConfigInfo.ViewWidth, ConfigInfo.ViewHeight);
             m_ScrollPos = Vector2.zero;
             m_MousePos = Vector2.zero;

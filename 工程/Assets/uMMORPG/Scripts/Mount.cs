@@ -179,6 +179,7 @@ public partial class Mount : Summonable
 
     // finite state machine - client ///////////////////////////////////////////
     [Client]
+    [Obsolete]
     protected override void UpdateClient()
     {
         if (state == "IDLE" || state == "MOVING")

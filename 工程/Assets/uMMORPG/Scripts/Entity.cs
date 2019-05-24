@@ -320,6 +320,7 @@ public abstract partial class Entity : NetworkBehaviour
     // -> we should react to every state and to every event for correctness
     // -> we keep it functional for simplicity
     // note: can still use LateUpdate for Updates that should happen in any case
+    [Obsolete]
     void Update()
     {
         // only update if it's worth updating (see IsWorthUpdating comments)
@@ -367,6 +368,7 @@ public abstract partial class Entity : NetworkBehaviour
     protected abstract string UpdateServer();
 
     // update for client.
+    [Obsolete]
     protected abstract void UpdateClient();
 
     // can be overwritten for more overlays
