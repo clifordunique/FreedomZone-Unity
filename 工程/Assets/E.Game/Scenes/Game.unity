@@ -17287,7 +17287,7 @@ Tilemap:
       - {fileID: 21300174, guid: 8fe1a28a11d43499c9bfb7c7c1182f81, type: 3}
       - {fileID: 21300176, guid: 8fe1a28a11d43499c9bfb7c7c1182f81, type: 3}
       - {fileID: 21300178, guid: 8fe1a28a11d43499c9bfb7c7c1182f81, type: 3}
-      m_AnimationSpeed: 3.0000002
+      m_AnimationSpeed: 3
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: 6, y: 16, z: 0}
@@ -17314,7 +17314,7 @@ Tilemap:
       - {fileID: 21300168, guid: 8fe1a28a11d43499c9bfb7c7c1182f81, type: 3}
       - {fileID: 21300170, guid: 8fe1a28a11d43499c9bfb7c7c1182f81, type: 3}
       - {fileID: 21300172, guid: 8fe1a28a11d43499c9bfb7c7c1182f81, type: 3}
-      m_AnimationSpeed: 6
+      m_AnimationSpeed: 6.0000005
       m_AnimationTimeOffset: 0
       m_IsLooping: 1
   - first: {x: -15, y: 19, z: 0}
@@ -17537,7 +17537,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1529476062757820, guid: c8729e1a06ae8f84b843ce468e446905, type: 3}
       propertyPath: m_Name
-      value: Guardian 1 (1)
+      value: Guardian
       objectReference: {fileID: 0}
     - target: {fileID: 4568459088594186, guid: c8729e1a06ae8f84b843ce468e446905, type: 3}
       propertyPath: m_LocalPosition.x
@@ -35092,7 +35092,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1529476062757820, guid: b016523e2a1c2dc4d805b5369e20c0c6, type: 3}
       propertyPath: m_Name
-      value: Alchemist 1 (1)
+      value: Alchemist
       objectReference: {fileID: 0}
     - target: {fileID: 4568459088594186, guid: b016523e2a1c2dc4d805b5369e20c0c6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -35421,6 +35421,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SceneId
       value: 3344938272
+      objectReference: {fileID: 0}
+    - target: {fileID: 114194098868247622, guid: 0bb86c9b17db5644db2d62892c519486,
+        type: 3}
+      propertyPath: respawn
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bb86c9b17db5644db2d62892c519486, type: 3}
@@ -47815,6 +47820,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6278966895035493787, guid: f7d7ca9ef76530d448742568102ff1e4,
+        type: 3}
+      propertyPath: uiPopup
+      value: 
+      objectReference: {fileID: 1165640891}
     - target: {fileID: 6278966894451251326, guid: f7d7ca9ef76530d448742568102ff1e4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -47870,11 +47880,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6278966895035493787, guid: f7d7ca9ef76530d448742568102ff1e4,
-        type: 3}
-      propertyPath: uiPopup
-      value: 
-      objectReference: {fileID: 1165640891}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7d7ca9ef76530d448742568102ff1e4, type: 3}
 --- !u!1001 &7797998567686978937

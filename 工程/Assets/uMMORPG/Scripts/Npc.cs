@@ -1,13 +1,13 @@
-// The Npc class is rather simple. It contains state Update functions that do
+﻿// The Npc class is rather simple. It contains state Update functions that do
 // nothing at the moment, because Npcs are supposed to stand around all day.
 //
 // Npcs first show the welcome text and then have options for item trading and
 // quests.
+using Mirror;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Mirror;
 
 // talk-to-npc quests work by adding the same quest to two npcs, one with
 // accept=true and complete=false, the other with accept=false and complete=true
@@ -22,25 +22,25 @@ public class ScriptableQuestOffer
 [RequireComponent(typeof(NetworkNavMeshAgent2D))]
 public partial class Npc : Entity
 {
-    [Header("Text Meshes")]
+    [Header("【文字网格】")]
     public TextMesh questOverlay;
 
-    [Header("Welcome Text")]
+    [Header("【欢迎文本】")]
     [TextArea(1, 30)] public string welcome;
 
-    [Header("Items for Sale")]
+    [Header("【出售物品】")]
     public ScriptableItem[] saleItems;
 
-    [Header("Quests")]
+    [Header("【任务】")]
     public ScriptableQuestOffer[] quests;
 
-    [Header("Teleportation")]
+    [Header("【传送】")]
     public Transform teleportTo;
 
-    [Header("Guild Management")]
+    [Header("【是否提供公会管理】")]
     public bool offersGuildManagement = true;
 
-    [Header("Summonables")]
+    [Header("【是否可召唤】")]
     public bool offersSummonableRevive = true;
 
     // networkbehaviour ////////////////////////////////////////////////////////
@@ -58,7 +58,8 @@ public partial class Npc : Entity
 
     // finite state machine states /////////////////////////////////////////////
     [Server] protected override string UpdateServer() { return state; }
-    [Client] protected override void UpdateClient()
+    [Client]
+    protected override void UpdateClient()
     {
         // addon system hooks
         Utils.InvokeMany(GetType(), this, "UpdateClient_");

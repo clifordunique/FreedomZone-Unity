@@ -1,4 +1,4 @@
-// All player logic was put into this class. We could also split it into several
+﻿// All player logic was put into this class. We could also split it into several
 // smaller components, but this would result in many GetComponent calls and a
 // more complex syntax.
 //
@@ -19,14 +19,14 @@
 // buggy and because it can't really react to movement stops fast enough, which
 // results in moonwalking. Not synchronizing animations over the network will
 // also save us bandwidth
-using UnityEngine;
 using Mirror;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
-public enum TradeStatus : byte {Free, Locked, Accepted}
-public enum CraftingState : byte {None, InProgress, Success, Failed}
+public enum TradeStatus : byte { Free, Locked, Accepted }
+public enum CraftingState : byte { None, InProgress, Success, Failed }
 
 [Serializable]
 public partial struct SkillbarEntry
@@ -56,12 +56,12 @@ public partial struct ItemMallCategory
 [RequireComponent(typeof(NetworkNavMeshAgentRubberbanding2D))]
 public partial class Player : Entity
 {
-    [Header("Components")]
+    [Header("【组件】")]
     public PlayerChat chat;
     public Camera avatarCamera;
     public NetworkNavMeshAgentRubberbanding2D rubberbanding;
 
-    [Header("Text Meshes")]
+    [Header("【文字网格】")]
     public TextMesh nameOverlay;
     public Color nameOverlayDefaultColor = Color.white;
     public Color nameOverlayOffenderColor = Color.magenta;
@@ -71,7 +71,7 @@ public partial class Player : Entity
     public string guildOverlayPrefix = "[";
     public string guildOverlaySuffix = "]";
 
-    [Header("Icons")]
+    [Header("【图标】")]
     public Sprite classIcon; // for character selection
     public Sprite portraitIcon; // for top left portrait
 
@@ -188,11 +188,11 @@ public partial class Player : Entity
         }
     }
 
-    [Header("Attributes")]
+    [Header("属性")]
     [SyncVar] public int strength = 0;
     [SyncVar] public int intelligence = 0;
 
-    [Header("Experience")] // note: int is not enough (can have > 2 mil. easily)
+    [Header("经验")] // note: int is not enough (can have > 2 mil. easily)
     public int maxLevel = 1;
     [SyncVar, SerializeField] long _experience = 0;
     public long experience
@@ -230,25 +230,25 @@ public partial class Player : Entity
     }
 
     // required experience grows by 10% each level (like Runescape)
-    [SerializeField] protected ExponentialLong _experienceMax = new ExponentialLong{multiplier=100, baseValue=1.1f};
+    [SerializeField] protected ExponentialLong _experienceMax = new ExponentialLong { multiplier = 100, baseValue = 1.1f };
     public long experienceMax { get { return _experienceMax.Get(level); } }
 
-    [Header("Skill Experience")]
+    [Header("技能经验")]
     [SyncVar] public long skillExperience = 0;
 
-    [Header("Indicator")]
+    [Header("标识物")]
     public GameObject indicatorPrefab;
     [HideInInspector] public GameObject indicator;
 
-    [Header("Inventory")]
+    [Header("库存")]
     public int inventorySize = 30;
     public ScriptableItemAndAmount[] defaultItems;
-    public KeyCode[] inventorySplitKeys = {KeyCode.LeftShift, KeyCode.RightShift};
+    public KeyCode[] inventorySplitKeys = { KeyCode.LeftShift, KeyCode.RightShift };
 
-    [Header("Trash")]
+    [Header("废弃物")]
     [SyncVar] public ItemSlot trash;
 
-    [Header("Equipment Info")]
+    [Header("装备")]
     public EquipmentInfo[] equipmentInfo =
     {
         new EquipmentInfo{requiredCategory="Weapon", location=null, defaultItem=new ScriptableItemAndAmount()},
@@ -261,7 +261,7 @@ public partial class Player : Entity
         new EquipmentInfo{requiredCategory="Feet", location=null, defaultItem=new ScriptableItemAndAmount()}
     };
 
-    [Header("Skillbar")]
+    [Header("技能条")]
     public SkillbarEntry[] skillbar =
     {
         new SkillbarEntry{reference="", hotKey=KeyCode.Alpha1},
@@ -276,11 +276,11 @@ public partial class Player : Entity
         new SkillbarEntry{reference="", hotKey=KeyCode.Alpha0},
     };
 
-    [Header("Quests")] // contains active and completed quests (=all)
+    [Header("任务")] // contains active and completed quests (=all)
     public int activeQuestLimit = 10;
     public SyncListQuest quests = new SyncListQuest();
 
-    [Header("Interaction")]
+    [Header("交互范围")]
     public float interactionRange = 1;
     public KeyCode targetNearestKey = KeyCode.Tab;
     public bool localPlayerClickThrough = true; // click selection goes through localplayer. feels best.
@@ -290,39 +290,39 @@ public partial class Player : Entity
     public BuffSkill offenderBuff;
     public BuffSkill murdererBuff;
 
-    [Header("Trading")]
+    [Header("贸易")]
     [SyncVar, HideInInspector] public string tradeRequestFrom = "";
     [SyncVar, HideInInspector] public TradeStatus tradeStatus = TradeStatus.Free;
     [SyncVar, HideInInspector] public long tradeOfferGold = 0;
     public SyncListInt tradeOfferItems = new SyncListInt(); // inventory indices
 
-    [Header("Crafting")]
+    [Header("制作合成")]
     public List<int> craftingIndices = Enumerable.Repeat(-1, ScriptableRecipe.recipeSize).ToList();
     [HideInInspector] public CraftingState craftingState = CraftingState.None; // // client sided
     [SyncVar, HideInInspector] public double craftingTimeEnd; // double for long term precision
 
-    [Header("Item Mall")]
+    [Header("商城")]
     public ItemMallCategory[] itemMallCategories; // the items that can be purchased in the item mall
     [SyncVar] public long coins = 0;
     public float couponWaitSeconds = 3;
 
-    [Header("Guild")]
+    [Header("公会")]
     [SyncVar, HideInInspector] public string guildInviteFrom = "";
     [SyncVar, HideInInspector] public Guild guild; // TODO SyncToOwner later
     public float guildInviteWaitSeconds = 3;
 
     // .party is a copy for easier reading/syncing. Use PartySystem to manage
     // parties!
-    [Header("Party")]
+    [Header("帮派")]
     [SyncVar, HideInInspector] public Party party; // TODO SyncToOwner later
     [SyncVar, HideInInspector] public string partyInviteFrom = "";
     public float partyInviteWaitSeconds = 3;
 
-    [Header("Pet")]
+    [Header("宠物")]
     [SyncVar] GameObject _activePet;
     public Pet activePet
     {
-        get { return _activePet != null  ? _activePet.GetComponent<Pet>() : null; }
+        get { return _activePet != null ? _activePet.GetComponent<Pet>() : null; }
         set { _activePet = value != null ? value.gameObject : null; }
     }
     // pet's destination should always be right next to player, not inside him
@@ -342,17 +342,17 @@ public partial class Player : Entity
     [SyncVar] GameObject _activeMount;
     public Mount activeMount
     {
-        get { return _activeMount != null  ? _activeMount.GetComponent<Mount>() : null; }
+        get { return _activeMount != null ? _activeMount.GetComponent<Mount>() : null; }
         set { _activeMount = value != null ? value.gameObject : null; }
     }
 
     // when moving into attack range of a target, we always want to move a
     // little bit closer than necessary to tolerate for latency and other
     // situations where the target might have moved away a little bit already.
-    [Header("Movement")]
+    [Header("移动")]
     [Range(0.1f, 1)] public float attackToMoveRangeRatio = 0.8f;
 
-    [Header("Death")]
+    [Header("死亡")]
     public float deathExperienceLossPercent = 0.05f;
 
     // some commands should have delays to avoid DDOS, too much database usage
@@ -365,7 +365,7 @@ public partial class Player : Entity
     [SyncVar] GameObject _nextTarget;
     public Entity nextTarget
     {
-        get { return _nextTarget != null  ? _nextTarget.GetComponent<Entity>() : null; }
+        get { return _nextTarget != null ? _nextTarget.GetComponent<Entity>() : null; }
         set { _nextTarget = value != null ? value.gameObject : null; }
     }
 
@@ -689,13 +689,13 @@ public partial class Player : Entity
                 }
             }
         }
-        if (EventSkillFinished()) {} // don't care
-        if (EventMoveEnd()) {} // don't care
-        if (EventTradeDone()) {} // don't care
-        if (EventCraftingDone()) {} // don't care
-        if (EventRespawn()) {} // don't care
-        if (EventTargetDied()) {} // don't care
-        if (EventTargetDisappeared()) {} // don't care
+        if (EventSkillFinished()) { } // don't care
+        if (EventMoveEnd()) { } // don't care
+        if (EventTradeDone()) { } // don't care
+        if (EventCraftingDone()) { } // don't care
+        if (EventRespawn()) { } // don't care
+        if (EventTargetDied()) { } // don't care
+        if (EventTargetDisappeared()) { } // don't care
 
         return "IDLE"; // nothing interesting happened
     }
@@ -771,13 +771,13 @@ public partial class Player : Entity
                 }
             }
         }
-        if (EventMoveStart()) {} // don't care
-        if (EventSkillFinished()) {} // don't care
-        if (EventTradeDone()) {} // don't care
-        if (EventCraftingDone()) {} // don't care
-        if (EventRespawn()) {} // don't care
-        if (EventTargetDied()) {} // don't care
-        if (EventTargetDisappeared()) {} // don't care
+        if (EventMoveStart()) { } // don't care
+        if (EventSkillFinished()) { } // don't care
+        if (EventTradeDone()) { } // don't care
+        if (EventCraftingDone()) { } // don't care
+        if (EventRespawn()) { } // don't care
+        if (EventTargetDied()) { } // don't care
+        if (EventTargetDisappeared()) { } // don't care
 
         return "MOVING"; // nothing interesting happened
     }
@@ -900,12 +900,12 @@ public partial class Player : Entity
             // go back to IDLE
             return "IDLE";
         }
-        if (EventMoveEnd()) {} // don't care
-        if (EventTradeDone()) {} // don't care
-        if (EventCraftingStarted()) {} // don't care
-        if (EventCraftingDone()) {} // don't care
-        if (EventRespawn()) {} // don't care
-        if (EventSkillRequest()) {} // don't care
+        if (EventMoveEnd()) { } // don't care
+        if (EventTradeDone()) { } // don't care
+        if (EventCraftingStarted()) { } // don't care
+        if (EventCraftingDone()) { } // don't care
+        if (EventRespawn()) { } // don't care
+        if (EventSkillRequest()) { } // don't care
 
         return "CASTING"; // nothing interesting happened
     }
@@ -979,13 +979,13 @@ public partial class Player : Entity
             TradeCleanup();
             return "IDLE";
         }
-        if (EventMoveEnd()) {} // don't care
-        if (EventSkillFinished()) {} // don't care
-        if (EventCraftingStarted()) {} // don't care
-        if (EventCraftingDone()) {} // don't care
-        if (EventRespawn()) {} // don't care
-        if (EventTradeStarted()) {} // don't care
-        if (EventSkillRequest()) {} // don't care
+        if (EventMoveEnd()) { } // don't care
+        if (EventSkillFinished()) { } // don't care
+        if (EventCraftingStarted()) { } // don't care
+        if (EventCraftingDone()) { } // don't care
+        if (EventRespawn()) { } // don't care
+        if (EventTradeStarted()) { } // don't care
+        if (EventSkillRequest()) { } // don't care
 
         return "TRADING"; // nothing interesting happened
     }
@@ -1018,16 +1018,16 @@ public partial class Player : Entity
             Craft();
             return "IDLE";
         }
-        if (EventCancelAction()) {} // don't care. user pressed craft, we craft.
-        if (EventTargetDisappeared()) {} // don't care
-        if (EventTargetDied()) {} // don't care
-        if (EventMoveEnd()) {} // don't care
-        if (EventSkillFinished()) {} // don't care
-        if (EventRespawn()) {} // don't care
-        if (EventTradeStarted()) {} // don't care
-        if (EventTradeDone()) {} // don't care
-        if (EventCraftingStarted()) {} // don't care
-        if (EventSkillRequest()) {} // don't care
+        if (EventCancelAction()) { } // don't care. user pressed craft, we craft.
+        if (EventTargetDisappeared()) { } // don't care
+        if (EventTargetDied()) { } // don't care
+        if (EventMoveEnd()) { } // don't care
+        if (EventSkillFinished()) { } // don't care
+        if (EventRespawn()) { } // don't care
+        if (EventTradeStarted()) { } // don't care
+        if (EventTradeDone()) { } // don't care
+        if (EventCraftingStarted()) { } // don't care
+        if (EventSkillRequest()) { } // don't care
 
         return "CRAFTING"; // nothing interesting happened
     }
@@ -1051,17 +1051,17 @@ public partial class Player : Entity
             Debug.LogWarning("Player " + name + " moved while dead. This should not happen.");
             return "DEAD";
         }
-        if (EventMoveEnd()) {} // don't care
-        if (EventSkillFinished()) {} // don't care
-        if (EventDied()) {} // don't care
-        if (EventCancelAction()) {} // don't care
-        if (EventTradeStarted()) {} // don't care
-        if (EventTradeDone()) {} // don't care
-        if (EventCraftingStarted()) {} // don't care
-        if (EventCraftingDone()) {} // don't care
-        if (EventTargetDisappeared()) {} // don't care
-        if (EventTargetDied()) {} // don't care
-        if (EventSkillRequest()) {} // don't care
+        if (EventMoveEnd()) { } // don't care
+        if (EventSkillFinished()) { } // don't care
+        if (EventDied()) { } // don't care
+        if (EventCancelAction()) { } // don't care
+        if (EventTradeStarted()) { } // don't care
+        if (EventTradeDone()) { } // don't care
+        if (EventCraftingStarted()) { } // don't care
+        if (EventCraftingDone()) { } // don't care
+        if (EventTargetDisappeared()) { } // don't care
+        if (EventTargetDied()) { } // don't care
+        if (EventSkillRequest()) { } // don't care
 
         return "DEAD"; // nothing interesting happened
     }
@@ -1069,13 +1069,13 @@ public partial class Player : Entity
     [Server]
     protected override string UpdateServer()
     {
-        if (state == "IDLE")    return UpdateServer_IDLE();
-        if (state == "MOVING")  return UpdateServer_MOVING();
+        if (state == "IDLE") return UpdateServer_IDLE();
+        if (state == "MOVING") return UpdateServer_MOVING();
         if (state == "CASTING") return UpdateServer_CASTING();
         if (state == "STUNNED") return UpdateServer_STUNNED();
         if (state == "TRADING") return UpdateServer_TRADING();
         if (state == "CRAFTING") return UpdateServer_CRAFTING();
-        if (state == "DEAD")    return UpdateServer_DEAD();
+        if (state == "DEAD") return UpdateServer_DEAD();
         Debug.LogError("invalid state:" + state);
         return "IDLE";
     }
@@ -1161,9 +1161,9 @@ public partial class Player : Entity
                 if (Input.GetKeyDown(cancelActionKey)) CmdCancelAction();
             }
         }
-        else if (state == "TRADING") {}
-        else if (state == "CRAFTING") {}
-        else if (state == "DEAD") {}
+        else if (state == "TRADING") { }
+        else if (state == "CRAFTING") { }
+        else if (state == "DEAD") { }
         else Debug.LogError("invalid state:" + state);
 
         // addon system hooks
@@ -1279,7 +1279,7 @@ public partial class Player : Entity
     public static long CalculatePartyExperienceShare(long total, int memberCount, float bonusPercentagePerMember, int memberLevel, int killedLevel)
     {
         // bonus percentage based on how many members there are
-        float bonusPercentage = (memberCount-1) * bonusPercentagePerMember;
+        float bonusPercentage = (memberCount - 1) * bonusPercentagePerMember;
 
         // calculate the share via ceil, so that uneven numbers still result in
         // at least 'total' in the end. for example:
@@ -1388,7 +1388,7 @@ public partial class Player : Entity
     // custom DealDamageAt function that also rewards experience if we killed
     // the monster
     [Server]
-    public override void DealDamageAt(Entity entity, int amount, float stunChance=0, float stunTime=0)
+    public override void DealDamageAt(Entity entity, int amount, float stunChance = 0, float stunTime = 0)
     {
         // deal damage with the default function
         base.DealDamageAt(entity, amount, stunChance, stunTime);
@@ -1792,7 +1792,7 @@ public partial class Player : Entity
 
     // helper function: try to use a skill and walk into range if necessary
     [Client]
-    public void TryUseSkill(int skillIndex, bool ignoreState=false)
+    public void TryUseSkill(int skillIndex, bool ignoreState = false)
     {
         // only if not casting already
         // (might need to ignore that when coming from pending skill where
@@ -1991,7 +1991,7 @@ public partial class Player : Entity
         {
             // fulfilled?
             Quest quest = quests[index];
-            if(quest.IsFulfilled(this))
+            if (quest.IsFulfilled(this))
             {
                 // enough space for reward item (if any)?
                 return quest.rewardItem == null || InventoryCanAdd(new Item(quest.rewardItem), 1);
@@ -2174,8 +2174,10 @@ public partial class Player : Entity
     public void CmdTradeRequestAccept()
     {
         Player sender = FindPlayerFromTradeInvitation();
-        if (sender != null) {
-            if (CanStartTradeWith(sender)) {
+        if (sender != null)
+        {
+            if (CanStartTradeWith(sender))
+            {
                 // also send a trade request to the person that invited us
                 sender.tradeRequestFrom = name;
                 print(name + " accepted " + sender.name + "'s trade request");
@@ -2851,7 +2853,7 @@ public partial class Player : Entity
     {
         // only while pet and owner aren't fighting
         return activePet != null &&
-               (          state == "IDLE" ||           state == "MOVING") &&
+               (state == "IDLE" || state == "MOVING") &&
                (activePet.state == "IDLE" || activePet.state == "MOVING");
     }
 
@@ -2982,7 +2984,7 @@ public partial class Player : Entity
                     }
                     else if (entity is ItemInstance && entity.health >= 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
                     {
-                         Debug.Log("��������" + entity.name);
+                        Debug.Log("左键点击：" + entity.name);
                     }
                     // not attackable, lootable, talkable, etc., but it's
                     // still an entity and double clicking it without doing
@@ -3030,7 +3032,7 @@ public partial class Player : Entity
                 }
             }
         }
-        //����������Ҽ�
+        //如果点击鼠标右键
         if (Input.GetMouseButtonDown(1) && !Utils.IsCursorOverUserInterface() && Input.touchCount <= 1)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -3038,7 +3040,7 @@ public partial class Player : Entity
             useSkillWhenCloser = -1;
 
             Entity entity = hit.transform != null ? hit.transform.GetComponent<Entity>() : null;
-            //�������ʵ��
+            //如果点中实体
             if (entity)
             {
                 if (entity == target && entity != this && entity != activePet)
@@ -3053,7 +3055,7 @@ public partial class Player : Entity
                     }
                     else if (entity is ItemInstance && entity.health >= 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
                     {
-                        Debug.Log("�Ҽ������" + entity.name);
+                        Debug.Log("右键点击：" + entity.name);
                     }
                 }
                 else
@@ -3094,7 +3096,7 @@ public partial class Player : Entity
                 // we will slide
                 agent.ResetMovement();
 
-                //�ܲ�
+                //跑步
                 float f = 1;
                 if (Input.GetKey(KeyCode.LeftShift))
                 {

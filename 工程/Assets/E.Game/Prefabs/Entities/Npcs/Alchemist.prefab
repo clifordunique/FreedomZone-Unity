@@ -295,9 +295,8 @@ GameObject:
   - component: {fileID: 114467197100256564}
   - component: {fileID: 114959340367528548}
   - component: {fileID: 82620519608085002}
-  - component: {fileID: 4074715749264826346}
   m_Layer: 10
-  m_Name: Alchemist 1
+  m_Name: Alchemist
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,8 +352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverOnly: 0
   localPlayerAuthority: 0
-  m_AssetId: b016523e2a1c2dc4d805b5369e20c0c6
-  m_SceneId: 0
+  m_AssetId: 
+  m_SceneId: 3298662398
 --- !u!212 &212573911520600438
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -550,9 +549,9 @@ MonoBehaviour:
   inSafeZone: 0
   lookDirection: {x: 0, y: -1}
   questOverlay: {fileID: 102361004564878546}
-  welcome: How can I help you today?
+  welcome: "\u6211\u80FD\u5E2E\u4F60\u4E9B\u4EC0\u4E48\uFF1F"
   saleItems:
-  - {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
+  - {fileID: 11400000, guid: d3348cb9f78edf74ebdf4562a5733759, type: 2}
   - {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
   - {fileID: 11400000, guid: 4dc493627ec434f5dadf44c28f65c795, type: 2}
   - {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
@@ -708,18 +707,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &4074715749264826346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529476062757820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2223b78e89c31594f838088827efd62f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1782932107138108
 GameObject:
   m_ObjectHideFlags: 0

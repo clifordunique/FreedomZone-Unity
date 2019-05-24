@@ -1,4 +1,4 @@
-// The Monster class has a few different features that all aim to make monsters
+﻿// The Monster class has a few different features that all aim to make monsters
 // behave as realistically as possible.
 //
 // - **States:** first of all, the monster has several different states like
@@ -26,15 +26,15 @@
 // list. Each monster has a list of items with their dropchance, so that loot
 // will always be generated randomly. Monsters can also randomly generate loot
 // gold between a minimum and a maximum amount.
-using UnityEngine;
 using Mirror;
 using System.Linq;
+using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(NetworkNavMeshAgent2D))]
 public partial class Monster : Entity
 {
-    [Header("Movement")]
+    [Header("【移动】")]
     [Range(0, 1)] public float moveProbability = 0.1f; // chance per second
     public float moveDistance = 3;
     // monsters should follow their targets even if they run out of the movement
@@ -44,11 +44,11 @@ public partial class Monster : Entity
     public float followDistance = 5;
     [Range(0.1f, 1)] public float attackToMoveRangeRatio = 0.8f; // move as close as 0.8 * attackRange to a target
 
-    [Header("Experience Reward")]
+    [Header("【击杀经验奖励】")]
     public long rewardExperience = 10;
     public long rewardSkillExperience = 2;
 
-    [Header("Loot")]
+    [Header("【搜刮】")]
     public int lootGoldMin = 0;
     public int lootGoldMax = 10;
     public ItemDropChance[] dropChances;
@@ -56,7 +56,7 @@ public partial class Monster : Entity
     //       it's better than .RemoveAt() because we won't run into index-out-of
     //       range issues
 
-    [Header("Respawn")]
+    [Header("【重生】")]
     public float deathTime = 30f; // enough for animation & looting
     double deathTimeEnd; // double for long term precision
     public bool respawn = true;
@@ -330,11 +330,11 @@ public partial class Monster : Entity
             agent.destination = startPosition + circle2D;
             return "MOVING";
         }
-        if (EventDeathTimeElapsed()) {} // don't care
-        if (EventRespawnTimeElapsed()) {} // don't care
-        if (EventMoveEnd()) {} // don't care
-        if (EventSkillFinished()) {} // don't care
-        if (EventTargetDisappeared()) {} // don't care
+        if (EventDeathTimeElapsed()) { } // don't care
+        if (EventRespawnTimeElapsed()) { } // don't care
+        if (EventMoveEnd()) { } // don't care
+        if (EventSkillFinished()) { } // don't care
+        if (EventTargetDisappeared()) { } // don't care
 
         return "IDLE"; // nothing interesting happened
     }
@@ -412,12 +412,12 @@ public partial class Monster : Entity
             agent.ResetMovement();
             return "IDLE";
         }
-        if (EventDeathTimeElapsed()) {} // don't care
-        if (EventRespawnTimeElapsed()) {} // don't care
-        if (EventSkillFinished()) {} // don't care
-        if (EventTargetDisappeared()) {} // don't care
-        if (EventSkillRequest()) {} // don't care, finish movement first
-        if (EventMoveRandomly()) {} // don't care
+        if (EventDeathTimeElapsed()) { } // don't care
+        if (EventRespawnTimeElapsed()) { } // don't care
+        if (EventSkillFinished()) { } // don't care
+        if (EventTargetDisappeared()) { } // don't care
+        if (EventSkillRequest()) { } // don't care, finish movement first
+        if (EventMoveRandomly()) { } // don't care
 
         return "MOVING"; // nothing interesting happened
     }
@@ -494,14 +494,14 @@ public partial class Monster : Entity
             currentSkill = -1;
             return "IDLE";
         }
-        if (EventDeathTimeElapsed()) {} // don't care
-        if (EventRespawnTimeElapsed()) {} // don't care
-        if (EventMoveEnd()) {} // don't care
-        if (EventTargetTooFarToAttack()) {} // don't care, we were close enough when starting to cast
-        if (EventTargetTooFarToFollow()) {} // don't care, we were close enough when starting to cast
-        if (EventAggro()) {} // don't care, always have aggro while casting
-        if (EventSkillRequest()) {} // don't care, that's why we are here
-        if (EventMoveRandomly()) {} // don't care
+        if (EventDeathTimeElapsed()) { } // don't care
+        if (EventRespawnTimeElapsed()) { } // don't care
+        if (EventMoveEnd()) { } // don't care
+        if (EventTargetTooFarToAttack()) { } // don't care, we were close enough when starting to cast
+        if (EventTargetTooFarToFollow()) { } // don't care, we were close enough when starting to cast
+        if (EventAggro()) { } // don't care, always have aggro while casting
+        if (EventSkillRequest()) { } // don't care, that's why we are here
+        if (EventMoveRandomly()) { } // don't care
 
         return "CASTING"; // nothing interesting happened
     }
@@ -548,18 +548,18 @@ public partial class Monster : Entity
             else NetworkServer.Destroy(gameObject);
             return "DEAD";
         }
-        if (EventSkillRequest()) {} // don't care
-        if (EventSkillFinished()) {} // don't care
-        if (EventMoveEnd()) {} // don't care
-        if (EventTargetDisappeared()) {} // don't care
-        if (EventTargetDied()) {} // don't care
-        if (EventTargetTooFarToFollow()) {} // don't care
-        if (EventTargetTooFarToAttack()) {} // don't care
-        if (EventTargetEnteredSafeZone()) {} // don't care
-        if (EventAggro()) {} // don't care
-        if (EventMoveRandomly()) {} // don't care
-        if (EventStunned()) {} // don't care
-        if (EventDied()) {} // don't care, of course we are dead
+        if (EventSkillRequest()) { } // don't care
+        if (EventSkillFinished()) { } // don't care
+        if (EventMoveEnd()) { } // don't care
+        if (EventTargetDisappeared()) { } // don't care
+        if (EventTargetDied()) { } // don't care
+        if (EventTargetTooFarToFollow()) { } // don't care
+        if (EventTargetTooFarToAttack()) { } // don't care
+        if (EventTargetEnteredSafeZone()) { } // don't care
+        if (EventAggro()) { } // don't care
+        if (EventMoveRandomly()) { } // don't care
+        if (EventStunned()) { } // don't care
+        if (EventDied()) { } // don't care, of course we are dead
 
         return "DEAD"; // nothing interesting happened
     }
@@ -567,11 +567,11 @@ public partial class Monster : Entity
     [Server]
     protected override string UpdateServer()
     {
-        if (state == "IDLE")    return UpdateServer_IDLE();
-        if (state == "MOVING")  return UpdateServer_MOVING();
+        if (state == "IDLE") return UpdateServer_IDLE();
+        if (state == "MOVING") return UpdateServer_MOVING();
         if (state == "CASTING") return UpdateServer_CASTING();
         if (state == "STUNNED") return UpdateServer_STUNNED();
-        if (state == "DEAD")    return UpdateServer_DEAD();
+        if (state == "DEAD") return UpdateServer_DEAD();
         Debug.LogError("invalid state:" + state);
         return "IDLE";
     }

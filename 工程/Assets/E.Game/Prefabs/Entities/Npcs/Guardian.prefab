@@ -295,9 +295,8 @@ GameObject:
   - component: {fileID: 114467197100256564}
   - component: {fileID: 114959340367528548}
   - component: {fileID: 82620519608085002}
-  - component: {fileID: 8370364204096436001}
   m_Layer: 10
-  m_Name: Guardian 1
+  m_Name: Guardian
   m_TagString: Npc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,8 +352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverOnly: 0
   localPlayerAuthority: 0
-  m_AssetId: c8729e1a06ae8f84b843ce468e446905
-  m_SceneId: 0
+  m_AssetId: 
+  m_SceneId: 3427375315
 --- !u!212 &212573911520600438
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -550,7 +549,7 @@ MonoBehaviour:
   inSafeZone: 0
   lookDirection: {x: 0, y: -1}
   questOverlay: {fileID: 102361004564878546}
-  welcome: How can I help you today?
+  welcome: "\u6211\u80FD\u5E2E\u4F60\u4E9B\u4EC0\u4E48\uFF1F"
   saleItems:
   - {fileID: 11400000, guid: 28e020df4f1fa449dafcad0216c8403b, type: 2}
   quests:
@@ -697,18 +696,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &8370364204096436001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1529476062757820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2223b78e89c31594f838088827efd62f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1782932107138108
 GameObject:
   m_ObjectHideFlags: 0

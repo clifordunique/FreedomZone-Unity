@@ -1,4 +1,4 @@
-// The Entity class is rather simple. It contains a few basic entity properties
+﻿// The Entity class is rather simple. It contains a few basic entity properties
 // like health, mana and level that all inheriting classes like Players and
 // Monsters can use.
 //
@@ -23,12 +23,12 @@
 // when having lots of FPS(300+) if the Rigidbody's Interpolate option is
 // enabled. So for now it's important to disable Interpolation - which is a good
 // idea in general to increase performance.
+using Mirror;
 using System;
 using System.Linq;
 using UnityEngine;
-using Mirror;
 
-public enum DamageType : byte {Normal, Block, Crit};
+public enum DamageType : byte { Normal, Block, Crit };
 
 // note: no animator required, towers, dummies etc. may not have one
 [RequireComponent(typeof(Rigidbody2D))] // kinematic, only needed for OnTrigger
@@ -37,7 +37,7 @@ public enum DamageType : byte {Normal, Block, Crit};
 [RequireComponent(typeof(AudioSource))]
 public abstract partial class Entity : NetworkBehaviour
 {
-    [Header("Components")]
+    [Header("【组件】")]
     public NavMeshAgent2D agent;
     public NetworkProximityGridChecker proxchecker;
     public Animator animator;
@@ -46,7 +46,7 @@ public abstract partial class Entity : NetworkBehaviour
 
     // finite state machine
     // -> state only writable by entity class to avoid all kinds of confusion
-    [Header("State")]
+    [Header("【状态】")]
     [SyncVar, SerializeField] string _state = "IDLE";
     public string state => _state;
 
@@ -56,19 +56,19 @@ public abstract partial class Entity : NetworkBehaviour
 
     // 'Entity' can't be SyncVar and NetworkIdentity causes errors when null,
     // so we use [SyncVar] GameObject and wrap it for simplicity
-    [Header("Target")]
+    [Header("【目标】")]
     [SyncVar] GameObject _target;
     public Entity target
     {
-        get { return _target != null  ? _target.GetComponent<Entity>() : null; }
+        get { return _target != null ? _target.GetComponent<Entity>() : null; }
         set { _target = value != null ? value.gameObject : null; }
     }
 
-    [Header("Level")]
+    [Header("【等级】")]
     [SyncVar] public int level = 1;
 
-    [Header("Health")]
-    [SerializeField] protected LinearInt _healthMax = new LinearInt{baseValue=100};
+    [Header("【生命值】")]
+    [SerializeField] protected LinearInt _healthMax = new LinearInt { baseValue = 100 };
     public virtual int healthMax
     {
         get
@@ -90,7 +90,7 @@ public abstract partial class Entity : NetworkBehaviour
     }
 
     public bool healthRecovery = true; // can be disabled in combat etc.
-    [SerializeField] protected LinearInt _healthRecoveryRate = new LinearInt{baseValue=1};
+    [SerializeField] protected LinearInt _healthRecoveryRate = new LinearInt { baseValue = 1 };
     public virtual int healthRecoveryRate
     {
         get
@@ -104,16 +104,16 @@ public abstract partial class Entity : NetworkBehaviour
         }
     }
 
-    [Header("Mana")]
-    [SerializeField] protected LinearInt _manaMax = new LinearInt{baseValue=100};
+    [Header("【法力值】")]
+    [SerializeField] protected LinearInt _manaMax = new LinearInt { baseValue = 100 };
     public virtual int manaMax
     {
         get
         {
             // base + passives + buffs
             int passiveBonus = (from skill in skills
-                                  where skill.level > 0 && skill.data is PassiveSkill
-                                  select ((PassiveSkill)skill.data).bonusManaMax.Get(skill.level)).Sum();
+                                where skill.level > 0 && skill.data is PassiveSkill
+                                select ((PassiveSkill)skill.data).bonusManaMax.Get(skill.level)).Sum();
             int buffBonus = buffs.Sum(buff => buff.bonusManaMax);
             return _manaMax.Get(level) + passiveBonus + buffBonus;
         }
@@ -126,7 +126,7 @@ public abstract partial class Entity : NetworkBehaviour
     }
 
     public bool manaRecovery = true; // can be disabled in combat etc.
-    [SerializeField] protected LinearInt _manaRecoveryRate = new LinearInt{baseValue=1};
+    [SerializeField] protected LinearInt _manaRecoveryRate = new LinearInt { baseValue = 1 };
     public int manaRecoveryRate
     {
         get
@@ -140,8 +140,8 @@ public abstract partial class Entity : NetworkBehaviour
         }
     }
 
-    [Header("Damage")]
-    [SerializeField] protected LinearInt _damage = new LinearInt{baseValue=1};
+    [Header("【伤害值】")]
+    [SerializeField] protected LinearInt _damage = new LinearInt { baseValue = 1 };
     public virtual int damage
     {
         get
@@ -155,8 +155,8 @@ public abstract partial class Entity : NetworkBehaviour
         }
     }
 
-    [Header("Defense")]
-    [SerializeField] protected LinearInt _defense = new LinearInt{baseValue=1};
+    [Header("【防御值】")]
+    [SerializeField] protected LinearInt _defense = new LinearInt { baseValue = 1 };
     public virtual int defense
     {
         get
@@ -170,7 +170,7 @@ public abstract partial class Entity : NetworkBehaviour
         }
     }
 
-    [Header("Block")]
+    [Header("【致晕率】")]
     [SerializeField] protected LinearFloat _blockChance;
     public virtual float blockChance
     {
@@ -185,7 +185,7 @@ public abstract partial class Entity : NetworkBehaviour
         }
     }
 
-    [Header("Critical")]
+    [Header("【暴击率】")]
     [SerializeField] protected LinearFloat _criticalChance;
     public virtual float criticalChance
     {
@@ -200,28 +200,28 @@ public abstract partial class Entity : NetworkBehaviour
         }
     }
 
-    [Header("Speed")]
-    [SerializeField] protected LinearFloat _speed = new LinearFloat{baseValue=3};
+    [Header("【速度】")]
+    [SerializeField] protected LinearFloat _speed = new LinearFloat { baseValue = 3 };
     public virtual float speed
     {
         get
         {
             // base + passives + buffs
             float passiveBonus = (from skill in skills
-                                where skill.level > 0 && skill.data is PassiveSkill
-                                select ((PassiveSkill)skill.data).bonusSpeed.Get(skill.level)).Sum();
+                                  where skill.level > 0 && skill.data is PassiveSkill
+                                  select ((PassiveSkill)skill.data).bonusSpeed.Get(skill.level)).Sum();
             float buffBonus = buffs.Sum(buff => buff.bonusSpeed);
             return _speed.Get(level) + passiveBonus + buffBonus;
         }
     }
 
-    [Header("Damage Popup")]
+    [Header("【受伤特效】")]
     public GameObject damagePopupPrefab;
 
     // skill system for all entities (players, monsters, npcs, towers, ...)
     // 'skillTemplates' are the available skills (first one is default attack)
     // 'skills' are the loaded skills with cooldowns etc.
-    [Header("Skills & Buffs")]
+    [Header("【技能 & 增益】")]
     public ScriptableSkill[] skillTemplates;
     public SyncListSkill skills = new SyncListSkill();
     public SyncListBuff buffs = new SyncListBuff(); // active buffs
@@ -237,23 +237,23 @@ public abstract partial class Entity : NetworkBehaviour
 
     // all entities should have an inventory, not just the player.
     // useful for monster loot, chests, etc.
-    [Header("Inventory")]
+    [Header("【库存】")]
     public SyncListItemSlot inventory = new SyncListItemSlot();
 
     // equipment needs to be in Entity because arrow shooting skills need to
     // check if the entity has enough arrows
-    [Header("Equipment")]
+    [Header("【装备】")]
     public SyncListItemSlot equipment = new SyncListItemSlot();
 
     // all entities should have gold, not just the player
     // useful for monster loot, chests etc.
     // note: int is not enough (can have > 2 mil. easily)
-    [Header("Gold")]
+    [Header("【金钱】")]
     [SyncVar, SerializeField] long _gold = 0;
     public long gold { get { return _gold; } set { _gold = Math.Max(value, 0); } }
 
     // 3D text mesh for name above the entity's head
-    [Header("Text Meshes")]
+    [Header("【文字网格】")]
     public TextMesh stunnedOverlay;
 
     // every entity can be stunned by setting stunEndTime
@@ -434,7 +434,7 @@ public abstract partial class Entity : NetworkBehaviour
     // deal damage at another entity
     // (can be overwritten for players etc. that need custom functionality)
     [Server]
-    public virtual void DealDamageAt(Entity entity, int amount, float stunChance=0, float stunTime=0)
+    public virtual void DealDamageAt(Entity entity, int amount, float stunChance = 0, float stunTime = 0)
     {
         int damageDealt = 0;
         DamageType damageType = DamageType.Normal;
@@ -543,7 +543,7 @@ public abstract partial class Entity : NetworkBehaviour
 
     // aggro ///////////////////////////////////////////////////////////////////
     // this function is called by the AggroArea (if any) on clients and server
-    public virtual void OnAggro(Entity entity) {}
+    public virtual void OnAggro(Entity entity) { }
 
     // skill system ////////////////////////////////////////////////////////////
     // helper function to find a skill index
@@ -571,7 +571,7 @@ public abstract partial class Entity : NetworkBehaviour
                entity.health > 0 &&
                entity != this &&
                !inSafeZone && !entity.inSafeZone &&
-               !NavMesh2D.Raycast(transform.position, entity.transform.position, out NavMeshHit2D hit, NavMesh2D.AllAreas);;
+               !NavMesh2D.Raycast(transform.position, entity.transform.position, out NavMeshHit2D hit, NavMesh2D.AllAreas); ;
     }
 
     // the first check validates the caster
