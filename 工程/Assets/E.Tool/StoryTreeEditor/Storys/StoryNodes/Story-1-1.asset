@@ -18,14 +18,18 @@ MonoBehaviour:
     Scene: 0
     Part: 0
     Branch: 0
-  NodeType: 0
+  NodeType: 1
   IsPassed: 0
-  IsMainNode: 0
-  Content: {fileID: 0}
+  IsMainNode: 1
+  Content: {fileID: 11400000, guid: 0040b499089f6e64294282ea1e0ff24c, type: 2}
   Rect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  Choices: []
+    x: 197
+    y: 133
+    width: 250
+    height: 215
+  Choices:
+  - ChoiceText: 
+    NextStoryNode: {fileID: 11400000, guid: 2088d71cd0b8871419e25b579f2b3e12, type: 2}
+  - ChoiceText: 
+    NextStoryNode: {fileID: 11400000, guid: 3e7ac5b57b1d0194ba0c8dae2a400246, type: 2}

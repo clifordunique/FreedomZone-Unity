@@ -24,8 +24,8 @@ MonoBehaviour:
   Content: {fileID: 0}
   Rect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+    x: 100
+    y: 100
+    width: 250
+    height: 50
   Choices: []
