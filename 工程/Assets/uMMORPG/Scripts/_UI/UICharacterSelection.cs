@@ -1,4 +1,4 @@
-﻿// Simple character selection list. The charcter prefabs are known, so we could
+// Simple character selection list. The charcter prefabs are known, so we could
 // easily show 3D models, stats, etc. too .
 using System;
 using UnityEngine;
@@ -18,6 +18,11 @@ public partial class UICharacterSelection : MonoBehaviour
 
     void Update()
     {
+        if (manager == null)
+        {
+            manager = NetworkManager.singleton as NetworkManagerMMO;
+        }
+
         // show while in lobby and while not creating a character
         if (manager.state == NetworkState.Lobby && !uiCharacterCreation.IsVisible())
         {

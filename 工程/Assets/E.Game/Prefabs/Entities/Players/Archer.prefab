@@ -77,7 +77,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126392793429192}
-  m_Text: Stunned!
+  m_Text: "\u7729\u6655!"
   m_OffsetZ: 0
   m_CharacterSize: 0.1
   m_LineSpacing: 1
@@ -717,7 +717,7 @@ GameObject:
   - component: {fileID: 114181893080528076}
   - component: {fileID: 82555891082792160}
   m_Layer: 8
-  m_Name: Archer 1
+  m_Name: Archer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,7 +731,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1505016760143036}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5811555, y: 1.6599517, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4834785681001056}
@@ -781,8 +781,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverOnly: 0
   localPlayerAuthority: 0
-  m_AssetId: 
-  m_SceneId: 4128972637
+  m_AssetId: 3f57dba51b8cdc446aa7f8d0d5913537
+  m_SceneId: 0
 --- !u!212 &212293974572567764
 SpriteRenderer:
   m_ObjectHideFlags: 0

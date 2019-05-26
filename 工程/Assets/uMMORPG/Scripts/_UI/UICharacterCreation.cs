@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using System.Linq;
@@ -14,6 +14,11 @@ public partial class UICharacterCreation : MonoBehaviour
 
     void Update()
     {
+        if (manager == null)
+        {
+            manager = NetworkManager.singleton as NetworkManagerMMO;
+        }
+
         // only update while visible (after character selection made it visible)
         if (panel.activeSelf)
         {

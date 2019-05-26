@@ -29,10 +29,6 @@ public partial class NetworkManagerMMO : NetworkManager
     // (people that are still creating or selecting characters)
     Dictionary<NetworkConnection, string> lobby = new Dictionary<NetworkConnection, string>();
 
-    // UI components to avoid FindObjectOfType
-    [Header("UI")]
-    public UIPopup uiPopup;
-
     // login info for the local player
     // we don't just name it 'account' to avoid collisions in handshake
     [Header("Login")]
@@ -130,7 +126,7 @@ public partial class NetworkManagerMMO : NetworkManager
         print("OnClientError: " + message.text);
 
         // show a popup
-        uiPopup.Show(message.text);
+        UIPopup.singleton.Show(message.text);
 
         // disconnect if it was an important network error
         // (this is needed because the login failure message doesn't disconnect
@@ -623,7 +619,7 @@ public partial class NetworkManagerMMO : NetworkManager
         print("OnClientDisconnect");
 
         // show a popup so that users know what happened
-        uiPopup.Show("Disconnected.");
+        UIPopup.singleton.Show("Disconnected.");
 
         // call base function to guarantee proper functionality
         base.OnClientDisconnect(conn);

@@ -1,5 +1,6 @@
-﻿// Note: this script has to be on an always-active UI parent, so that we can
+// Note: this script has to be on an always-active UI parent, so that we can
 // always find it from other code. (GameObject.Find doesn't find inactive ones)
+using Mirror;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,8 +22,14 @@ public partial class UILogin : MonoBehaviour
     public Button cancelButton;
     public Button quitButton;
 
+
     void Start()
     {
+        if (manager == null)
+        {
+            manager = NetworkManager.singleton as NetworkManagerMMO;
+        }
+
         // load last server by name in case order changes some day.
         if (PlayerPrefs.HasKey("LastServer"))
         {
@@ -39,6 +46,11 @@ public partial class UILogin : MonoBehaviour
 
     void Update()
     {
+        if (manager == null)
+        {
+            manager = NetworkManager.singleton as NetworkManagerMMO;
+        }
+
         // only show while offline
         // AND while in handshake since we don't want to show nothing while
         // trying to login and waiting for the server's response

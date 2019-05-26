@@ -1,6 +1,7 @@
 using UnityEngine;
 using Mirror;
 using System.Linq;
+using System;
 
 public class ItemInstance : Entity
 {
@@ -16,9 +17,8 @@ public class ItemInstance : Entity
     {
         return "IDLE";
     }
-
     [Client]
-    [System.Obsolete]
+    [Obsolete]
     protected override void UpdateClient()
     {
     }
