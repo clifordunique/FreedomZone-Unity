@@ -1,6 +1,7 @@
 ﻿// small helper script that is added to character selection previews at runtime
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
 
 public class SelectableCharacter : MonoBehaviour
 {
@@ -20,6 +21,6 @@ public class SelectableCharacter : MonoBehaviour
 
         // set name overlay font style as indicator
         Player player = GetComponent<Player>();
-        player.nameOverlay.fontStyle = selected ? FontStyle.Normal : FontStyle.Bold;
+        player.panName.GetComponentInChildren<Text>().fontStyle = selected ? FontStyle.Normal : FontStyle.Bold;
     }
 }

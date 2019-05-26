@@ -590,15 +590,15 @@ public partial class Pet : Summonable
                     // note: murderer has higher priority (a player can be a murderer and an
                     // offender at the same time)
                     if (owner.IsMurderer())
-                        ownerNameOverlay.color = owner.nameOverlayMurdererColor;
+                        ownerNameOverlay.color = owner.clrMurderer;
                     else if (owner.IsOffender())
-                        ownerNameOverlay.color = owner.nameOverlayOffenderColor;
+                        ownerNameOverlay.color = owner.clrOffender;
                     // member of the same party
                     else if (Player.localPlayer.InParty() && Player.localPlayer.party.Contains(owner.name))
-                        ownerNameOverlay.color = owner.nameOverlayPartyColor;
+                        ownerNameOverlay.color = owner.clrParty;
                     // otherwise default
                     else
-                        ownerNameOverlay.color = owner.nameOverlayDefaultColor;
+                        ownerNameOverlay.color = owner.clrDefault;
                 }
             }
             else ownerNameOverlay.text = "?";

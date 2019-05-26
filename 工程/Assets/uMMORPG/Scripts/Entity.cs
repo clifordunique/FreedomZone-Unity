@@ -27,6 +27,7 @@ using Mirror;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum DamageType : byte { Normal, Block, Crit };
 
@@ -252,12 +253,27 @@ public abstract partial class Entity : NetworkBehaviour
     [SyncVar, SerializeField] long _gold = 0;
     public long gold { get { return _gold; } set { _gold = Math.Max(value, 0); } }
 
-    // 3D text mesh for name above the entity's head
-    [Header("【文字网格】")]
-    public TextMesh stunnedOverlay;
 
-    // every entity can be stunned by setting stunEndTime
+    // 3D text mesh for name above the entity's head
+    [Header("【名称】")]
+    public GameObject panName;
+    [Header("【公会】")]
+    public GameObject panGuild;
+    public string guildPrefix = "[";
+    public string guildSuffix = "]";
+    [Header("【眩晕】")]
+    public GameObject panStunned;
     protected double stunTimeEnd;
+    [Header("【对话】")]
+    public GameObject panDialog;
+    [TextArea(1, 30)] public string dialogContent = "";
+    [Header("【任务标记】")]
+    public GameObject panQuestMark;
+    [Header("【颜色】")]
+    public Color clrDefault = Color.white;
+    public Color clrOffender = Color.magenta;
+    public Color clrMurderer = Color.red;
+    public Color clrParty = new Color(0.341f, 0.965f, 0.702f);
 
     // safe zone flag
     // -> needs to be in Entity because both player and pet need it
@@ -374,8 +390,30 @@ public abstract partial class Entity : NetworkBehaviour
     // can be overwritten for more overlays
     protected virtual void UpdateOverlays()
     {
-        if (stunnedOverlay != null)
-            stunnedOverlay.gameObject.SetActive(state == "STUNNED");
+        if (panName != null)
+        {
+            panDialog.GetComponentInChildren<Text>().text = dialogContent;
+            if (dialogContent != null && dialogContent != "")
+            {
+                panDialog.SetActive(true);
+            }
+            else
+            {
+                panDialog.SetActive(false);
+            }
+        }
+        if (panGuild != null)
+        {
+            panGuild.SetActive(false);
+        }
+        if (panStunned != null)
+        {
+            panStunned.SetActive(state == "STUNNED");
+        }
+        if (panQuestMark != null)
+        {
+            panQuestMark.SetActive(false);
+        }
     }
 
     // visibility //////////////////////////////////////////////////////////////

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 // talk-to-npc quests work by adding the same quest to two npcs, one with
 // accept=true and complete=false, the other with accept=false and complete=true
@@ -22,9 +23,6 @@ public class ScriptableQuestOffer
 [RequireComponent(typeof(NetworkNavMeshAgent2D))]
 public partial class Npc : Entity
 {
-    [Header("【文字网格】")]
-    public TextMesh questOverlay;
-
     [Header("【欢迎文本】")]
     [TextArea(1, 30)] public string welcome;
 
@@ -71,17 +69,18 @@ public partial class Npc : Entity
     {
         base.UpdateOverlays();
 
-        if (questOverlay != null)
+        if (panQuestMark != null)
         {
+            panQuestMark.SetActive(true);
             // find local player (null while in character selection)
             if (Player.localPlayer != null)
             {
                 if (quests.Any(entry => entry.completeHere && Player.localPlayer.CanCompleteQuest(entry.quest.name)))
-                    questOverlay.text = "!";
+                    panQuestMark.GetComponentInChildren<Text>().text = "!";
                 else if (quests.Any(entry => entry.acceptHere && Player.localPlayer.CanAcceptQuest(entry.quest)))
-                    questOverlay.text = "?";
+                    panQuestMark.GetComponentInChildren<Text>().text = "?";
                 else
-                    questOverlay.text = "";
+                    panQuestMark.GetComponentInChildren<Text>().text = "";
             }
         }
     }

@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum TradeStatus : byte { Free, Locked, Accepted }
 public enum CraftingState : byte { None, InProgress, Success, Failed }
@@ -60,16 +61,6 @@ public partial class Player : Entity
     public PlayerChat chat;
     public Camera avatarCamera;
     public NetworkNavMeshAgentRubberbanding2D rubberbanding;
-
-    [Header("【文字网格】")]
-    public TextMesh nameOverlay;
-    public Color nameOverlayDefaultColor = Color.white;
-    public Color nameOverlayOffenderColor = Color.magenta;
-    public Color nameOverlayMurdererColor = Color.red;
-    public Color nameOverlayPartyColor = new Color(0.341f, 0.965f, 0.702f);
-    public TextMesh guildOverlay;
-    public string guildOverlayPrefix = "[";
-    public string guildOverlaySuffix = "]";
 
     [Header("【图标】")]
     public Sprite classIcon; // for character selection
@@ -1176,11 +1167,11 @@ public partial class Player : Entity
     {
         base.UpdateOverlays();
 
-        if (nameOverlay != null)
+        if (panName != null)
         {
             // only players need to copy names to name overlay. it never changes
             // for monsters / npcs.
-            nameOverlay.text = name;
+            panName.GetComponentInChildren<Text>().text = name;
 
             // find local player (null while in character selection)
             if (localPlayer != null)
@@ -1188,19 +1179,22 @@ public partial class Player : Entity
                 // note: murderer has higher priority (a player can be a murderer and an
                 // offender at the same time)
                 if (IsMurderer())
-                    nameOverlay.color = nameOverlayMurdererColor;
+                    panName.GetComponentInChildren<Text>().color = clrMurderer;
                 else if (IsOffender())
-                    nameOverlay.color = nameOverlayOffenderColor;
+                    panName.GetComponentInChildren<Text>().color = clrOffender;
                 // member of the same party
                 else if (localPlayer.InParty() && localPlayer.party.Contains(name))
-                    nameOverlay.color = nameOverlayPartyColor;
+                    panName.GetComponentInChildren<Text>().color = clrParty;
                 // otherwise default
                 else
-                    nameOverlay.color = nameOverlayDefaultColor;
+                    panName.GetComponentInChildren<Text>().color = clrDefault;
             }
         }
-        if (guildOverlay != null)
-            guildOverlay.text = InGuild() ? guildOverlayPrefix + guild.name + guildOverlaySuffix : "";
+        if (panGuild != null)
+        {
+            panGuild.SetActive(true);
+            panGuild.GetComponentInChildren<Text>().text = InGuild() ? guildPrefix + guild.name + guildSuffix : "";
+        }
     }
 
     // skill finished event & pending actions //////////////////////////////////

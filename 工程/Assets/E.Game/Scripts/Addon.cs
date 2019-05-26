@@ -1,15 +1,28 @@
 ﻿using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
+using E.Game;
 using E.Tool;
 using E.Utility;
 
 public partial class Entity
 {
+
     void Awake_E() {}
     void OnStartServer_E() {}
-    void Update_E() {}
+    void Update_E()
+    {
+        if (UIManager.Singleton.entityInfoDisplayMode == UIManager.EntityInfoDisplayMode.AlwaysHide)
+        {
+            panName.gameObject.SetActive(false);
+        }
+        else
+        {
+            panName.gameObject.SetActive(true);
+        }
+    }
     [Server] void DealDamageAt_E(Entity entity, int amount) {}
     [Client] void OnDamageReceived_E(int amount, DamageType damageType) {}
     [Server] void OnDeath_E() {}
