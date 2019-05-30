@@ -11,18 +11,34 @@ public partial class Entity
 {
 
     void Awake_E() {}
-    void OnStartServer_E() {}
-    void Update_E()
+    void OnEnable()
     {
-        if (UIManager.Singleton.entityInfoDisplayMode == UIManager.EntityInfoDisplayMode.AlwaysHide)
+        if (panName != null)
         {
-            panName.gameObject.SetActive(false);
-        }
-        else
-        {
-            panName.gameObject.SetActive(true);
+            switch (UIManager.Singleton.entityInfoDisplayMode)
+            {
+                case UIManager.EntityInfoDisplayMode.AlwaysShow:
+                    panName.gameObject.SetActive(true);
+                    break;
+                case UIManager.EntityInfoDisplayMode.HoverShowOnly:
+                    panName.gameObject.SetActive(false);
+                    break;
+                case UIManager.EntityInfoDisplayMode.HitShowOnly:
+                    panName.gameObject.SetActive(false);
+                    break;
+                case UIManager.EntityInfoDisplayMode.HoverShowAndHitShow:
+                    panName.gameObject.SetActive(false);
+                    break;
+                case UIManager.EntityInfoDisplayMode.AlwaysHide:
+                    panName.gameObject.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
         }
     }
+    void Update_E(){}
+    void OnStartServer_E() {}
     [Server] void DealDamageAt_E(Entity entity, int amount) {}
     [Client] void OnDamageReceived_E(int amount, DamageType damageType) {}
     [Server] void OnDeath_E() {}
@@ -31,6 +47,14 @@ public partial class Entity
     private void OnMouseEnter()
     {
         GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
+        if (panName != null)
+        {
+            if (UIManager.Singleton.entityInfoDisplayMode == UIManager.EntityInfoDisplayMode.HoverShowOnly || 
+                UIManager.Singleton.entityInfoDisplayMode == UIManager.EntityInfoDisplayMode.HoverShowAndHitShow)
+            {
+                panName.gameObject.SetActive(true);
+            }
+        }
     }
     private void OnMouseOver()
     {
@@ -50,6 +74,14 @@ public partial class Entity
     private void OnMouseExit()
     {
         GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+        if (panName != null)
+        {
+            if (UIManager.Singleton.entityInfoDisplayMode == UIManager.EntityInfoDisplayMode.HoverShowOnly ||
+                UIManager.Singleton.entityInfoDisplayMode == UIManager.EntityInfoDisplayMode.HoverShowAndHitShow)
+            {
+                panName.gameObject.SetActive(false);
+            }
+        }
     }
 }
 

@@ -36,12 +36,8 @@ public partial class Monster : Entity
 {
     [Header("【移动】")]
     [Range(0, 1)] public float moveProbability = 0.1f; // chance per second
-    public float moveDistance = 3;
-    // monsters should follow their targets even if they run out of the movement
-    // radius. the follow dist should always be bigger than the biggest archer's
-    // attack range, so that archers will always pull aggro, even when attacking
-    // from far away.
-    public float followDistance = 5;
+    [Range(1, 100)] public float moveDistance = 3;
+    [Range(1, 100)] public float followDistance = 5;
     [Range(0.1f, 1)] public float attackToMoveRangeRatio = 0.8f; // move as close as 0.8 * attackRange to a target
 
     [Header("【击杀经验奖励】")]
@@ -52,9 +48,6 @@ public partial class Monster : Entity
     public int lootGoldMin = 0;
     public int lootGoldMax = 10;
     public ItemDropChance[] dropChances;
-    // note: Items have a .valid property that can be used to 'delete' an item.
-    //       it's better than .RemoveAt() because we won't run into index-out-of
-    //       range issues
 
     [Header("【重生】")]
     public float deathTime = 30f; // enough for animation & looting

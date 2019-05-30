@@ -5551,10 +5551,10 @@ RectTransform:
   m_Father: {fileID: 822305137264534866}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.5, y: -18}
-  m_SizeDelta: {x: 171, y: 36}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 87.65, y: 0}
+  m_SizeDelta: {x: 171.3, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &822305135826677729
 CanvasRenderer:
@@ -15831,7 +15831,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 10656}
   m_SizeDelta: {x: 260, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &822305136250462091
@@ -15910,10 +15910,10 @@ RectTransform:
   m_Father: {fileID: 822305135826677733}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -18}
-  m_SizeDelta: {x: 32, y: 32}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &822305136250810443
 CanvasRenderer:
@@ -18968,7 +18968,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88a97bb9e2cee4d41a691829fdcf2419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 0}
   panel: {fileID: 822305136091598335}
   nameInput: {fileID: 822305136472791135}
   classDropdown: {fileID: 822305136984575610}
@@ -21943,10 +21942,10 @@ RectTransform:
   m_Father: {fileID: 822305137264534866}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 87.5, y: -36}
-  m_SizeDelta: {x: 171, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 87.65, y: 0}
+  m_SizeDelta: {x: 171.3, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &822305136457715485
 MonoBehaviour:
@@ -24038,9 +24037,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -17, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &822305136534422877
 MonoBehaviour:
@@ -24558,7 +24557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &822305136554945414
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25298,10 +25297,10 @@ RectTransform:
   m_Father: {fileID: 822305135826677733}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 41.5, y: -9}
-  m_SizeDelta: {x: 7, y: 14}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 41.5, y: 0}
+  m_SizeDelta: {x: 7, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &822305136587496758
 CanvasRenderer:
@@ -32022,6 +32021,7 @@ MonoBehaviour:
   intelligenceText: {fileID: 822305135658306886}
   strengthButton: {fileID: 822305136063737901}
   intelligenceButton: {fileID: 822305135863498932}
+  entity: {fileID: 0}
 --- !u!1 &822305136845722316
 GameObject:
   m_ObjectHideFlags: 0
@@ -34394,7 +34394,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -40575,7 +40575,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiCharacterCreation: {fileID: 822305136345965933}
   uiConfirmation: {fileID: 822305136862268684}
-  manager: {fileID: 0}
   panel: {fileID: 822305135733728755}
   startButton: {fileID: 822305135883005243}
   deleteButton: {fileID: 822305136490601496}
@@ -40983,7 +40982,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 822305136945146150}
   m_HandleRect: {fileID: 822305136945146151}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -42205,10 +42204,10 @@ RectTransform:
   m_Father: {fileID: 822305135826677733}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 60, y: -9}
-  m_SizeDelta: {x: 26, y: 14}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &822305137238564908
 CanvasRenderer:
@@ -43108,7 +43107,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 36}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &822305137264534876
 MonoBehaviour:
@@ -45127,7 +45126,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 822305137340420727}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 822305136842990755}
+        m_MethodName: SetPlayerEntity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &822305137340420721
@@ -46525,7 +46535,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPopup: {fileID: 822305136405491870}
-  manager: {fileID: 0}
   panel: {fileID: 822305135726850468}
   statusText: {fileID: 822305136994828376}
   accountInput: {fileID: 822305137024665420}
@@ -51606,13 +51615,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cvgStatic: {fileID: 904210051307283356}
-  cvgDialog: {fileID: 0}
   cvgWindows: {fileID: 7010185732435854848}
   cvgPopups: {fileID: 6343347348054826643}
   cvgDebug: {fileID: 7176649430105834386}
   cvgReady: {fileID: 6894467605113775601}
   uIDisplayMode: 0
-  entityInfoDisplayMode: 3
+  entityInfoDisplayMode: 1
 --- !u!1 &822305137588578467
 GameObject:
   m_ObjectHideFlags: 0

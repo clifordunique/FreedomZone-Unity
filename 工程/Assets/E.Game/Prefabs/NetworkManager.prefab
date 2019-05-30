@@ -3,8 +3,7 @@
 --- !u!1 &6278966894451251325
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 193710, guid: 18f28548c697fa143b2ede12f401d7f3,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
@@ -25,8 +24,7 @@ GameObject:
 --- !u!4 &6278966894451251326
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 431084, guid: 18f28548c697fa143b2ede12f401d7f3,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6278966894451251325}
@@ -45,8 +43,7 @@ Transform:
 --- !u!114 &6278966895035493787
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 11483498, guid: 18f28548c697fa143b2ede12f401d7f3,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6278966894451251325}
@@ -71,14 +68,14 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 1289234771990996, guid: 4b770baefcd6aa0419399e34d5eb1962, type: 3}
   - {fileID: 1505016760143036, guid: 3f57dba51b8cdc446aa7f8d0d5913537, type: 3}
-  - {fileID: 1221737297446942, guid: d89dc224658ed4a929e00312efde7e47, type: 3}
-  - {fileID: 1862907754274882, guid: 6bb8edd32f5f94e2eaf5365d8e51d145, type: 3}
-  - {fileID: 1862907754274882, guid: 477adec992c3c4377970ce3f90d06675, type: 3}
-  - {fileID: 1999249501724554, guid: 9475ca2f528844ca69bcc4b24e1a6f0a, type: 3}
-  - {fileID: 1987394715921876, guid: 55e51ce29f07544b98f55e8da33e201c, type: 3}
-  - {fileID: 1861356044303458, guid: 79eb775e41e624604966ba3e6f3e5408, type: 3}
+  - {fileID: 1221737297446942, guid: 8fd1766c064e80b40b1ad0a1bea8d4f8, type: 3}
+  - {fileID: 1862907754274882, guid: 3f8751be8b902eb49b6bbbabbcf5584b, type: 3}
+  - {fileID: 1862907754274882, guid: aa18d14d8e931ba4f8e2d3979f54ee31, type: 3}
+  - {fileID: 1999249501724554, guid: 2ea93fd15189c8f4186bc4c741d69b8c, type: 3}
+  - {fileID: 1987394715921876, guid: 6ae73e8aa2bcf8c43b457b6b1867d596, type: 3}
+  - {fileID: 1861356044303458, guid: 232995cdd5ed84e49b528cd7802713cd, type: 3}
+  gameState: 0
   state: 0
-  uiPopup: {fileID: 0}
   loginAccount: E
   loginPassword: 2333
   serverList:

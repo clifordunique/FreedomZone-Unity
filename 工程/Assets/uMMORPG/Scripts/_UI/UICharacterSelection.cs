@@ -7,9 +7,9 @@ using Mirror;
 
 public partial class UICharacterSelection : MonoBehaviour
 {
+    private NetworkManagerMMO manager; // singleton is null until update
     public UICharacterCreation uiCharacterCreation;
     public UIConfirmation uiConfirmation;
-    public NetworkManagerMMO manager; // singleton is null until update
     public GameObject panel;
     public Button startButton;
     public Button deleteButton;

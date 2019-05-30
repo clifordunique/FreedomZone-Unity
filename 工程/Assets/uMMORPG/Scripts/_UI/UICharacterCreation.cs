@@ -5,7 +5,7 @@ using System.Linq;
 
 public partial class UICharacterCreation : MonoBehaviour
 {
-    public NetworkManagerMMO manager; // singleton is null until update
+    private NetworkManagerMMO manager; // singleton is null until update
     public GameObject panel;
     public InputField nameInput;
     public Dropdown classDropdown;

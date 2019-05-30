@@ -1169,10 +1169,6 @@ public partial class Player : Entity
 
         if (panName != null)
         {
-            // only players need to copy names to name overlay. it never changes
-            // for monsters / npcs.
-            panName.GetComponentInChildren<Text>().text = name;
-
             // find local player (null while in character selection)
             if (localPlayer != null)
             {

@@ -50,7 +50,7 @@ namespace Mirror
 
         static void DrawHeader(Rect headerRect)
         {
-            GUI.Label(headerRect, "Registered Spawnable Prefabs:");
+            GUI.Label(headerRect, "已注册的可生成预制体：");
         }
 
         internal void DrawChild(Rect r, int index, bool isActive, bool isFocused)

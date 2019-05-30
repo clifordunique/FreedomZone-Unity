@@ -23,6 +23,7 @@
 // when having lots of FPS(300+) if the Rigidbody's Interpolate option is
 // enabled. So for now it's important to disable Interpolation - which is a good
 // idea in general to increase performance.
+using E.Game;
 using Mirror;
 using System;
 using System.Linq;
@@ -391,6 +392,10 @@ public abstract partial class Entity : NetworkBehaviour
     protected virtual void UpdateOverlays()
     {
         if (panName != null)
+        {
+            panName.GetComponentInChildren<Text>().text = name;
+        }
+        if (dialogContent != null)
         {
             panDialog.GetComponentInChildren<Text>().text = dialogContent;
             if (dialogContent != null && dialogContent != "")

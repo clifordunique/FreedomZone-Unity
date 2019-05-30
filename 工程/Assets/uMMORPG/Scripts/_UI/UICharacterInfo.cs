@@ -24,27 +24,52 @@ public partial class UICharacterInfo : MonoBehaviour
     public Button strengthButton;
     public Button intelligenceButton;
 
-    [Obsolete]
-    void Update()
-    {
-        Player player = Player.localPlayer;
-        if (player)
-        {
-            // hotkey (not while typing in chat, etc.)
-            if (Input.GetKeyDown(hotKey) && !UIUtils.AnyInputActive())
-                panel.SetActive(!panel.activeSelf);
+    public Entity entity;
 
-            // only refresh the panel while it's active
-            if (panel.activeSelf)
+    [Obsolete]
+    private void Update()
+    {
+        // hotkey (not while typing in chat, etc.)
+        if (Input.GetKeyDown(hotKey) && !UIUtils.AnyInputActive())
+        {
+            panel.SetActive(!panel.activeSelf);
+            SetPlayerEntity();
+        }
+        // only refresh the panel while it's active
+        if (entity)
+        {
+            RefreshCharacterInfo();
+        }
+        else
+        {
+            panel.SetActive(false);
+        }
+    }
+
+    public void SetPlayerEntity()
+    {
+        entity = Player.localPlayer;
+    }
+    public void SetCharacterEntity(Entity e)
+    {
+        entity = e;
+    }
+    public void RefreshCharacterInfo()
+    {
+        if (panel.activeSelf)
+        {
+            damageText.text = entity.damage.ToString();
+            defenseText.text = entity.defense.ToString();
+            healthText.text = entity.healthMax.ToString();
+            manaText.text = entity.manaMax.ToString();
+            criticalChanceText.text = (entity.criticalChance * 100).ToString("F0") + "%";
+            blockChanceText.text = (entity.blockChance * 100).ToString("F0") + "%";
+            speedText.text = entity.speed.ToString();
+            levelText.text = entity.level.ToString();
+
+            if (entity.GetType() == typeof(Player))
             {
-                damageText.text = player.damage.ToString();
-                defenseText.text = player.defense.ToString();
-                healthText.text = player.healthMax.ToString();
-                manaText.text = player.manaMax.ToString();
-                criticalChanceText.text = (player.criticalChance * 100).ToString("F0") + "%";
-                blockChanceText.text = (player.blockChance * 100).ToString("F0") + "%";
-                speedText.text = player.speed.ToString();
-                levelText.text = player.level.ToString();
+                Player player = (Player)entity;
                 currentExperienceText.text = player.experience.ToString();
                 maximumExperienceText.text = player.experienceMax.ToString();
                 skillExperienceText.text = player.skillExperience.ToString();
@@ -57,7 +82,40 @@ public partial class UICharacterInfo : MonoBehaviour
                 intelligenceButton.interactable = player.AttributesSpendable() > 0;
                 intelligenceButton.onClick.SetListener(() => { player.CmdIncreaseIntelligence(); });
             }
+            else if (entity.GetType() == typeof(Npc))
+            {
+                Npc npc = (Npc)entity;
+                //currentExperienceText.text = npc.experience.ToString();
+                //maximumExperienceText.text = npc.experienceMax.ToString();
+                //skillExperienceText.text = npc.skillExperience.ToString();
+
+                //strengthText.text = npc.strength.ToString();
+                //strengthButton.interactable = npc.AttributesSpendable() > 0;
+                //strengthButton.onClick.SetListener(() => { npc.CmdIncreaseStrength(); });
+
+                //intelligenceText.text = npc.intelligence.ToString();
+                //intelligenceButton.interactable = npc.AttributesSpendable() > 0;
+                //intelligenceButton.onClick.SetListener(() => { npc.CmdIncreaseIntelligence(); });
+            }
+            else if (entity.GetType() == typeof(Monster))
+            {
+                Monster monster = (Monster)entity;
+                //currentExperienceText.text = monster.experience.ToString();
+                //maximumExperienceText.text = monster.experienceMax.ToString();
+                //skillExperienceText.text = monster.skillExperience.ToString();
+
+                //strengthText.text = monster.strength.ToString();
+                //strengthButton.interactable = monster.AttributesSpendable() > 0;
+                //strengthButton.onClick.SetListener(() => { monster.CmdIncreaseStrength(); });
+
+                //intelligenceText.text = monster.intelligence.ToString();
+                //intelligenceButton.interactable = monster.AttributesSpendable() > 0;
+                //intelligenceButton.onClick.SetListener(() => { monster.CmdIncreaseIntelligence(); });
+            }
+            else if (entity.GetType() == typeof(Item))
+            {
+
+            }
         }
-        else panel.SetActive(false);
     }
 }

@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public partial class UILogin : MonoBehaviour
 {
+    private NetworkManagerMMO manager; // singleton=null in Start/Awake
     public UIPopup uiPopup;
-    public NetworkManagerMMO manager; // singleton=null in Start/Awake
     public GameObject panel;
     public Text statusText;
     public InputField accountInput;
