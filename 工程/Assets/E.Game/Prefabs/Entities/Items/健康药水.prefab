@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 4912952000096670308}
   - component: {fileID: 6972935396116699646}
   m_Layer: 0
-  m_Name: Health Potion
+  m_Name: "\u5065\u5EB7\u836F\u6C34"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,8 +183,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serverOnly: 0
   localPlayerAuthority: 0
-  m_AssetId: d685a2cea42c11547b3633f0c9093717
-  m_SceneId: 0
+  m_AssetId: 
+  m_SceneId: 379439763
 --- !u!114 &8889708689320443308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,4 +388,4 @@ MonoBehaviour:
   clrParty: {r: 0.341, g: 0.965, b: 0.702, a: 1}
   inSafeZone: 0
   lookDirection: {x: 0, y: -1}
-  ItemInfo: {fileID: 0}
+  ItemInfo: {fileID: 11400000, guid: d3348cb9f78edf74ebdf4562a5733759, type: 2}

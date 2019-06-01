@@ -17,20 +17,29 @@ namespace E.Game
     public class UIManager : SingletonPattern<UIManager>
     {
         [Header("【组件】")]
-        public CanvasGroup cvgStatic;
-        public CanvasGroup cvgWindows;
-        public CanvasGroup cvgPopups;
-        public CanvasGroup cvgDebug;
-        public CanvasGroup cvgReady;
+        [SerializeField] private CanvasGroup cvgStatic;
+        [SerializeField] private CanvasGroup cvgWindows;
+        [SerializeField] private CanvasGroup cvgPopups;
+        [SerializeField] private CanvasGroup cvgDebug;
+        [SerializeField] private CanvasGroup cvgReady;
+
+        [Header("【UI脚本】")]
+        //静态
+        //窗口
+        public UICharacterInfo uiCharacterInfo;
+        //弹出
+        //调试
+        //准备
+
 
         [Header("【运行时变量】")]
-        public UIDisplayMode uIDisplayMode = UIDisplayMode.Default;
+        public UIDisplayMode uiDisplayMode = UIDisplayMode.Default;
         public EntityInfoDisplayMode entityInfoDisplayMode = EntityInfoDisplayMode.HoverShowAndHitShow;
 
 
         private void Update()
         {
-            switch (uIDisplayMode)
+            switch (uiDisplayMode)
             {
                 case UIDisplayMode.Default:
                     SetCursor(true);

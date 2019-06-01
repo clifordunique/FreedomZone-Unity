@@ -3,8 +3,9 @@ using Mirror;
 using System.Linq;
 using System;
 
-public class ItemInstance : Entity
+public class StaticEntity : Entity
 {
+    [Header("【信息】")]
     public ScriptableItem ItemInfo;
 
     private void Update()

@@ -58,6 +58,10 @@ public partial class Entity
     }
     private void OnMouseOver()
     {
+        if (Input.GetMouseButtonUp(1))
+        {
+            UIManager.Singleton.uiCharacterInfo.SetCharacterEntity(this);
+        }
     }
     private void OnMouseDown()
     {

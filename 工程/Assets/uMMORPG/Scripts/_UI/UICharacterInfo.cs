@@ -32,7 +32,6 @@ public partial class UICharacterInfo : MonoBehaviour
         // hotkey (not while typing in chat, etc.)
         if (Input.GetKeyDown(hotKey) && !UIUtils.AnyInputActive())
         {
-            panel.SetActive(!panel.activeSelf);
             SetPlayerEntity();
         }
         // only refresh the panel while it's active
@@ -49,10 +48,12 @@ public partial class UICharacterInfo : MonoBehaviour
     public void SetPlayerEntity()
     {
         entity = Player.localPlayer;
+        panel.SetActive(!panel.activeSelf);
     }
     public void SetCharacterEntity(Entity e)
     {
         entity = e;
+        panel.SetActive(!panel.activeSelf);
     }
     public void RefreshCharacterInfo()
     {

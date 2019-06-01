@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18be07406029d49d1b7f4bde9b48d5d0, type: 3}
+  m_Name: "\u592A\u9633\u5251"
+  m_EditorClassIdentifier: 
+  maxStack: 1
+  buyPrice: 10
+  sellPrice: 5
+  itemMallPrice: 0
+  sellable: 1
+  tradable: 1
+  destroyable: 1
+  toolTip: "<b>{NAME}</b>\n\u4E00\u628A\u6765\u81EA\u592A\u9633\u7684\u5F3A\u529B\u624B\u6301\u5927\u5251\u3002\n\n{DAMAGEBONUS}
+    \u4F24\u5BB3\n\u662F\u5426\u53EF\u7834\u574F: {DESTROYABLE}\n\u662F\u5426\u53EF\u51FA\u552E:
+    {SELLABLE}\n\u662F\u5426\u53EF\u4EA4\u6613: {TRADABLE}\n\u8981\u6C42\u7B49\u7EA7:
+    {MINLEVEL}\n\n\u6570\u91CF: {AMOUNT}\n\u8D2D\u4E70\u4EF7: {BUYPRICE} \u91D1\u5E01\n<i>\u51FA\u552E\u4EF7:
+    {SELLPRICE} \u91D1\u5E01</i>"
+  image: {fileID: 21300000, guid: a03398079f2644f469f4b0132f071512, type: 3}
+  minLevel: 1
+  cooldownBuff: {fileID: 0}
+  category: WeaponSword
+  healthBonus: 0
+  manaBonus: 0
+  damageBonus: 10
+  defenseBonus: 0
+  blockChanceBonus: 0
+  criticalChanceBonus: 0
+  sprites:
+  - {fileID: 21300036, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300038, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300040, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300042, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300060, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300062, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300064, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300066, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300052, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300054, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300056, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300058, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300044, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300046, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300048, guid: 57539dfb4705943fb849661279492410, type: 3}
+  - {fileID: 21300050, guid: 57539dfb4705943fb849661279492410, type: 3}
+  requiredAmmo: {fileID: 0}

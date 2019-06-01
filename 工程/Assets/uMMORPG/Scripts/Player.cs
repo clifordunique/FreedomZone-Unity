@@ -179,11 +179,11 @@ public partial class Player : Entity
         }
     }
 
-    [Header("属性")]
+    [Header("【属性】")]
     [SyncVar] public int strength = 0;
     [SyncVar] public int intelligence = 0;
 
-    [Header("经验")] // note: int is not enough (can have > 2 mil. easily)
+    [Header("【经验】")] // note: int is not enough (can have > 2 mil. easily)
     public int maxLevel = 1;
     [SyncVar, SerializeField] long _experience = 0;
     public long experience
@@ -224,22 +224,22 @@ public partial class Player : Entity
     [SerializeField] protected ExponentialLong _experienceMax = new ExponentialLong { multiplier = 100, baseValue = 1.1f };
     public long experienceMax { get { return _experienceMax.Get(level); } }
 
-    [Header("技能经验")]
+    [Header("【技能经验】")]
     [SyncVar] public long skillExperience = 0;
 
-    [Header("标识物")]
+    [Header("【标识物】")]
     public GameObject indicatorPrefab;
     [HideInInspector] public GameObject indicator;
 
-    [Header("库存")]
+    [Header("【库存】")]
     public int inventorySize = 30;
     public ScriptableItemAndAmount[] defaultItems;
     public KeyCode[] inventorySplitKeys = { KeyCode.LeftShift, KeyCode.RightShift };
 
-    [Header("废弃物")]
+    [Header("【废弃物】")]
     [SyncVar] public ItemSlot trash;
 
-    [Header("装备")]
+    [Header("【装备】")]
     public EquipmentInfo[] equipmentInfo =
     {
         new EquipmentInfo{requiredCategory="Weapon", location=null, defaultItem=new ScriptableItemAndAmount()},
@@ -252,7 +252,7 @@ public partial class Player : Entity
         new EquipmentInfo{requiredCategory="Feet", location=null, defaultItem=new ScriptableItemAndAmount()}
     };
 
-    [Header("技能条")]
+    [Header("【技能条】")]
     public SkillbarEntry[] skillbar =
     {
         new SkillbarEntry{reference="", hotKey=KeyCode.Alpha1},
@@ -267,49 +267,49 @@ public partial class Player : Entity
         new SkillbarEntry{reference="", hotKey=KeyCode.Alpha0},
     };
 
-    [Header("任务")] // contains active and completed quests (=all)
+    [Header("【任务】")] // contains active and completed quests (=all)
     public int activeQuestLimit = 10;
     public SyncListQuest quests = new SyncListQuest();
 
-    [Header("交互范围")]
+    [Header("【交互范围】")]
     public float interactionRange = 1;
     public KeyCode targetNearestKey = KeyCode.Tab;
     public bool localPlayerClickThrough = true; // click selection goes through localplayer. feels best.
     public KeyCode cancelActionKey = KeyCode.Escape;
 
-    [Header("PvP")]
+    [Header("【PvP】")]
     public BuffSkill offenderBuff;
     public BuffSkill murdererBuff;
 
-    [Header("贸易")]
+    [Header("【贸易】")]
     [SyncVar, HideInInspector] public string tradeRequestFrom = "";
     [SyncVar, HideInInspector] public TradeStatus tradeStatus = TradeStatus.Free;
     [SyncVar, HideInInspector] public long tradeOfferGold = 0;
     public SyncListInt tradeOfferItems = new SyncListInt(); // inventory indices
 
-    [Header("制作合成")]
+    [Header("【制作合成】")]
     public List<int> craftingIndices = Enumerable.Repeat(-1, ScriptableRecipe.recipeSize).ToList();
     [HideInInspector] public CraftingState craftingState = CraftingState.None; // // client sided
     [SyncVar, HideInInspector] public double craftingTimeEnd; // double for long term precision
 
-    [Header("商城")]
+    [Header("【商城】")]
     public ItemMallCategory[] itemMallCategories; // the items that can be purchased in the item mall
     [SyncVar] public long coins = 0;
     public float couponWaitSeconds = 3;
 
-    [Header("公会")]
+    [Header("【公会】")]
     [SyncVar, HideInInspector] public string guildInviteFrom = "";
     [SyncVar, HideInInspector] public Guild guild; // TODO SyncToOwner later
     public float guildInviteWaitSeconds = 3;
 
     // .party is a copy for easier reading/syncing. Use PartySystem to manage
     // parties!
-    [Header("帮派")]
+    [Header("【帮派】")]
     [SyncVar, HideInInspector] public Party party; // TODO SyncToOwner later
     [SyncVar, HideInInspector] public string partyInviteFrom = "";
     public float partyInviteWaitSeconds = 3;
 
-    [Header("宠物")]
+    [Header("【宠物】")]
     [SyncVar] GameObject _activePet;
     public Pet activePet
     {
@@ -340,10 +340,10 @@ public partial class Player : Entity
     // when moving into attack range of a target, we always want to move a
     // little bit closer than necessary to tolerate for latency and other
     // situations where the target might have moved away a little bit already.
-    [Header("移动")]
+    [Header("【移动】")]
     [Range(0.1f, 1)] public float attackToMoveRangeRatio = 0.8f;
 
-    [Header("死亡")]
+    [Header("【死亡】")]
     public float deathExperienceLossPercent = 0.05f;
 
     // some commands should have delays to avoid DDOS, too much database usage
@@ -2973,9 +2973,14 @@ public partial class Player : Entity
                     {
                         UILoot.singleton.Show();
                     }
-                    else if (entity is ItemInstance && entity.health >= 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
+                    else if (entity is ItemEntity && entity.health >= 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
                     {
-                        Debug.Log("左键点击：" + entity.name);
+                        InventoryAdd(new Item(((ItemEntity)entity).ItemInfo), 1);
+                        Debug.Log("拾取了一个：" + entity.name);
+                        Destroy(entity.gameObject);
+
+                        agent.stoppingDistance = interactionRange;
+                        agent.destination = entity.collider.ClosestPointOnBounds(transform.position);
                     }
                     // not attackable, lootable, talkable, etc., but it's
                     // still an entity and double clicking it without doing
@@ -3038,15 +3043,15 @@ public partial class Player : Entity
                 {
                     if (entity is Npc && entity.health > 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
                     {
-                        UINpcDialogue.singleton.Show();
+                        //UINpcDialogue.singleton.Show();
                     }
                     else if (entity is Monster && entity.health == 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange && ((Monster)entity).HasLoot())
                     {
-                        UILoot.singleton.Show();
+                        //UILoot.singleton.Show();
                     }
-                    else if (entity is ItemInstance && entity.health >= 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
+                    else if (entity is ItemEntity && entity.health >= 0 && Utils.ClosestDistance(collider, entity.collider) <= interactionRange)
                     {
-                        Debug.Log("右键点击：" + entity.name);
+                        //Debug.Log("右键点击：" + entity.name);
                     }
                 }
                 else
