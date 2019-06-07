@@ -3,69 +3,73 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UINpcQuests : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public UINpcQuestSlot slotPrefab;
-    public Transform content;
-
-    void Update()
+    public partial class UINpcQuests : UIBase
     {
-        Player player = Player.localPlayer;
+        public UINpcQuestSlot slotPrefab;
+        public Transform content;
 
-        // use collider point(s) to also work with big entities
-        if (player != null &&
-            player.Target != null && player.Target is Npc &&
-            Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange)
+        void Update()
         {
-            Npc npc = (Npc)player.Target;
+            Player player = Player.localPlayer;
 
-            // instantiate/destroy enough slots
-            List<ScriptableQuest> questsAvailable = npc.QuestsVisibleFor(player);
-            UIUtils.BalancePrefabs(slotPrefab.gameObject, questsAvailable.Count, content);
-
-            // refresh all
-            for (int i = 0; i < questsAvailable.Count; ++i)
+            // use collider point(s) to also work with big entities
+            if (player != null &&
+                player.Target != null && player.Target is Npc &&
+                Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange)
             {
-                UINpcQuestSlot slot = content.GetChild(i).GetComponent<UINpcQuestSlot>();
+                Npc npc = (Npc)player.Target;
 
-                // find quest index in original npc quest list (unfiltered)
-                int npcIndex = Array.FindIndex(npc.quests, entry => entry.quest.name == questsAvailable[i].name);
+                // instantiate/destroy enough slots
+                List<ScriptableQuest> questsAvailable = npc.QuestsVisibleFor(player);
+                UIUtils.BalancePrefabs(slotPrefab.gameObject, questsAvailable.Count, content);
 
-                // find quest index in player quest list
-                int questIndex = player.GetQuestIndexByName(npc.quests[npcIndex].quest.name);
-                if (questIndex != -1)
+                // refresh all
+                for (int i = 0; i < questsAvailable.Count; ++i)
                 {
-                    // running quest: shows description with current progress
-                    // instead of static one
-                    Quest quest = player.quests[questIndex];
-                    ScriptableItem reward = npc.quests[npcIndex].quest.rewardItem;
-                    bool hasSpace = reward == null || player.InventoryCanAdd(new Item(reward), 1);
+                    UINpcQuestSlot slot = content.GetChild(i).GetComponent<UINpcQuestSlot>();
 
-                    // description + not enough space warning (if needed)
-                    slot.descriptionText.text = quest.ToolTip(player);
-                    if (!hasSpace)
-                        slot.descriptionText.text += "\n<color=red>Not enough inventory space!</color>";
+                    // find quest index in original npc quest list (unfiltered)
+                    int npcIndex = Array.FindIndex(npc.quests, entry => entry.quest.name == questsAvailable[i].name);
 
-                    slot.actionButton.interactable = player.CanCompleteQuest(quest.name);
-                    slot.actionButton.GetComponentInChildren<Text>().text = "Complete";
-                    slot.actionButton.onClick.SetListener(() => {
-                        player.CmdCompleteQuest(npcIndex);
-                        panel.SetActive(false);
-                    });
-                }
-                else
-                {
-                    // new quest
-                    slot.descriptionText.text = new Quest(npc.quests[npcIndex].quest).ToolTip(player);
-                    slot.actionButton.interactable = true;
-                    slot.actionButton.GetComponentInChildren<Text>().text = "Accept";
-                    slot.actionButton.onClick.SetListener(() => {
-                        player.CmdAcceptQuest(npcIndex);
-                    });
+                    // find quest index in player quest list
+                    int questIndex = player.GetQuestIndexByName(npc.quests[npcIndex].quest.name);
+                    if (questIndex != -1)
+                    {
+                        // running quest: shows description with current progress
+                        // instead of static one
+                        Quest quest = player.quests[questIndex];
+                        ScriptableItem reward = npc.quests[npcIndex].quest.rewardItem;
+                        bool hasSpace = reward == null || player.InventoryCanAdd(new Item(reward), 1);
+
+                        // description + not enough space warning (if needed)
+                        slot.descriptionText.text = quest.ToolTip(player);
+                        if (!hasSpace)
+                            slot.descriptionText.text += "\n<color=red>Not enough inventory space!</color>";
+
+                        slot.actionButton.interactable = player.CanCompleteQuest(quest.name);
+                        slot.actionButton.GetComponentInChildren<Text>().text = "Complete";
+                        slot.actionButton.onClick.SetListener(() =>
+                        {
+                            player.CmdCompleteQuest(npcIndex);
+                            panel.SetActive(false);
+                        });
+                    }
+                    else
+                    {
+                        // new quest
+                        slot.descriptionText.text = new Quest(npc.quests[npcIndex].quest).ToolTip(player);
+                        slot.actionButton.interactable = true;
+                        slot.actionButton.GetComponentInChildren<Text>().text = "Accept";
+                        slot.actionButton.onClick.SetListener(() =>
+                        {
+                            player.CmdAcceptQuest(npcIndex);
+                        });
+                    }
                 }
             }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

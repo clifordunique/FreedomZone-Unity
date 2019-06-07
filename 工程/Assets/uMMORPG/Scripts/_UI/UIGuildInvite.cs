@@ -3,27 +3,31 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UIGuildInvite : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public Text nameText;
-    public Button acceptButton;
-    public Button declineButton;
-
-    void Update()
+    public partial class UIGuildInvite : UIBase
     {
-        Player player = Player.localPlayer;
-        if (player != null && player.guildInviteFrom != "")
+        public Text nameText;
+        public Button acceptButton;
+        public Button declineButton;
+
+        void Update()
         {
-            panel.SetActive(true);
-            nameText.text = player.guildInviteFrom;
-            acceptButton.onClick.SetListener(() => {
-                player.CmdGuildInviteAccept();
-            });
-            declineButton.onClick.SetListener(() => {
-                player.CmdGuildInviteDecline();
-            });
+            Player player = Player.localPlayer;
+            if (player != null && player.guildInviteFrom != "")
+            {
+                panel.SetActive(true);
+                nameText.text = player.guildInviteFrom;
+                acceptButton.onClick.SetListener(() =>
+                {
+                    player.CmdGuildInviteAccept();
+                });
+                declineButton.onClick.SetListener(() =>
+                {
+                    player.CmdGuildInviteDecline();
+                });
+            }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

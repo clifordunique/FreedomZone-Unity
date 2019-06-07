@@ -26,6 +26,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using E.Utility;
+using E.Game;
 
 public enum TradeStatus : byte { Free, Locked, Accepted }
 public enum CraftingState : byte { None, InProgress, Success, Failed }

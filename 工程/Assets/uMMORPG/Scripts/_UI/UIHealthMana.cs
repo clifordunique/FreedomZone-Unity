@@ -1,27 +1,29 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UIHealthMana : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public Slider healthSlider;
-    public Text healthStatus;
-    public Slider manaSlider;
-    public Text manaStatus;
-
-    void Update()
+    public partial class UIHealthMana : UIBase
     {
-        Player player = Player.localPlayer;
-        if (player)
+        public Slider healthSlider;
+        public Text healthStatus;
+        public Slider manaSlider;
+        public Text manaStatus;
+
+        void Update()
         {
-            panel.SetActive(true);
+            Player player = Player.localPlayer;
+            if (player)
+            {
+                panel.SetActive(true);
 
-            healthSlider.value = player.HealthPercent();
-            healthStatus.text = player.Health + " / " + player.HealthMax;
+                healthSlider.value = player.HealthPercent();
+                healthStatus.text = player.Health + " / " + player.HealthMax;
 
-            manaSlider.value = player.MindPercent();
-            manaStatus.text = player.Mind + " / " + player.MindMax;
+                manaSlider.value = player.MindPercent();
+                manaStatus.text = player.Mind + " / " + player.MindMax;
+            }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

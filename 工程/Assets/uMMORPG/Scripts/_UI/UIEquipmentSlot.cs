@@ -3,13 +3,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIEquipmentSlot : MonoBehaviour
+namespace E.Game
 {
-    public UIShowToolTip tooltip;
-    public UIDragAndDropable dragAndDropable;
-    public Image image;
-    public GameObject amountOverlay;
-    public Text amountText;
-    public GameObject categoryOverlay;
-    public Text categoryText;
+    public class UIEquipmentSlot : UIBaseSlot
+    {
+        public UIDragAndDropable dragAndDropable;
+        public Image image;
+        public GameObject amountOverlay;
+        public Text amountText;
+        public GameObject categoryOverlay;
+        public Text categoryText;
+    }
 }

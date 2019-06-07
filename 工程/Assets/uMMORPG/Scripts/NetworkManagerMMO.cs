@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using UnityEngine;
 using Mirror;
+using E.Game;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif

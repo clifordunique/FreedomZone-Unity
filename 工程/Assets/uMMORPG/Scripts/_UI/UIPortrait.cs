@@ -1,20 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UIPortrait : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public Image image;
-
-    void Update()
+    public partial class UIPortrait : UIBase
     {
-        Player player = Player.localPlayer;
+        public Image image;
 
-        if (player)
+        void Update()
         {
-            panel.SetActive(true);
-            image.sprite = player.portraitIcon;
+            Player player = Player.localPlayer;
+
+            if (player)
+            {
+                panel.SetActive(true);
+                image.sprite = player.portraitIcon;
+            }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

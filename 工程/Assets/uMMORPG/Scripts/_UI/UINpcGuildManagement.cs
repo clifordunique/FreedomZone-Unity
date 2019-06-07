@@ -1,40 +1,44 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UINpcGuildManagement : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public Text createPriceText;
-    public InputField createNameInput;
-    public Button createButton;
-    public Button terminateButton;
-
-    void Update()
+    public partial class UINpcGuildManagement : UIBase
     {
-        Player player = Player.localPlayer;
+        public Text createPriceText;
+        public InputField createNameInput;
+        public Button createButton;
+        public Button terminateButton;
 
-        // use collider point(s) to also work with big entities
-        if (player != null &&
-            player.Target != null && player.Target is Npc &&
-            Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange)
+        void Update()
         {
-            createNameInput.interactable = !player.InGuild() &&
-                                           player.Money >= GuildSystem.CreationPrice;
-            createNameInput.characterLimit = GuildSystem.NameMaxLength;
+            Player player = Player.localPlayer;
 
-            createPriceText.text = GuildSystem.CreationPrice.ToString();
+            // use collider point(s) to also work with big entities
+            if (player != null &&
+                player.Target != null && player.Target is Npc &&
+                Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange)
+            {
+                createNameInput.interactable = !player.InGuild() &&
+                                               player.Money >= GuildSystem.CreationPrice;
+                createNameInput.characterLimit = GuildSystem.NameMaxLength;
 
-            createButton.interactable = !player.InGuild() && GuildSystem.IsValidGuildName(createNameInput.text);
-            createButton.onClick.SetListener(() => {
-                player.CmdCreateGuild(createNameInput.text);
-                createNameInput.text = ""; // clear the input afterwards
-            });
+                createPriceText.text = GuildSystem.CreationPrice.ToString();
 
-            terminateButton.interactable = player.guild.CanTerminate(player.name);
-            terminateButton.onClick.SetListener(() => {
-                player.CmdTerminateGuild();
-            });
+                createButton.interactable = !player.InGuild() && GuildSystem.IsValidGuildName(createNameInput.text);
+                createButton.onClick.SetListener(() =>
+                {
+                    player.CmdCreateGuild(createNameInput.text);
+                    createNameInput.text = ""; // clear the input afterwards
+                });
+
+                terminateButton.interactable = player.guild.CanTerminate(player.name);
+                terminateButton.onClick.SetListener(() =>
+                {
+                    player.CmdTerminateGuild();
+                });
+            }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

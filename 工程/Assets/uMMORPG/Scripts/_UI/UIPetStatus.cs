@@ -1,50 +1,55 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPetStatus : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public Slider healthSlider;
-    public Slider experienceSlider;
-    public Text nameText;
-    public Text levelText;
-    public Button autoAttackButton;
-    public Button defendOwnerButton;
-    public Button unsummonButton;
-
-    void Update()
+    public class UIPetStatus : UIBase
     {
-        Player player = Player.localPlayer;
+        public Slider healthSlider;
+        public Slider experienceSlider;
+        public Text nameText;
+        public Text levelText;
+        public Button autoAttackButton;
+        public Button defendOwnerButton;
+        public Button unsummonButton;
 
-        if (player != null && player.ActivePet != null)
+        void Update()
         {
-            Pet pet = player.ActivePet;
-            panel.SetActive(true);
+            Player player = Player.localPlayer;
 
-            healthSlider.value = pet.HealthPercent();
-            healthSlider.GetComponent<UIShowToolTip>().text = "Health: " + pet.Health + " / " + pet.HealthMax;
+            if (player != null && player.ActivePet != null)
+            {
+                Pet pet = player.ActivePet;
+                panel.SetActive(true);
 
-            experienceSlider.value = pet.ExperiencePercent();
-            experienceSlider.GetComponent<UIShowToolTip>().text = "Experience: " + pet.Experience + " / " + pet.ExperienceMax;
+                healthSlider.value = pet.HealthPercent();
+                healthSlider.GetComponent<UIShowToolTip>().text = "Health: " + pet.Health + " / " + pet.HealthMax;
 
-            nameText.text = pet.name;
-            levelText.text = "Lv." + pet.level.ToString();
+                experienceSlider.value = pet.ExperiencePercent();
+                experienceSlider.GetComponent<UIShowToolTip>().text = "Experience: " + pet.Experience + " / " + pet.ExperienceMax;
 
-            autoAttackButton.GetComponentInChildren<Text>().fontStyle = pet.autoAttack ? FontStyle.Bold : FontStyle.Normal;
-            autoAttackButton.onClick.SetListener(() => {
-                player.CmdPetSetAutoAttack(!pet.autoAttack);
-            });
+                nameText.text = pet.name;
+                levelText.text = "Lv." + pet.level.ToString();
 
-            defendOwnerButton.GetComponentInChildren<Text>().fontStyle = pet.defendOwner ? FontStyle.Bold : FontStyle.Normal;
-            defendOwnerButton.onClick.SetListener(() => {
-                player.CmdPetSetDefendOwner(!pet.defendOwner);
-            });
+                autoAttackButton.GetComponentInChildren<Text>().fontStyle = pet.autoAttack ? FontStyle.Bold : FontStyle.Normal;
+                autoAttackButton.onClick.SetListener(() =>
+                {
+                    player.CmdPetSetAutoAttack(!pet.autoAttack);
+                });
 
-            //unsummonButton.interactable = player.CanUnsummonPet(); <- looks too annoying if button flashes rapidly
-            unsummonButton.onClick.SetListener(() => {
-                if (player.CanUnsummonPet()) player.CmdPetUnsummon();
-            });
+                defendOwnerButton.GetComponentInChildren<Text>().fontStyle = pet.defendOwner ? FontStyle.Bold : FontStyle.Normal;
+                defendOwnerButton.onClick.SetListener(() =>
+                {
+                    player.CmdPetSetDefendOwner(!pet.defendOwner);
+                });
+
+                //unsummonButton.interactable = player.CanUnsummonPet(); <- looks too annoying if button flashes rapidly
+                unsummonButton.onClick.SetListener(() =>
+                {
+                    if (player.CanUnsummonPet()) player.CmdPetUnsummon();
+                });
+            }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

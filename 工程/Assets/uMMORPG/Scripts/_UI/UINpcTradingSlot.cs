@@ -3,9 +3,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UINpcTradingSlot : MonoBehaviour
+namespace E.Game
 {
-    public UIShowToolTip tooltip;
-    public Button button;
-    public Image image;
+    public class UINpcTradingSlot : UIBaseSlot
+    {
+        public Button button;
+        public Image image;
+    }
 }

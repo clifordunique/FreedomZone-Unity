@@ -3,20 +3,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UIRespawn : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public Button button;
-
-    void Update()
+    public partial class UIRespawn : UIBase
     {
-        Player player = Player.localPlayer;
+        public Button button;
 
-        if (player != null && player.Health == 0)
+        void Update()
         {
-            panel.SetActive(true);
-            button.onClick.SetListener(() => { player.CmdRespawn(); });
+            Player player = Player.localPlayer;
+
+            if (player != null && player.Health == 0)
+            {
+                panel.SetActive(true);
+                button.onClick.SetListener(() => { player.CmdRespawn(); });
+            }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

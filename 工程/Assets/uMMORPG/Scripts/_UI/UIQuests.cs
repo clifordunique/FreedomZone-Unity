@@ -6,53 +6,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public partial class UIQuests : MonoBehaviour
+namespace E.Game
 {
-    public KeyCode hotKey = KeyCode.Q;
-    public GameObject panel;
-    public Transform content;
-    public UIQuestSlot slotPrefab;
-
-    public string expandPrefix = "[+] ";
-    public string hidePrefix = "[-] ";
-
-    [Obsolete]
-    void Update()
+    public partial class UIQuests : UIBase
     {
-        Player player = Player.localPlayer;
+        public KeyCode hotKey = KeyCode.Q;
+        public Transform content;
+        public UIQuestSlot slotPrefab;
 
-        if (player != null)
+        public string expandPrefix = "[+] ";
+        public string hidePrefix = "[-] ";
+
+        [Obsolete]
+        void Update()
         {
-            // hotkey (not while typing in chat, etc.)
-            if (Input.GetKeyDown(hotKey) && !UIUtils.AnyInputActive())
-                panel.SetActive(!panel.activeSelf);
+            Player player = Player.localPlayer;
 
-            // only update the panel if it's active
-            if (panel.activeSelf)
+            if (player != null)
             {
-                // only show active quests, no completed ones
-                List<Quest> activeQuests = player.quests.Where(q => !q.completed).ToList();
+                // hotkey (not while typing in chat, etc.)
+                if (Input.GetKeyDown(hotKey) && !UIUtils.AnyInputActive())
+                    panel.SetActive(!panel.activeSelf);
 
-                // instantiate/destroy enough slots
-                UIUtils.BalancePrefabs(slotPrefab.gameObject, activeQuests.Count, content);
-
-                // refresh all
-                for (int i = 0; i < activeQuests.Count; ++i)
+                // only update the panel if it's active
+                if (panel.activeSelf)
                 {
-                    UIQuestSlot slot = content.GetChild(i).GetComponent<UIQuestSlot>();
-                    Quest quest = activeQuests[i];
+                    // only show active quests, no completed ones
+                    List<Quest> activeQuests = player.quests.Where(q => !q.completed).ToList();
 
-                    // name button
-                    GameObject descriptionPanel = slot.descriptionText.gameObject;
-                    string prefix = descriptionPanel.activeSelf ? hidePrefix : expandPrefix;
-                    slot.nameButton.GetComponentInChildren<Text>().text = prefix + quest.name;
-                    slot.nameButton.onClick.SetListener(() => { descriptionPanel.SetActive(!descriptionPanel.activeSelf); });
+                    // instantiate/destroy enough slots
+                    UIUtils.BalancePrefabs(slotPrefab.gameObject, activeQuests.Count, content);
 
-                    // description
-                    slot.descriptionText.text = quest.ToolTip(player);
+                    // refresh all
+                    for (int i = 0; i < activeQuests.Count; ++i)
+                    {
+                        UIQuestSlot slot = content.GetChild(i).GetComponent<UIQuestSlot>();
+                        Quest quest = activeQuests[i];
+
+                        // name button
+                        GameObject descriptionPanel = slot.descriptionText.gameObject;
+                        string prefix = descriptionPanel.activeSelf ? hidePrefix : expandPrefix;
+                        slot.nameButton.GetComponentInChildren<Text>().text = prefix + quest.name;
+                        slot.nameButton.onClick.SetListener(() => { descriptionPanel.SetActive(!descriptionPanel.activeSelf); });
+
+                        // description
+                        slot.descriptionText.text = quest.ToolTip(player);
+                    }
                 }
             }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

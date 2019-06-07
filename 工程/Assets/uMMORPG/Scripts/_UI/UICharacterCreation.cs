@@ -3,58 +3,63 @@ using UnityEngine.UI;
 using Mirror;
 using System.Linq;
 
-public partial class UICharacterCreation : MonoBehaviour
+namespace E.Game
 {
-    private NetworkManagerMMO manager; // singleton is null until update
-    public GameObject panel;
-    public InputField nameInput;
-    public Dropdown classDropdown;
-    public Button createButton;
-    public Button cancelButton;
-
-    void Update()
+    public partial class UICharacterCreation : UIBase
     {
-        if (manager == null)
-        {
-            manager = NetworkManager.singleton as NetworkManagerMMO;
-        }
+        private NetworkManagerMMO manager; // singleton is null until update
+        public InputField nameInput;
+        public Dropdown classDropdown;
+        public Button createButton;
+        public Button cancelButton;
 
-        // only update while visible (after character selection made it visible)
-        if (panel.activeSelf)
+        void Update()
         {
-            // still in lobby?
-            if (manager.state == NetworkState.Lobby)
+            if (manager == null)
             {
-                Show();
+                manager = NetworkManager.singleton as NetworkManagerMMO;
+            }
 
-                // copy player classes to class selection
-                classDropdown.options = manager.GetPlayerClasses().Select(
-                    p => new Dropdown.OptionData(p.name)
-                ).ToList();
+            // only update while visible (after character selection made it visible)
+            if (panel.activeSelf)
+            {
+                // still in lobby?
+                if (manager.state == NetworkState.Lobby)
+                {
+                    Show();
 
-                // create
-                createButton.interactable = manager.IsAllowedCharacterName(nameInput.text);
-                createButton.onClick.SetListener(() => {
-                    CharacterCreateMsg message = new CharacterCreateMsg{
-                        name = nameInput.text,
-                        classIndex = classDropdown.value
-                    };
-                    NetworkClient.Send(message);
-                    Hide();
-                });
+                    // copy player classes to class selection
+                    classDropdown.options = manager.GetPlayerClasses().Select(
+                        p => new Dropdown.OptionData(p.name)
+                    ).ToList();
 
-                // cancel
-                cancelButton.onClick.SetListener(() => {
-                    nameInput.text = "";
-                    Hide();
-                });
+                    // create
+                    createButton.interactable = manager.IsAllowedCharacterName(nameInput.text);
+                    createButton.onClick.SetListener(() =>
+                    {
+                        CharacterCreateMsg message = new CharacterCreateMsg
+                        {
+                            name = nameInput.text,
+                            classIndex = classDropdown.value
+                        };
+                        NetworkClient.Send(message);
+                        Hide();
+                    });
+
+                    // cancel
+                    cancelButton.onClick.SetListener(() =>
+                    {
+                        nameInput.text = "";
+                        Hide();
+                    });
+                }
+                else Hide();
             }
             else Hide();
         }
-        else Hide();
-    }
 
-    public void Hide() { panel.SetActive(false); }
-    public void Show() { panel.SetActive(true); }
-    public bool IsVisible() { return panel.activeSelf; }
+        public void Hide() { panel.SetActive(false); }
+        public void Show() { panel.SetActive(true); }
+        public bool IsVisible() { return panel.activeSelf; }
+    }
 }

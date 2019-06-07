@@ -3,8 +3,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIQuestSlot : MonoBehaviour
+namespace E.Game
 {
-    public Button nameButton;
-    public Text descriptionText;
+    public class UIQuestSlot : UIBaseSlot
+    {
+        //无Tooltip
+        public Button nameButton;
+        public Text descriptionText;
+    }
 }

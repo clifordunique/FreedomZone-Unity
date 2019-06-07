@@ -3,29 +3,33 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UIPartyInvite : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public Text nameText;
-    public Button acceptButton;
-    public Button declineButton;
-
-    void Update()
+    public partial class UIPartyInvite : UIBase
     {
-        Player player = Player.localPlayer;
+        public Text nameText;
+        public Button acceptButton;
+        public Button declineButton;
 
-        // only if there is an invite
-        if (player != null && player.partyInviteFrom != "")
+        void Update()
         {
-            panel.SetActive(true);
-            nameText.text = player.partyInviteFrom;
-            acceptButton.onClick.SetListener(() => {
-                player.CmdPartyInviteAccept();
-            });
-            declineButton.onClick.SetListener(() => {
-                player.CmdPartyInviteDecline();
-            });
+            Player player = Player.localPlayer;
+
+            // only if there is an invite
+            if (player != null && player.partyInviteFrom != "")
+            {
+                panel.SetActive(true);
+                nameText.text = player.partyInviteFrom;
+                acceptButton.onClick.SetListener(() =>
+                {
+                    player.CmdPartyInviteAccept();
+                });
+                declineButton.onClick.SetListener(() =>
+                {
+                    player.CmdPartyInviteDecline();
+                });
+            }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

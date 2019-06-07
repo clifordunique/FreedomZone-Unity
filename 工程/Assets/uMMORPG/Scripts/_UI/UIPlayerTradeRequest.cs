@@ -3,29 +3,33 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UIPlayerTradeRequest : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public Text nameText;
-    public Button acceptButton;
-    public Button declineButton;
-
-    void Update()
+    public partial class UIPlayerTradeRequest : UIBase
     {
-        Player player = Player.localPlayer;
+        public Text nameText;
+        public Button acceptButton;
+        public Button declineButton;
 
-        // only if there is a request and if not accepted already
-        if (player != null && player.tradeRequestFrom != "" && player.State != "TRADING")
+        void Update()
         {
-            panel.SetActive(true);
-            nameText.text = player.tradeRequestFrom;
-            acceptButton.onClick.SetListener(() => {
-                player.CmdTradeRequestAccept();
-            });
-            declineButton.onClick.SetListener(() => {
-                player.CmdTradeRequestDecline();
-            });
+            Player player = Player.localPlayer;
+
+            // only if there is a request and if not accepted already
+            if (player != null && player.tradeRequestFrom != "" && player.State != "TRADING")
+            {
+                panel.SetActive(true);
+                nameText.text = player.tradeRequestFrom;
+                acceptButton.onClick.SetListener(() =>
+                {
+                    player.CmdTradeRequestAccept();
+                });
+                declineButton.onClick.SetListener(() =>
+                {
+                    player.CmdTradeRequestDecline();
+                });
+            }
+            else panel.SetActive(false); // hide
         }
-        else panel.SetActive(false); // hide
     }
 }

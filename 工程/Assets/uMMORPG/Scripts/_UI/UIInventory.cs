@@ -4,93 +4,95 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public partial class UIInventory : MonoBehaviour
+namespace E.Game
 {
-    public KeyCode hotKey = KeyCode.I;
-    public GameObject panel;
-    public UIInventorySlot slotPrefab;
-    public Transform content;
-    public Text goldText;
-    public UIDragAndDropable trash;
-    public Image trashImage;
-    public GameObject trashOverlay;
-    public Text trashAmountText;
-
-    [Obsolete]
-    void Update()
+    public partial class UIInventory : UIBase
     {
-        Player player = Player.localPlayer;
-        if (player)
+        public KeyCode hotKey = KeyCode.I;
+        public UIInventorySlot slotPrefab;
+        public Transform content;
+        public Text goldText;
+        public UIDragAndDropable trash;
+        public Image trashImage;
+        public GameObject trashOverlay;
+        public Text trashAmountText;
+
+        [Obsolete]
+        void Update()
         {
-            // hotkey (not while typing in chat, etc.)
-            if (Input.GetKeyDown(hotKey) && !UIUtils.AnyInputActive())
-                panel.SetActive(!panel.activeSelf);
-
-            // only update the panel if it's active
-            if (panel.activeSelf)
+            Player player = Player.localPlayer;
+            if (player)
             {
-                // instantiate/destroy enough slots
-                UIUtils.BalancePrefabs(slotPrefab.gameObject, player.inventory.Count, content);
+                // hotkey (not while typing in chat, etc.)
+                if (Input.GetKeyDown(hotKey) && !UIUtils.AnyInputActive())
+                    panel.SetActive(!panel.activeSelf);
 
-                // refresh all items
-                for (int i = 0; i < player.inventory.Count; ++i)
+                // only update the panel if it's active
+                if (panel.activeSelf)
                 {
-                    UIInventorySlot slot = content.GetChild(i).GetComponent<UIInventorySlot>();
-                    slot.dragAndDropable.name = i.ToString(); // drag and drop index
-                    ItemSlot itemSlot = player.inventory[i];
+                    // instantiate/destroy enough slots
+                    UIUtils.BalancePrefabs(slotPrefab.gameObject, player.inventory.Count, content);
 
-                    if (itemSlot.amount > 0)
+                    // refresh all items
+                    for (int i = 0; i < player.inventory.Count; ++i)
+                    {
+                        UIInventorySlot slot = content.GetChild(i).GetComponent<UIInventorySlot>();
+                        slot.dragAndDropable.name = i.ToString(); // drag and drop index
+                        ItemSlot itemSlot = player.inventory[i];
+
+                        if (itemSlot.amount > 0)
+                        {
+                            // refresh valid item
+                            int icopy = i; // needed for lambdas, otherwise i is Count
+                            slot.button.onClick.SetListener(() =>
+                            {
+                                if (itemSlot.item.data is UsableItem &&
+                                    ((UsableItem)itemSlot.item.data).CanUse(player, icopy))
+                                    player.CmdUseInventoryItem(icopy);
+                            });
+                            slot.tooltip.enabled = true;
+                            slot.tooltip.text = itemSlot.ToolTip();
+                            slot.dragAndDropable.dragable = true;
+                            slot.image.color = Color.white;
+                            slot.image.sprite = itemSlot.item.image;
+                            slot.amountOverlay.SetActive(itemSlot.amount > 1);
+                            slot.amountText.text = itemSlot.amount.ToString();
+                        }
+                        else
+                        {
+                            // refresh invalid item
+                            slot.button.onClick.RemoveAllListeners();
+                            slot.tooltip.enabled = false;
+                            slot.dragAndDropable.dragable = false;
+                            slot.image.color = Color.clear;
+                            slot.image.sprite = null;
+                            slot.amountOverlay.SetActive(false);
+                        }
+                    }
+
+                    // gold
+                    goldText.text = player.Money.ToString();
+
+                    // trash (tooltip always enabled, dropable always true)
+                    trash.dragable = player.trash.amount > 0;
+                    if (player.trash.amount > 0)
                     {
                         // refresh valid item
-                        int icopy = i; // needed for lambdas, otherwise i is Count
-                        slot.button.onClick.SetListener(() =>
-                        {
-                            if (itemSlot.item.data is UsableItem &&
-                                ((UsableItem) itemSlot.item.data).CanUse(player, icopy))
-                                player.CmdUseInventoryItem(icopy);
-                        });
-                        slot.tooltip.enabled = true;
-                        slot.tooltip.text = itemSlot.ToolTip();
-                        slot.dragAndDropable.dragable = true;
-                        slot.image.color = Color.white;
-                        slot.image.sprite = itemSlot.item.image;
-                        slot.amountOverlay.SetActive(itemSlot.amount > 1);
-                        slot.amountText.text = itemSlot.amount.ToString();
+                        trashImage.color = Color.white;
+                        trashImage.sprite = player.trash.item.image;
+                        trashOverlay.SetActive(player.trash.amount > 1);
+                        trashAmountText.text = player.trash.amount.ToString();
                     }
                     else
                     {
                         // refresh invalid item
-                        slot.button.onClick.RemoveAllListeners();
-                        slot.tooltip.enabled = false;
-                        slot.dragAndDropable.dragable = false;
-                        slot.image.color = Color.clear;
-                        slot.image.sprite = null;
-                        slot.amountOverlay.SetActive(false);
+                        trashImage.color = Color.clear;
+                        trashImage.sprite = null;
+                        trashOverlay.SetActive(false);
                     }
                 }
-
-                // gold
-                goldText.text = player.Money.ToString();
-
-                // trash (tooltip always enabled, dropable always true)
-                trash.dragable = player.trash.amount > 0;
-                if (player.trash.amount > 0)
-                {
-                    // refresh valid item
-                    trashImage.color = Color.white;
-                    trashImage.sprite = player.trash.item.image;
-                    trashOverlay.SetActive(player.trash.amount > 1);
-                    trashAmountText.text = player.trash.amount.ToString();
-                }
-                else
-                {
-                    // refresh invalid item
-                    trashImage.color = Color.clear;
-                    trashImage.sprite = null;
-                    trashOverlay.SetActive(false);
-                }
             }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

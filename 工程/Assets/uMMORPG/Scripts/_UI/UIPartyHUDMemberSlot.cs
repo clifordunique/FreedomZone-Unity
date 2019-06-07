@@ -3,14 +3,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPartyHUDMemberSlot : MonoBehaviour
+namespace E.Game
 {
-    public Button backgroundButton;
-    public Image icon;
-    public Text nameText;
-    public Text masterIndicatorText;
-    public Slider healthSlider;
-    public Image healthDistanceImage;
-    public Slider manaSlider;
-    public Image manaDistanceImage;
+    public class UIPartyHUDMemberSlot : UIBaseSlot
+    {
+        //无Tooltip
+        public Button backgroundButton;
+        public Image icon;
+        public Text nameText;
+        public Text masterIndicatorText;
+        public Slider healthSlider;
+        public Image healthDistanceImage;
+        public Slider manaSlider;
+        public Image manaDistanceImage;
+    }
 }

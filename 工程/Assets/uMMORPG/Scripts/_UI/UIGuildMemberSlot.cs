@@ -3,13 +3,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIGuildMemberSlot : MonoBehaviour
+namespace E.Game
 {
-    public Image onlineStatusImage;
-    public Text nameText;
-    public Text levelText;
-    public Text rankText;
-    public Button promoteButton;
-    public Button demoteButton;
-    public Button kickButton;
+    public class UIGuildMemberSlot : UIBaseSlot
+    {
+        //无Tooltip
+        public Image onlineStatusImage;
+        public Text nameText;
+        public Text levelText;
+        public Text rankText;
+        public Button promoteButton;
+        public Button demoteButton;
+        public Button kickButton;
+    }
 }

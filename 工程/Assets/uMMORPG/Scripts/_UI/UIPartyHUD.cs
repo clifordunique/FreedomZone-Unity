@@ -3,92 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class UIPartyHUD : MonoBehaviour
+namespace E.Game
 {
-    public GameObject panel;
-    public UIPartyHUDMemberSlot slotPrefab;
-    public Transform memberContent;
-    //[Range(0,1)] public float visiblityAlphaRange = 0.5f;
-    public AnimationCurve alphaCurve;
-
-    void Update()
+    public partial class UIPartyHUD : UIBase
     {
-        Player player = Player.localPlayer;
+        public UIPartyHUDMemberSlot slotPrefab;
+        public Transform memberContent;
+        //[Range(0,1)] public float visiblityAlphaRange = 0.5f;
+        public AnimationCurve alphaCurve;
 
-        // only show and update while there are party members
-        if (player != null && player.InParty())
+        void Update()
         {
-            panel.SetActive(true);
-            Party party = player.party;
+            Player player = Player.localPlayer;
 
-            // get party members without self. no need to show self in HUD too.
-            List<string> members = player.InParty() ? party.members.Where(m => m != player.name).ToList() : new List<string>();
-
-            // instantiate/destroy enough slots
-            UIUtils.BalancePrefabs(slotPrefab.gameObject, members.Count, memberContent);
-
-            // refresh all members
-            for (int i = 0; i < members.Count; ++i)
+            // only show and update while there are party members
+            if (player != null && player.InParty())
             {
-                UIPartyHUDMemberSlot slot = memberContent.GetChild(i).GetComponent<UIPartyHUDMemberSlot>();
-                string memberName = members[i];
-                float distance = Mathf.Infinity;
-                float visRange = player.VisRange();
+                panel.SetActive(true);
+                Party party = player.party;
 
-                slot.nameText.text = memberName;
-                slot.masterIndicatorText.gameObject.SetActive(party.master == memberName);
+                // get party members without self. no need to show self in HUD too.
+                List<string> members = player.InParty() ? party.members.Where(m => m != player.name).ToList() : new List<string>();
 
-                // pull health, mana, etc. from observers so that party struct
-                // doesn't have to send all that data around. people will only
-                // see health of party members that are near them, which is the
-                // only time that it's important anyway.
-                if (Player.onlinePlayers.ContainsKey(memberName))
+                // instantiate/destroy enough slots
+                UIUtils.BalancePrefabs(slotPrefab.gameObject, members.Count, memberContent);
+
+                // refresh all members
+                for (int i = 0; i < members.Count; ++i)
                 {
-                    Player member = Player.onlinePlayers[memberName];
-                    slot.icon.sprite = member.classIcon;
-                    slot.healthSlider.value = member.HealthPercent();
-                    slot.manaSlider.value = member.MindPercent();
-                    slot.backgroundButton.onClick.SetListener(() => {
-                        // member variable might be null by the time button gets
-                        // clicked. can't target null, otherwise we get a
-                        // MissingReferenceException.
-                        if (member != null)
-                            player.CmdSetTarget(member.netIdentity);
-                    });
+                    UIPartyHUDMemberSlot slot = memberContent.GetChild(i).GetComponent<UIPartyHUDMemberSlot>();
+                    string memberName = members[i];
+                    float distance = Mathf.Infinity;
+                    float visRange = player.VisRange();
 
-                    // distance color based on visRange ratio
-                    distance = Vector2.Distance(player.transform.position, member.transform.position);
-                    visRange = member.VisRange(); // visRange is always based on the other guy
-                }
+                    slot.nameText.text = memberName;
+                    slot.masterIndicatorText.gameObject.SetActive(party.master == memberName);
 
-                // distance overlay alpha based on visRange ratio
-                // (because values are only up to date for members in observer
-                //  range)
-                float ratio = visRange > 0 ? distance / visRange : 1f;
-                float alpha = alphaCurve.Evaluate(ratio);
+                    // pull health, mana, etc. from observers so that party struct
+                    // doesn't have to send all that data around. people will only
+                    // see health of party members that are near them, which is the
+                    // only time that it's important anyway.
+                    if (Player.onlinePlayers.ContainsKey(memberName))
+                    {
+                        Player member = Player.onlinePlayers[memberName];
+                        slot.icon.sprite = member.classIcon;
+                        slot.healthSlider.value = member.HealthPercent();
+                        slot.manaSlider.value = member.MindPercent();
+                        slot.backgroundButton.onClick.SetListener(() =>
+                        {
+                            // member variable might be null by the time button gets
+                            // clicked. can't target null, otherwise we get a
+                            // MissingReferenceException.
+                            if (member != null)
+                                player.CmdSetTarget(member.netIdentity);
+                        });
 
-                // icon alpha
-                Color iconColor = slot.icon.color;
-                iconColor.a = alpha;
-                slot.icon.color = iconColor;
+                        // distance color based on visRange ratio
+                        distance = Vector2.Distance(player.transform.position, member.transform.position);
+                        visRange = member.VisRange(); // visRange is always based on the other guy
+                    }
 
-                // health bar alpha
-                foreach (Image image in slot.healthSlider.GetComponentsInChildren<Image>())
-                {
-                    Color color = image.color;
-                    color.a = alpha;
-                    image.color = color;
-                }
+                    // distance overlay alpha based on visRange ratio
+                    // (because values are only up to date for members in observer
+                    //  range)
+                    float ratio = visRange > 0 ? distance / visRange : 1f;
+                    float alpha = alphaCurve.Evaluate(ratio);
 
-                // mana bar alpha
-                foreach (Image image in slot.manaSlider.GetComponentsInChildren<Image>())
-                {
-                    Color color = image.color;
-                    color.a = alpha;
-                    image.color = color;
+                    // icon alpha
+                    Color iconColor = slot.icon.color;
+                    iconColor.a = alpha;
+                    slot.icon.color = iconColor;
+
+                    // health bar alpha
+                    foreach (Image image in slot.healthSlider.GetComponentsInChildren<Image>())
+                    {
+                        Color color = image.color;
+                        color.a = alpha;
+                        image.color = color;
+                    }
+
+                    // mana bar alpha
+                    foreach (Image image in slot.manaSlider.GetComponentsInChildren<Image>())
+                    {
+                        Color color = image.color;
+                        color.a = alpha;
+                        image.color = color;
+                    }
                 }
             }
+            else panel.SetActive(false);
         }
-        else panel.SetActive(false);
     }
 }

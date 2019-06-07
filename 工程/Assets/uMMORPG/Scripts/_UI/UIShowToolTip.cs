@@ -3,62 +3,65 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIShowToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+namespace E.Game
 {
-    public GameObject tooltipPrefab;
-    [TextArea(1, 30)] public string text = "";
-
-    // instantiated tooltip
-    GameObject current;
-
-    void CreateToolTip()
+    public class UIShowToolTip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
-        // instantiate
-        current = Instantiate(tooltipPrefab, transform.position, Quaternion.identity);
+        public GameObject tooltipPrefab;
+        [TextArea(1, 30)] public string text = "";
 
-        // put to foreground
-        current.transform.SetParent(transform.root, true); // canvas
-        current.transform.SetAsLastSibling(); // last one means foreground
-    }
+        // instantiated tooltip
+        GameObject current;
 
-    void ShowToolTip(float delay)
-    {
-        Invoke(nameof(CreateToolTip), delay);
-    }
+        void CreateToolTip()
+        {
+            // instantiate
+            current = Instantiate(tooltipPrefab, transform.position, Quaternion.identity);
 
-    void DestroyToolTip()
-    {
-        // stop any running attempts to show it
-        CancelInvoke(nameof(CreateToolTip));
+            // put to foreground
+            current.transform.SetParent(transform.root, true); // canvas
+            current.transform.SetAsLastSibling(); // last one means foreground
+        }
 
-        // destroy it
-        Destroy(current);
-    }
+        void ShowToolTip(float delay)
+        {
+            Invoke(nameof(CreateToolTip), delay);
+        }
 
-    public void OnPointerEnter(PointerEventData d)
-    {
-        ShowToolTip(0.5f);
-    }
+        void DestroyToolTip()
+        {
+            // stop any running attempts to show it
+            CancelInvoke(nameof(CreateToolTip));
 
-    public void OnPointerExit(PointerEventData d)
-    {
-        DestroyToolTip();
-    }
+            // destroy it
+            Destroy(current);
+        }
 
-    void Update()
-    {
-        // always copy text to tooltip. it might change dynamically when
-        // swapping items etc., so setting it once is not enough.
-        if (current) current.GetComponentInChildren<Text>().text = text;
-    }
+        public void OnPointerEnter(PointerEventData d)
+        {
+            ShowToolTip(0.5f);
+        }
 
-    void OnDisable()
-    {
-        DestroyToolTip();
-    }
+        public void OnPointerExit(PointerEventData d)
+        {
+            DestroyToolTip();
+        }
 
-    void OnDestroy()
-    {
-        DestroyToolTip();
+        void Update()
+        {
+            // always copy text to tooltip. it might change dynamically when
+            // swapping items etc., so setting it once is not enough.
+            if (current) current.GetComponentInChildren<Text>().text = text;
+        }
+
+        void OnDisable()
+        {
+            DestroyToolTip();
+        }
+
+        void OnDestroy()
+        {
+            DestroyToolTip();
+        }
     }
 }

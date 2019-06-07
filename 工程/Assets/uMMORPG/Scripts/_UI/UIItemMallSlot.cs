@@ -3,12 +3,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIItemMallSlot : MonoBehaviour
+namespace E.Game
 {
-    public UIShowToolTip tooltip;
-    public Image image;
-    public UIDragAndDropable dragAndDropable;
-    public Text nameText;
-    public Text priceText;
-    public Button unlockButton;
+    public class UIItemMallSlot : UIBaseSlot
+    {
+        public Image image;
+        public UIDragAndDropable dragAndDropable;
+        public Text nameText;
+        public Text priceText;
+        public Button unlockButton;
+    }
 }

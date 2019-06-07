@@ -2,24 +2,26 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UIConfirmation : MonoBehaviour
+namespace E.Game
 {
-    public static UIConfirmation singleton;
-    public GameObject panel;
-    public Text messageText;
-    public Button confirmButton;
-
-    public UIConfirmation()
+    public class UIConfirmation : UIBase
     {
-        // assign singleton only once (to work with DontDestroyOnLoad when
-        // using Zones / switching scenes)
-        if (singleton == null) singleton = this;
-    }
+        public static UIConfirmation singleton;
+        public Text messageText;
+        public Button confirmButton;
 
-    public void Show(string message, UnityAction onConfirm)
-    {
-        messageText.text = message;
-        confirmButton.onClick.SetListener(onConfirm);
-        panel.SetActive(true);
+        public UIConfirmation()
+        {
+            // assign singleton only once (to work with DontDestroyOnLoad when
+            // using Zones / switching scenes)
+            if (singleton == null) singleton = this;
+        }
+
+        public void Show(string message, UnityAction onConfirm)
+        {
+            messageText.text = message;
+            confirmButton.onClick.SetListener(onConfirm);
+            panel.SetActive(true);
+        }
     }
 }

@@ -184,7 +184,7 @@ MonoBehaviour:
   serverOnly: 0
   localPlayerAuthority: 0
   m_AssetId: 
-  m_SceneId: 379439763
+  m_SceneId: 2832301205
 --- !u!114 &8889708689320443308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,44 +336,61 @@ MonoBehaviour:
   animator: {fileID: 2061997682153114113}
   collider: {fileID: 1132835690058451322}
   audioSource: {fileID: 4912952000096670308}
-  _state: IDLE
+  state: IDLE
+  lookDirection: {x: 0, y: -1}
   lastCombatTime: 0
+  inSafeZone: 0
+  maxLevel: 1
   level: 1
-  _healthMax:
-    baseValue: 100
-    bonusPerLevel: 0
   invincible: 0
+  healthMax:
+    baseValue: 10
+    bonusPerLevel: 0
   healthRecovery: 0
-  _healthRecoveryRate:
-    baseValue: 1
-    bonusPerLevel: 0
-  _manaMax:
-    baseValue: 100
-    bonusPerLevel: 0
-  manaRecovery: 0
-  _manaRecoveryRate:
-    baseValue: 1
-    bonusPerLevel: 0
-  _damage:
-    baseValue: 1
-    bonusPerLevel: 0
-  _defense:
-    baseValue: 1
-    bonusPerLevel: 0
-  _blockChance:
+  healthRecoveryRate:
     baseValue: 0
     bonusPerLevel: 0
-  _criticalChance:
+  mindMax:
+    baseValue: 10
+    bonusPerLevel: 0
+  mindRecovery: 0
+  mindRecoveryRate:
     baseValue: 0
     bonusPerLevel: 0
-  _speed:
+  powerMax:
+    baseValue: 10
+    bonusPerLevel: 0
+  powerRecovery: 0
+  powerRecoveryRate:
+    baseValue: 0
+    bonusPerLevel: 0
+  strength:
+    baseValue: 1
+    bonusPerLevel: 0
+  defense:
+    baseValue: 1
+    bonusPerLevel: 0
+  speed:
+    baseValue: 2
+    bonusPerLevel: 0
+  runSpeedMultiple:
     baseValue: 3
     bonusPerLevel: 0
+  currentSpeed: 0
+  intelligence:
+    baseValue: 1
+    bonusPerLevel: 0
+  blockChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  criticalChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  money: 0
   damagePopupPrefab: {fileID: 0}
   skillTemplates: []
   currentSkill: -1
-  _effectMount: {fileID: 0}
-  _gold: 0
+  effectMount: {fileID: 0}
   panName: {fileID: 0}
   panGuild: {fileID: 0}
   guildPrefix: '['
@@ -386,6 +403,4 @@ MonoBehaviour:
   clrOffender: {r: 1, g: 0, b: 1, a: 1}
   clrMurderer: {r: 1, g: 0, b: 0, a: 1}
   clrParty: {r: 0.341, g: 0.965, b: 0.702, a: 1}
-  inSafeZone: 0
-  lookDirection: {x: 0, y: -1}
   ItemInfo: {fileID: 11400000, guid: d3348cb9f78edf74ebdf4562a5733759, type: 2}

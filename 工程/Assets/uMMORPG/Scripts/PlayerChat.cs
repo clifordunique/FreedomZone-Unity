@@ -15,6 +15,7 @@
 using System;
 using UnityEngine;
 using Mirror;
+using E.Game;
 
 [Serializable]
 public class ChannelInfo

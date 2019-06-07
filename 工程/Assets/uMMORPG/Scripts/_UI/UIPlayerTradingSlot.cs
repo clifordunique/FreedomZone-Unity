@@ -3,11 +3,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPlayerTradingSlot : MonoBehaviour
+namespace E.Game
 {
-    public UIShowToolTip tooltip;
-    public UIDragAndDropable dragAndDropable;
-    public Image image;
-    public GameObject amountOverlay;
-    public Text amountText;
+    public class UIPlayerTradingSlot : UIBaseSlot
+    {
+        public UIDragAndDropable dragAndDropable;
+        public Image image;
+        public GameObject amountOverlay;
+        public Text amountText;
+    }
 }
