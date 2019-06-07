@@ -15,10 +15,10 @@ public partial class UINpcQuests : MonoBehaviour
 
         // use collider point(s) to also work with big entities
         if (player != null &&
-            player.target != null && player.target is Npc &&
-            Utils.ClosestDistance(player.collider, player.target.collider) <= player.interactionRange)
+            player.Target != null && player.Target is Npc &&
+            Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange)
         {
-            Npc npc = (Npc)player.target;
+            Npc npc = (Npc)player.Target;
 
             // instantiate/destroy enough slots
             List<ScriptableQuest> questsAvailable = npc.QuestsVisibleFor(player);

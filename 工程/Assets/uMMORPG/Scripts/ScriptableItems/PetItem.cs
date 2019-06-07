@@ -10,7 +10,7 @@ public class PetItem : SummonableItem
     {
         // summonable checks if we can summon it already,
         // we just need to check if we have no active pet summoned yet
-        return base.CanUse(player, inventoryIndex) && player.activePet == null;
+        return base.CanUse(player, inventoryIndex) && player.ActivePet == null;
     }
 
     public override void Use(Player player, int inventoryIndex)
@@ -20,16 +20,16 @@ public class PetItem : SummonableItem
 
         // summon right next to the player
         ItemSlot slot = player.inventory[inventoryIndex];
-        GameObject go = Instantiate(summonPrefab.gameObject, player.petDestination, Quaternion.identity);
+        GameObject go = Instantiate(summonPrefab.gameObject, player.PetDestination, Quaternion.identity);
         Pet pet = go.GetComponent<Pet>();
         pet.name = summonPrefab.name; // avoid "(Clone)"
         pet.owner = player;
-        pet.health = slot.item.summonedHealth;
+        pet.Health = slot.item.summonedHealth;
         pet.level = slot.item.summonedLevel;
         pet.experience = slot.item.summonedExperience;
 
         NetworkServer.Spawn(go);
-        player.activePet = go.GetComponent<Pet>(); // set syncvar to go after spawning
+        player.ActivePet = go.GetComponent<Pet>(); // set syncvar to go after spawning
 
         // set item summoned pet reference so we know it can't be sold etc.
         slot.item.summoned = go;

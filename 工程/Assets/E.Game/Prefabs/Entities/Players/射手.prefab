@@ -829,49 +829,61 @@ MonoBehaviour:
   animator: {fileID: 95488505824862702}
   collider: {fileID: 58371876617117556}
   audioSource: {fileID: 82555891082792160}
-  _state: IDLE
+  state: IDLE
+  lookDirection: {x: 0, y: -1}
   lastCombatTime: 0
+  inSafeZone: 0
+  maxLevel: 10
   level: 1
-  _healthMax:
-    baseValue: 100
-    bonusPerLevel: 10
   invincible: 0
+  healthMax:
+    baseValue: 10
+    bonusPerLevel: 0
   healthRecovery: 1
-  _healthRecoveryRate:
-    baseValue: 1
+  healthRecoveryRate:
+    baseValue: 0.00001
     bonusPerLevel: 0
-  _manaMax:
-    baseValue: 100
-    bonusPerLevel: 10
-  manaRecovery: 1
-  _manaRecoveryRate:
-    baseValue: 1
+  mindMax:
+    baseValue: 10
     bonusPerLevel: 0
-  _damage:
-    baseValue: 1
-    bonusPerLevel: 1
-  _defense:
-    baseValue: 1
-    bonusPerLevel: 1
-  _blockChance:
-    baseValue: 0
+  mindRecovery: 1
+  mindRecoveryRate:
+    baseValue: 0.001
     bonusPerLevel: 0
-  _criticalChance:
-    baseValue: 0.2
-    bonusPerLevel: 0.01
-  _speed:
+  powerMax:
+    baseValue: 10
+    bonusPerLevel: 0
+  powerRecovery: 1
+  powerRecoveryRate:
+    baseValue: 0.01
+    bonusPerLevel: 0
+  strength:
+    baseValue: 5
+    bonusPerLevel: 0
+  defense:
+    baseValue: 2
+    bonusPerLevel: 0
+  speed:
+    baseValue: 2
+    bonusPerLevel: 0
+  runSpeedMultiple:
     baseValue: 3
     bonusPerLevel: 0
+  intelligence:
+    baseValue: 5
+    bonusPerLevel: 0
+  blockChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  criticalChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  money: 2000
   damagePopupPrefab: {fileID: 179236, guid: e81ebbaa55e254e31b9909cef04e3855, type: 3}
   skillTemplates:
   - {fileID: 11400000, guid: d26c8e162813b4ca2ae6bc3e082f4a50, type: 2}
-  - {fileID: 11400000, guid: 02f81eec8f9c84ac88a0646cc1478c69, type: 2}
-  - {fileID: 11400000, guid: 86cb24f30f6a5488ca8a5d89b2215e5b, type: 2}
-  - {fileID: 11400000, guid: f9fd330c76c7d4a3884743641e761fbb, type: 2}
-  - {fileID: 11400000, guid: 953d7adf838304d20a5302ec32fff975, type: 2}
   currentSkill: -1
-  _effectMount: {fileID: 4733653647026004}
-  _gold: 0
+  effectMount: {fileID: 4733653647026004}
   panName: {fileID: 7481051509591711619}
   panGuild: {fileID: 2722867039039974209}
   guildPrefix: '['
@@ -884,8 +896,6 @@ MonoBehaviour:
   clrOffender: {r: 1, g: 0, b: 1, a: 1}
   clrMurderer: {r: 1, g: 0, b: 0, a: 1}
   clrParty: {r: 0.341, g: 0.965, b: 0.702, a: 1}
-  inSafeZone: 0
-  lookDirection: {x: 0, y: -1}
   chat: {fileID: 114342037026676708}
   avatarCamera: {fileID: 20977928277026160}
   rubberbanding: {fileID: 114588678025470718}
@@ -893,12 +903,16 @@ MonoBehaviour:
   portraitIcon: {fileID: 21300000, guid: 41e1036c2976e4d548d919bd40f5722c, type: 3}
   account: 
   className: 
-  strength: 0
-  intelligence: 0
-  maxLevel: 4
-  _experience: 0
-  _experienceMax:
-    multiplier: 100
+  healthAdditional: 0
+  mindAdditional: 0
+  powerAdditional: 0
+  strengthAdditional: 0
+  defenseAdditional: 0
+  runSpeedMultipleAdditional: 0
+  intelligenceAdditional: 0
+  experience: 0
+  experienceMax:
+    multiplier: 10
     baseValue: 10
   skillExperience: 0
   indicatorPrefab: {fileID: 1415353125337104, guid: 34a489ea6a9bf4d09a676e1822ca80b8,
@@ -990,6 +1004,7 @@ MonoBehaviour:
   targetNearestKey: 9
   localPlayerClickThrough: 1
   cancelActionKey: 27
+  attackToMoveRangeRatio: 0.8
   offenderBuff: {fileID: 11400000, guid: 1428e0c0ce75b4eb387eb15ef6d8f147, type: 2}
   murdererBuff: {fileID: 11400000, guid: e2fb925463fdc4e4e8a13a692c37022b, type: 2}
   tradeRequestFrom: 
@@ -999,22 +1014,21 @@ MonoBehaviour:
   craftingState: 0
   craftingTimeEnd: 0
   itemMallCategories:
-  - category: Potions
+  - category: "\u836F\u6C34"
     items:
-    - {fileID: 11400000, guid: efcd52c07805b4550930638bb90d380c, type: 2}
-    - {fileID: 11400000, guid: 38cf787e5075f420a94548551ce92f7f, type: 2}
-    - {fileID: 11400000, guid: 26b404de2c160499bab1fcda06a555f4, type: 2}
-  - category: Pets
+    - {fileID: 11400000, guid: bc84d6d7e3379d941b5694169d3b889c, type: 2}
+    - {fileID: 11400000, guid: cf183f237f571bf4d8af017c132d05e0, type: 2}
+    - {fileID: 11400000, guid: d3348cb9f78edf74ebdf4562a5733759, type: 2}
+  - category: "\u5BA0\u7269"
     items:
-    - {fileID: 11400000, guid: 0673a99a171f7418e918fed69b37622c, type: 2}
-    - {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
+    - {fileID: 11400000, guid: 570206ec20f045b41920ade14f0cd201, type: 2}
+    - {fileID: 11400000, guid: d168acffc5381124e998c66395f3d6b0, type: 2}
   coins: 0
   couponWaitSeconds: 3
   guildInviteFrom: 
   guildInviteWaitSeconds: 3
   partyInviteFrom: 
   partyInviteWaitSeconds: 3
-  attackToMoveRangeRatio: 0.8
   deathExperienceLossPercent: 0.05
   nextRiskyActionTime: 0
 --- !u!114 &114342037026676708

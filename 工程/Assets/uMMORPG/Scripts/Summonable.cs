@@ -15,11 +15,11 @@ public abstract class Summonable : Entity
     // sync with owner's item //////////////////////////////////////////////////
     protected virtual ItemSlot SyncStateToItemSlot(ItemSlot slot)
     {
-        slot.item.summonedHealth = health;
+        slot.item.summonedHealth = Health;
         slot.item.summonedLevel = level;
 
         // remove item if died?
-        if (((SummonableItem)slot.item.data).removeItemIfDied && health == 0)
+        if (((SummonableItem)slot.item.data).removeItemIfDied && Health == 0)
             --slot.amount;
 
         return slot;

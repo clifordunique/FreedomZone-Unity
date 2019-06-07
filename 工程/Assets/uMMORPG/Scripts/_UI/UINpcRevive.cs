@@ -23,10 +23,10 @@ public partial class UINpcRevive : MonoBehaviour
 
         // use collider point(s) to also work with big entities
         if (player != null &&
-            player.target != null && player.target is Npc &&
-            Utils.ClosestDistance(player.collider, player.target.collider) <= player.interactionRange)
+            player.Target != null && player.Target is Npc &&
+            Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange)
         {
-            Npc npc = (Npc)player.target;
+            Npc npc = (Npc)player.Target;
 
             // revive
             if (itemIndex != -1 && itemIndex < player.inventory.Count &&
@@ -42,7 +42,7 @@ public partial class UINpcRevive : MonoBehaviour
                     itemSlot.GetComponent<UIShowToolTip>().text = slot.ToolTip();
                     itemSlot.dragable = true;
                     costsText.text = itemData.revivePrice.ToString();
-                    reviveButton.interactable = slot.item.summonedHealth == 0 && player.gold >= itemData.revivePrice;
+                    reviveButton.interactable = slot.item.summonedHealth == 0 && player.Money >= itemData.revivePrice;
                     reviveButton.onClick.SetListener(() => {
                         player.CmdNpcReviveSummonable(itemIndex);
                         itemIndex = -1;

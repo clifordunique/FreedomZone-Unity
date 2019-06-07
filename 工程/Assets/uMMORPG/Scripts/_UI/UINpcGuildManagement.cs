@@ -15,11 +15,11 @@ public partial class UINpcGuildManagement : MonoBehaviour
 
         // use collider point(s) to also work with big entities
         if (player != null &&
-            player.target != null && player.target is Npc &&
-            Utils.ClosestDistance(player.collider, player.target.collider) <= player.interactionRange)
+            player.Target != null && player.Target is Npc &&
+            Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange)
         {
             createNameInput.interactable = !player.InGuild() &&
-                                           player.gold >= GuildSystem.CreationPrice;
+                                           player.Money >= GuildSystem.CreationPrice;
             createNameInput.characterLimit = GuildSystem.NameMaxLength;
 
             createPriceText.text = GuildSystem.CreationPrice.ToString();

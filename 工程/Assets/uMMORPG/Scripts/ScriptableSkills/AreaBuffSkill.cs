@@ -13,7 +13,7 @@ public class AreaBuffSkill : BuffSkill
     {
         // no target necessary, but still set to self so that LookAt(target)
         // doesn't cause the player to look at a target that doesn't even matter
-        caster.target = caster;
+        caster.Target = caster;
         return true;
     }
 
@@ -37,7 +37,7 @@ public class AreaBuffSkill : BuffSkill
         {
             Entity candidate = co.GetComponentInParent<Entity>();
             if (candidate != null &&
-                candidate.health > 0 && // can't buff dead people
+                candidate.Health > 0 && // can't buff dead people
                 candidate.GetType() == caster.GetType()) // only on same type
             {
                 candidates.Add(candidate);

@@ -42,15 +42,22 @@ public partial struct Buff
     public string name => data.name;
     public Sprite image => data.image;
     public float buffTime => data.buffTime.Get(level);
+
     public int bonusHealthMax => data.bonusHealthMax.Get(level);
-    public int bonusManaMax => data.bonusManaMax.Get(level);
-    public int bonusDamage => data.bonusDamage.Get(level);
+    public int bonusMindMax => data.bonusMindMax.Get(level);
+    public int bonusPowerMax => data.bonusPowerMax.Get(level);
+    public float bonusHealthPercentPerSecond => data.bonusHealthPercentPerSecond.Get(level);
+    public float bonusMindPercentPerSecond => data.bonusMindPercentPerSecond.Get(level);
+    public float bonusPowerPercentPerSecond => data.bonusPowerPercentPerSecond.Get(level);
+
+    public int bonusDamage => data.bonusStrength.Get(level);
     public int bonusDefense => data.bonusDefense.Get(level);
+    public float bonusSpeed => data.bonusSpeed.Get(level);
+    public int bonusIntelligence => data.bonusIntelligence.Get(level);
+
     public float bonusBlockChance => data.bonusBlockChance.Get(level);
     public float bonusCriticalChance => data.bonusCriticalChance.Get(level);
-    public float bonusHealthPercentPerSecond => data.bonusHealthPercentPerSecond.Get(level);
-    public float bonusManaPercentPerSecond => data.bonusManaPercentPerSecond.Get(level);
-    public float bonusSpeed => data.bonusSpeed.Get(level);
+
     public int maxLevel => data.maxLevel;
 
     // tooltip - runtime part

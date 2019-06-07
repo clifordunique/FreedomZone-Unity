@@ -26,10 +26,10 @@ public partial class UIPlayerTrading : MonoBehaviour
         Player player = Player.localPlayer;
 
         // only if trading, otherwise set inactive
-        if (player != null && player.state == "TRADING" && player.target != null && player.target is Player)
+        if (player != null && player.State == "TRADING" && player.Target != null && player.Target is Player)
         {
             panel.SetActive(true);
-            Player other = (Player)player.target;
+            Player other = (Player)player.Target;
 
             // OTHER ///////////////////////////////////////////////////////////
             // status text
@@ -84,7 +84,7 @@ public partial class UIPlayerTrading : MonoBehaviour
             {
                 myGoldInput.interactable = true;
                 myGoldInput.onValueChanged.SetListener(val => {
-                    long goldOffer = Utils.Clamp(val.ToLong(), 0, player.gold);
+                    long goldOffer = Utils.Clamp(val.ToLong(), 0, player.Money);
                     myGoldInput.text = goldOffer.ToString();
                     player.CmdTradeOfferGold(goldOffer);
                 });

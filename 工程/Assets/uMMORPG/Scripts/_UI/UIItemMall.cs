@@ -80,7 +80,7 @@ public partial class UIItemMall : MonoBehaviour
                         slot.image.sprite = item.image;
                         slot.nameText.text = item.name;
                         slot.priceText.text = item.itemMallPrice.ToString();
-                        slot.unlockButton.interactable = player.health > 0 && player.coins >= item.itemMallPrice;
+                        slot.unlockButton.interactable = player.Health > 0 && player.coins >= item.itemMallPrice;
                         int icopy = i; // needed for lambdas, otherwise i is Count
                         slot.unlockButton.onClick.SetListener(() =>
                         {

@@ -37,7 +37,7 @@ public class ProjectileSkillEffect : SkillEffect
         // -> the best solution is to correct it here once
         if (target != null && caster != null)
         {
-            transform.position = caster.effectMount.position;
+            transform.position = caster.EffectMount.position;
             onSetInitialPosition.Invoke();
         }
     }
@@ -58,10 +58,10 @@ public class ProjectileSkillEffect : SkillEffect
             // server: reached it? apply skill and destroy self
             if (isServer && transform.position == goal)
             {
-                if (target.health > 0)
+                if (target.Health > 0)
                 {
                     // find the skill that we casted this effect with
-                    caster.DealDamageAt(target, caster.damage + damage, stunChance, stunTime);
+                    caster.DealDamageAt(target, caster.Strength + damage, stunChance, stunTime);
                 }
                 NetworkServer.Destroy(gameObject);
             }

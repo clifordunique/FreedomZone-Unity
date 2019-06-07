@@ -77,8 +77,8 @@ public partial class Monster : Entity
         base.OnStartServer();
 
         // all monsters should spawn with full health and mana
-        health = healthMax;
-        mana = manaMax;
+        Health = HealthMax;
+        Mind = MindMax;
 
         // load skills based on skill templates
         foreach (ScriptableSkill skillData in skillTemplates)
@@ -117,12 +117,12 @@ public partial class Monster : Entity
         //    so we don't need to worry about an animation number etc.
         if (isClient) // no need for animations on the server
         {
-            animator.SetBool("MOVING", state == "MOVING" && agent.velocity != Vector2.zero);
-            animator.SetBool("CASTING", state == "CASTING");
+            animator.SetBool("MOVING", State == "MOVING" && agent.velocity != Vector2.zero);
+            animator.SetBool("CASTING", State == "CASTING");
             foreach (Skill skill in skills)
                 animator.SetBool(skill.name, skill.CastTimeRemaining() > 0);
-            animator.SetBool("STUNNED", state == "STUNNED");
-            animator.SetBool("DEAD", state == "DEAD");
+            animator.SetBool("STUNNED", State == "STUNNED");
+            animator.SetBool("DEAD", State == "DEAD");
             animator.SetFloat("LookX", lookDirection.x);
             animator.SetFloat("LookY", lookDirection.y);
         }
@@ -148,50 +148,50 @@ public partial class Monster : Entity
     // finite state machine events /////////////////////////////////////////////
     bool EventDied()
     {
-        return health == 0;
+        return Health == 0;
     }
 
     bool EventDeathTimeElapsed()
     {
-        return state == "DEAD" && NetworkTime.time >= deathTimeEnd;
+        return State == "DEAD" && NetworkTime.time >= deathTimeEnd;
     }
 
     bool EventRespawnTimeElapsed()
     {
-        return state == "DEAD" && respawn && NetworkTime.time >= respawnTimeEnd;
+        return State == "DEAD" && respawn && NetworkTime.time >= respawnTimeEnd;
     }
 
     bool EventTargetDisappeared()
     {
-        return target == null;
+        return Target == null;
     }
 
     bool EventTargetDied()
     {
-        return target != null && target.health == 0;
+        return Target != null && Target.Health == 0;
     }
 
     bool EventTargetTooFarToAttack()
     {
-        return target != null &&
+        return Target != null &&
                0 <= currentSkill && currentSkill < skills.Count &&
                !CastCheckDistance(skills[currentSkill], out Vector2 destination);
     }
 
     bool EventTargetTooFarToFollow()
     {
-        return target != null &&
-               Vector2.Distance(startPosition, target.collider.ClosestPointOnBounds(transform.position)) > followDistance;
+        return Target != null &&
+               Vector2.Distance(startPosition, Target.collider.ClosestPointOnBounds(transform.position)) > followDistance;
     }
 
     bool EventTargetEnteredSafeZone()
     {
-        return target != null && target.inSafeZone;
+        return Target != null && Target.inSafeZone;
     }
 
     bool EventAggro()
     {
-        return target != null && target.health > 0;
+        return Target != null && Target.Health > 0;
     }
 
     bool EventSkillRequest()
@@ -207,7 +207,7 @@ public partial class Monster : Entity
 
     bool EventMoveEnd()
     {
-        return state == "MOVING" && !IsMoving();
+        return State == "MOVING" && !IsMoving();
     }
 
     bool EventMoveRandomly()
@@ -239,7 +239,7 @@ public partial class Monster : Entity
         if (EventTargetDied())
         {
             // we had a target before, but it died now. clear it.
-            target = null;
+            Target = null;
             currentSkill = -1;
             return "IDLE";
         }
@@ -247,7 +247,7 @@ public partial class Monster : Entity
         {
             // we had a target before, but it's out of follow range now.
             // clear it and go back to start. don't stay here.
-            target = null;
+            Target = null;
             currentSkill = -1;
             agent.stoppingDistance = 0;
             agent.destination = startPosition;
@@ -258,7 +258,7 @@ public partial class Monster : Entity
             // we had a target before, but it's out of attack range now.
             // follow it. (use collider point(s) to also work with big entities)
             agent.stoppingDistance = CurrentCastRange() * attackToMoveRangeRatio;
-            agent.destination = target.collider.ClosestPointOnBounds(transform.position);
+            agent.destination = Target.collider.ClosestPointOnBounds(transform.position);
             return "MOVING";
         }
         if (EventTargetEnteredSafeZone())
@@ -294,7 +294,7 @@ public partial class Monster : Entity
                 else
                 {
                     // invalid target. stop trying to cast.
-                    target = null;
+                    Target = null;
                     currentSkill = -1;
                     return "IDLE";
                 }
@@ -356,7 +356,7 @@ public partial class Monster : Entity
         if (EventTargetDied())
         {
             // we had a target before, but it died now. clear it.
-            target = null;
+            Target = null;
             currentSkill = -1;
             agent.ResetMovement();
             return "IDLE";
@@ -365,7 +365,7 @@ public partial class Monster : Entity
         {
             // we had a target before, but it's out of follow range now.
             // clear it and go back to start. don't stay here.
-            target = null;
+            Target = null;
             currentSkill = -1;
             agent.stoppingDistance = 0;
             agent.destination = startPosition;
@@ -376,7 +376,7 @@ public partial class Monster : Entity
             // we had a target before, but it's out of attack range now.
             // follow it. (use collider point(s) to also work with big entities)
             agent.stoppingDistance = CurrentCastRange() * attackToMoveRangeRatio;
-            agent.destination = target.collider.ClosestPointOnBounds(transform.position);
+            agent.destination = Target.collider.ClosestPointOnBounds(transform.position);
             return "MOVING";
         }
         if (EventTargetEnteredSafeZone())
@@ -437,7 +437,7 @@ public partial class Monster : Entity
             if (skills[currentSkill].cancelCastIfTargetDied)
             {
                 currentSkill = -1;
-                target = null;
+                Target = null;
                 return "IDLE";
             }
         }
@@ -447,7 +447,7 @@ public partial class Monster : Entity
             if (skills[currentSkill].cancelCastIfTargetDied)
             {
                 currentSkill = -1;
-                target = null;
+                Target = null;
                 return "IDLE";
             }
         }
@@ -480,7 +480,7 @@ public partial class Monster : Entity
             // did the target die? then clear it so that the monster doesn't
             // run towards it if the target respawned
             // (target might be null if disappeared or targetless skill)
-            if (target != null && target.health == 0) target = null;
+            if (Target != null && Target.Health == 0) Target = null;
 
             // go back to IDLE
             lastSkill = currentSkill;
@@ -526,7 +526,7 @@ public partial class Monster : Entity
         if (EventRespawnTimeElapsed())
         {
             // respawn at the start position with full health, visibility, no loot
-            gold = 0;
+            Money = 0;
             inventory.Clear();
             Show();
             agent.Warp(startPosition); // recommended over transform.position
@@ -560,12 +560,12 @@ public partial class Monster : Entity
     [Server]
     protected override string UpdateServer()
     {
-        if (state == "IDLE") return UpdateServer_IDLE();
-        if (state == "MOVING") return UpdateServer_MOVING();
-        if (state == "CASTING") return UpdateServer_CASTING();
-        if (state == "STUNNED") return UpdateServer_STUNNED();
-        if (state == "DEAD") return UpdateServer_DEAD();
-        Debug.LogError("invalid state:" + state);
+        if (State == "IDLE") return UpdateServer_IDLE();
+        if (State == "MOVING") return UpdateServer_MOVING();
+        if (State == "CASTING") return UpdateServer_CASTING();
+        if (State == "STUNNED") return UpdateServer_STUNNED();
+        if (State == "DEAD") return UpdateServer_DEAD();
+        Debug.LogError("invalid state:" + State);
         return "IDLE";
     }
 
@@ -594,15 +594,15 @@ public partial class Monster : Entity
             //    since their collides moves with the animation.
             //    => we don't even need closestdistance here because they are in
             //       the aggro area anyway. transform.position is perfectly fine
-            if (target == null)
+            if (Target == null)
             {
-                target = entity;
+                Target = entity;
             }
-            else if (entity != target) // no need to check dist for same target
+            else if (entity != Target) // no need to check dist for same target
             {
-                float oldDistance = Vector2.Distance(transform.position, target.transform.position);
+                float oldDistance = Vector2.Distance(transform.position, Target.transform.position);
                 float newDistance = Vector2.Distance(transform.position, entity.transform.position);
-                if (newDistance < oldDistance * 0.8) target = entity;
+                if (newDistance < oldDistance * 0.8) Target = entity;
             }
 
             // addon system hooks
@@ -615,7 +615,7 @@ public partial class Monster : Entity
     public bool HasLoot()
     {
         // any gold or valid items?
-        return gold > 0 || inventory.Any(slot => slot.amount > 0);
+        return Money > 0 || inventory.Any(slot => slot.amount > 0);
     }
 
     // death ///////////////////////////////////////////////////////////////////
@@ -632,7 +632,7 @@ public partial class Monster : Entity
         respawnTimeEnd = deathTimeEnd + respawnTime; // after death time ended
 
         // generate gold
-        gold = Random.Range(lootGoldMin, lootGoldMax);
+        Money = Random.Range(lootGoldMin, lootGoldMax);
 
         // generate items (note: can't use Linq because of SyncList)
         foreach (ItemDropChance itemChance in dropChances)

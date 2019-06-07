@@ -17,10 +17,10 @@ public partial class UIHealthMana : MonoBehaviour
             panel.SetActive(true);
 
             healthSlider.value = player.HealthPercent();
-            healthStatus.text = player.health + " / " + player.healthMax;
+            healthStatus.text = player.Health + " / " + player.HealthMax;
 
-            manaSlider.value = player.ManaPercent();
-            manaStatus.text = player.mana + " / " + player.manaMax;
+            manaSlider.value = player.MindPercent();
+            manaStatus.text = player.Mind + " / " + player.MindMax;
         }
         else panel.SetActive(false);
     }

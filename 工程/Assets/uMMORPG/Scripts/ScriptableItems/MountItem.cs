@@ -12,7 +12,7 @@ public class MountItem : SummonableItem
         // we just need to check if we have no active mount summoned yet
         // OR if this is the active mount, so we unsummon it
         return base.CanUse(player, inventoryIndex) &&
-               (player.activeMount == null || player.activeMount.gameObject == player.inventory[inventoryIndex].item.summoned);
+               (player.ActiveMount == null || player.ActiveMount.gameObject == player.inventory[inventoryIndex].item.summoned);
     }
 
     public override void Use(Player player, int inventoryIndex)
@@ -21,7 +21,7 @@ public class MountItem : SummonableItem
         base.Use(player, inventoryIndex);
 
         // summon
-        if (player.activeMount == null)
+        if (player.ActiveMount == null)
         {
             // summon at player position
             ItemSlot slot = player.inventory[inventoryIndex];
@@ -29,10 +29,10 @@ public class MountItem : SummonableItem
             Mount mount = go.GetComponent<Mount>();
             mount.name = summonPrefab.name; // avoid "(Clone)"
             mount.owner = player;
-            mount.health = slot.item.summonedHealth;
+            mount.Health = slot.item.summonedHealth;
 
             NetworkServer.Spawn(go);
-            player.activeMount = go.GetComponent<Mount>(); // set syncvar to go after spawning
+            player.ActiveMount = go.GetComponent<Mount>(); // set syncvar to go after spawning
 
             // set item summoned pet reference so we know it can't be sold etc.
             slot.item.summoned = go;
@@ -42,7 +42,7 @@ public class MountItem : SummonableItem
         else
         {
             // destroy from world. item.summoned and activePet will be null.
-            NetworkServer.Destroy(player.activeMount.gameObject);
+            NetworkServer.Destroy(player.ActiveMount.gameObject);
         }
     }
 }

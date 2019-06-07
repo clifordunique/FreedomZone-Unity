@@ -55,8 +55,8 @@ public partial class Mount : Summonable
         {
             // use owner's moving state for maximum precision (not if dead)
             // (if owner spawn reached us yet)
-            animator.SetBool("MOVING", health > 0 && owner != null && owner.IsMoving());
-            animator.SetBool("DEAD", state == "DEAD");
+            animator.SetBool("MOVING", Health > 0 && owner != null && owner.IsMoving());
+            animator.SetBool("DEAD", State == "DEAD");
             animator.SetFloat("LookX", lookDirection.x);
             animator.SetFloat("LookY", lookDirection.y);
         }
@@ -102,17 +102,17 @@ public partial class Mount : Summonable
 
     bool EventOwnerDied()
     {
-        return owner != null && owner.health == 0;
+        return owner != null && owner.Health == 0;
     }
 
     bool EventDied()
     {
-        return health == 0;
+        return Health == 0;
     }
 
     bool EventDeathTimeElapsed()
     {
-        return state == "DEAD" && NetworkTime.time >= deathTimeEnd;
+        return State == "DEAD" && NetworkTime.time >= deathTimeEnd;
     }
 
     // finite state machine - server ///////////////////////////////////////////
@@ -132,7 +132,7 @@ public partial class Mount : Summonable
         if (EventOwnerDied())
         {
             // die if owner died, so the mount doesn't stand around there forever
-            health = 0;
+            Health = 0;
         }
         if (EventDied())
         {
@@ -171,9 +171,9 @@ public partial class Mount : Summonable
     [Server]
     protected override string UpdateServer()
     {
-        if (state == "IDLE")    return UpdateServer_IDLE();
-        if (state == "DEAD")    return UpdateServer_DEAD();
-        Debug.LogError("invalid state:" + state);
+        if (State == "IDLE")    return UpdateServer_IDLE();
+        if (State == "DEAD")    return UpdateServer_DEAD();
+        Debug.LogError("invalid state:" + State);
         return "IDLE";
     }
 
@@ -182,7 +182,7 @@ public partial class Mount : Summonable
     [Obsolete]
     protected override void UpdateClient()
     {
-        if (state == "IDLE" || state == "MOVING")
+        if (State == "IDLE" || State == "MOVING")
         {
             // copy owner's position and rotation. no need for NetworkTransform.
             CopyOwnerPositionAndRotation();

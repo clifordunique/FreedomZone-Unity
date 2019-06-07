@@ -32,14 +32,14 @@ public abstract class UsableItem : ScriptableItem
         if (cooldownBuff != null)
         {
             // set target to player before applying buff
-            Entity oldTarget = player.target;
-            player.target = player;
+            Entity oldTarget = player.Target;
+            player.Target = player;
 
             // apply the buff with skill level 1
             cooldownBuff.Apply(player, 1);
 
             // restore target
-            player.target = oldTarget;
+            player.Target = oldTarget;
         }
     }
 

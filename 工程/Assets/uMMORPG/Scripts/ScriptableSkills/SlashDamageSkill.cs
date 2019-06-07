@@ -13,7 +13,7 @@ public class SlashDamageSkill : DamageSkill
     {
         // no target necessary, but still set to self so that LookAt(target)
         // doesn't cause the player to look at a target that doesn't even matter
-        caster.target = caster;
+        caster.Target = caster;
         return true;
     }
 
@@ -38,7 +38,7 @@ public class SlashDamageSkill : DamageSkill
             if (candidate != null && caster.CanAttack(candidate))
             {
                 // deal damage directly with base damage + skill damage
-                caster.DealDamageAt(candidate, caster.damage + damage.Get(skillLevel));
+                caster.DealDamageAt(candidate, caster.Strength + damage.Get(skillLevel));
             }
         }
     }

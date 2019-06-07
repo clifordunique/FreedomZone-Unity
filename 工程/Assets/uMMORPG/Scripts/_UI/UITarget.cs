@@ -29,7 +29,7 @@ public partial class UITarget : MonoBehaviour
             //    e.g. a buff that is cast on 'self' even though we target an 'npc.
             //    this way the player doesn't see the target switching.
             // => this is how most MMORPGs do it too.
-            Entity target = player.nextTarget ?? player.target;
+            Entity target = player.NextTarget ?? player.Target;
             if (target != null && target != player)
             {
                 float distance = Utils.ClosestDistance(player.collider, target.collider);

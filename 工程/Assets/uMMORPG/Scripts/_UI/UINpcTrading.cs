@@ -31,10 +31,10 @@ public partial class UINpcTrading : MonoBehaviour
 
         // use collider point(s) to also work with big entities
         if (player != null &&
-            player.target != null && player.target is Npc &&
-            Utils.ClosestDistance(player.collider, player.target.collider) <= player.interactionRange)
+            player.Target != null && player.Target is Npc &&
+            Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange)
         {
-            Npc npc = (Npc)player.target;
+            Npc npc = (Npc)player.Target;
 
             // items for sale
             UIUtils.BalancePrefabs(slotPrefab.gameObject, npc.saleItems.Length, content);
@@ -72,7 +72,7 @@ public partial class UINpcTrading : MonoBehaviour
                 buySlot.GetComponent<UIShowToolTip>().text = new ItemSlot(new Item(itemData)).ToolTip(); // with slot for {AMOUNT}
                 buySlot.dragable = true;
                 buyCostsText.text = price.ToString();
-                buyButton.interactable = amount > 0 && price <= player.gold &&
+                buyButton.interactable = amount > 0 && price <= player.Money &&
                                          player.InventoryCanAdd(new Item(itemData), amount);
                 buyButton.onClick.SetListener(() => {
                     player.CmdNpcBuyItem(buyIndex, amount);

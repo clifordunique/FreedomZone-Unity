@@ -22,7 +22,7 @@ public partial struct Item
 
     // dynamic stats (cooldowns etc. later)
     public GameObject summoned; // summonable that's currently summoned
-    public int summonedHealth; // stored in item while summonable unsummoned
+    public float summonedHealth; // stored in item while summonable unsummoned
     public int summonedLevel; // stored in item while summonable unsummoned
     public long summonedExperience; // stored in item while summonable unsummoned
 
@@ -31,7 +31,7 @@ public partial struct Item
     {
         hash = data.name.GetStableHashCode();
         summoned = null;
-        summonedHealth = data is SummonableItem ? ((SummonableItem)data).summonPrefab.healthMax : 0;
+        summonedHealth = data is SummonableItem ? ((SummonableItem)data).summonPrefab.HealthMax : 0;
         summonedLevel = data is SummonableItem ? 1 : 0;
         summonedExperience = 0;
     }

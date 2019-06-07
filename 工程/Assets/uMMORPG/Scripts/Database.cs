@@ -551,22 +551,30 @@ public partial class Database : MonoBehaviour
                 player.className          = (string)mainrow[2];
                 float x                   = (float)mainrow[3];
                 float y                   = (float)mainrow[4];
-                Vector2 position          = new Vector2(x, y);
+
                 player.level              = Convert.ToInt32((long)mainrow[5]);
-                int health                = Convert.ToInt32((long)mainrow[6]);
-                int mana                  = Convert.ToInt32((long)mainrow[7]);
-                player.strength           = Convert.ToInt32((long)mainrow[8]);
-                player.intelligence       = Convert.ToInt32((long)mainrow[9]);
-                player.experience         = (long)mainrow[10];
-                player.skillExperience    = (long)mainrow[11];
-                player.gold               = (long)mainrow[12];
-                player.coins              = (long)mainrow[13];
+                float health              = (long)mainrow[6];
+                float mind                = (long)mainrow[7];
+                float power               = (long)mainrow[8];
+                player.healthAdditional   = Convert.ToInt32((long)mainrow[9]);
+                player.mindAdditional     = Convert.ToInt32((long)mainrow[10]);
+                player.powerAdditional    = Convert.ToInt32((long)mainrow[11]);
+                player.strengthAdditional = Convert.ToInt32((long)mainrow[12]);
+                player.defenseAdditional  = Convert.ToInt32((long)mainrow[13]);
+                player.runSpeedMultipleAdditional = Convert.ToInt32((long)mainrow[14]);
+                player.intelligenceAdditional     = Convert.ToInt32((long)mainrow[15]);
+
+                player.Experience         = (long)mainrow[16];
+                player.skillExperience    = (long)mainrow[17];
+                player.Money              = (long)mainrow[18];
+                player.coins              = (long)mainrow[19];
 
                 // try to warp to loaded position.
                 // => agent.warp is recommended over transform.position and
                 //    avoids all kinds of weird bugs
                 // => warping might fail if we changed the world since last save
                 //    so we reset to start position if not on navmesh
+                Vector2 position = new Vector2(x, y);
                 player.agent.Warp(position);
                 if (!player.agent.isOnNavMesh)
                 {
@@ -586,8 +594,9 @@ public partial class Database : MonoBehaviour
 
                 // assign health / mana after max values were fully loaded
                 // (they depend on equipment, buffs, etc.)
-                player.health = health;
-                player.mana = mana;
+                player.Health = health;
+                player.Mind = mind;
+                player.Power = power;
 
                 // set 'online' directly. otherwise it would only be set during
                 // the next CharacterSave() call, which might take 5-10 minutes.
@@ -701,20 +710,26 @@ public partial class Database : MonoBehaviour
         // only use a transaction if not called within SaveMany transaction
         if (useTransaction) ExecuteNonQuery("BEGIN");
 
-        ExecuteNonQuery("INSERT OR REPLACE INTO characters VALUES (@name, @account, @class, @x, @y, @level, @health, @mana, @strength, @intelligence, @experience, @skillExperience, @gold, @coins, @online, @lastsaved, 0)",
+        ExecuteNonQuery("INSERT OR REPLACE INTO characters VALUES (@name, @account, @class, @x, @y, @level, @health, @mind, @healthAdditional, @intelligenceAdditional, @experience, @skillExperience, @gold, @coins, @online, @lastsaved, 0)",
                         new SqliteParameter("@name", player.name),
                         new SqliteParameter("@account", player.account),
                         new SqliteParameter("@class", player.className),
                         new SqliteParameter("@x", player.transform.position.x),
                         new SqliteParameter("@y", player.transform.position.y),
                         new SqliteParameter("@level", player.level),
-                        new SqliteParameter("@health", player.health),
-                        new SqliteParameter("@mana", player.mana),
-                        new SqliteParameter("@strength", player.strength),
-                        new SqliteParameter("@intelligence", player.intelligence),
-                        new SqliteParameter("@experience", player.experience),
+                        new SqliteParameter("@health", player.Health),
+                        new SqliteParameter("@mind", player.Mind),
+                        new SqliteParameter("@power", player.Power),
+                        new SqliteParameter("@healthAdditional", player.healthAdditional),
+                        new SqliteParameter("@mindAdditional", player.mindAdditional),
+                        new SqliteParameter("@powerAdditional", player.powerAdditional),
+                        new SqliteParameter("@strengthAdditional", player.strengthAdditional),
+                        new SqliteParameter("@defenseAdditional", player.defenseAdditional),
+                        new SqliteParameter("@runSpeedMultipleAdditional", player.runSpeedMultipleAdditional),
+                        new SqliteParameter("@intelligenceAdditional", player.intelligenceAdditional),
+                        new SqliteParameter("@experience", player.Experience),
                         new SqliteParameter("@skillExperience", player.skillExperience),
-                        new SqliteParameter("@gold", player.gold),
+                        new SqliteParameter("@gold", player.Money),
                         new SqliteParameter("@coins", player.coins),
                         new SqliteParameter("@online", online ? 1 : 0),
                         new SqliteParameter("@lastsaved", DateTime.UtcNow));

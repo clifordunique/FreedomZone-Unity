@@ -76,14 +76,14 @@ public partial class PlayerChat : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         // test messages
-        UIChat.singleton.AddMessage(new ChatMessage("", info.identifierIn, "Use /w NAME to whisper", "",  info.textPrefab));
-        UIChat.singleton.AddMessage(new ChatMessage("", info.identifierIn, "Use /p for party chat", "",  info.textPrefab));
-        UIChat.singleton.AddMessage(new ChatMessage("", info.identifierIn, "Use /g for guild chat", "",  info.textPrefab));
-        UIChat.singleton.AddMessage(new ChatMessage("", info.identifierIn, "Or click on a message to reply", "",  info.textPrefab));
-        UIChat.singleton.AddMessage(new ChatMessage("Someone", guild.identifierIn, "Anyone here?", "/g ",  guild.textPrefab));
-        UIChat.singleton.AddMessage(new ChatMessage("Someone", party.identifierIn, "Let's hunt!", "/p ",  party.textPrefab));
-        UIChat.singleton.AddMessage(new ChatMessage("Someone", whisper.identifierIn, "Are you there?", "/w Someone ",  whisper.textPrefab));
-        UIChat.singleton.AddMessage(new ChatMessage("Someone", local.identifierIn, "Hello!", "/w Someone ",  local.textPrefab));
+        //UIChat.singleton.AddMessage(new ChatMessage("", info.identifierIn, "Use /w NAME to whisper", "",  info.textPrefab));
+        //UIChat.singleton.AddMessage(new ChatMessage("", info.identifierIn, "Use /p for party chat", "",  info.textPrefab));
+        //UIChat.singleton.AddMessage(new ChatMessage("", info.identifierIn, "Use /g for guild chat", "",  info.textPrefab));
+        //UIChat.singleton.AddMessage(new ChatMessage("", info.identifierIn, "Or click on a message to reply", "",  info.textPrefab));
+        //UIChat.singleton.AddMessage(new ChatMessage("Someone", guild.identifierIn, "Anyone here?", "/g ",  guild.textPrefab));
+        //UIChat.singleton.AddMessage(new ChatMessage("Someone", party.identifierIn, "Let's hunt!", "/p ",  party.textPrefab));
+        //UIChat.singleton.AddMessage(new ChatMessage("Someone", whisper.identifierIn, "Are you there?", "/w Someone ",  whisper.textPrefab));
+        //UIChat.singleton.AddMessage(new ChatMessage("Someone", local.identifierIn, "Hello!", "/w Someone ",  local.textPrefab));
 
         // addon system hooks
         Utils.InvokeMany(typeof(PlayerChat), this, "OnStartLocalPlayer_");

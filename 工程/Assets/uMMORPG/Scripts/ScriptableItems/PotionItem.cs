@@ -17,10 +17,10 @@ public class PotionItem : UsableItem
         base.Use(player, inventoryIndex);
 
         // increase health/mana/etc.
-        player.health += usageHealth;
-        player.mana += usageMana;
-        player.experience += usageExperience;
-        if (player.activePet != null) player.activePet.health += usagePetHealth;
+        player.Health += usageHealth;
+        player.Mind += usageMana;
+        player.Experience += usageExperience;
+        if (player.ActivePet != null) player.ActivePet.Health += usagePetHealth;
 
         // decrease amount
         ItemSlot slot = player.inventory[inventoryIndex];

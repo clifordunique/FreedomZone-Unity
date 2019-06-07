@@ -28,26 +28,26 @@ public partial class UILoot : MonoBehaviour
         // use collider point(s) to also work with big entities
         if (player != null &&
             panel.activeSelf &&
-            player.target != null &&
-            player.target.health == 0 &&
-            Utils.ClosestDistance(player.collider, player.target.collider) <= player.interactionRange &&
-            player.target is Monster &&
-            ((Monster)player.target).HasLoot())
+            player.Target != null &&
+            player.Target.Health == 0 &&
+            Utils.ClosestDistance(player.collider, player.Target.collider) <= player.interactionRange &&
+            player.Target is Monster &&
+            ((Monster)player.Target).HasLoot())
         {
             // gold slot
-            if (player.target.gold > 0)
+            if (player.Target.Money > 0)
             {
                 goldSlot.SetActive(true);
                 goldSlot.GetComponentInChildren<Button>().onClick.SetListener(() => {
                     player.CmdTakeLootGold();
                 });
-                goldText.text = player.target.gold.ToString();
+                goldText.text = player.Target.Money.ToString();
             }
             else goldSlot.SetActive(false);
 
             // instantiate/destroy enough slots
             // (we only want to show the non-empty slots)
-            List<ItemSlot> items = player.target.inventory.Where(slot => slot.amount > 0).ToList();
+            List<ItemSlot> items = player.Target.inventory.Where(slot => slot.amount > 0).ToList();
             UIUtils.BalancePrefabs(itemSlotPrefab.gameObject, items.Count, content);
 
             // refresh all valid items
@@ -55,7 +55,7 @@ public partial class UILoot : MonoBehaviour
             {
                 UILootSlot slot = content.GetChild(i).GetComponent<UILootSlot>();
                 slot.dragAndDropable.name = i.ToString(); // drag and drop index
-                int itemIndex = player.target.inventory.FindIndex(
+                int itemIndex = player.Target.inventory.FindIndex(
                     // note: .Equals because name AND dynamic variables matter (petLevel etc.)
                     itemSlot => itemSlot.amount > 0 && itemSlot.item.Equals(items[i].item)
                 );

@@ -67,7 +67,7 @@ public partial class Pet : Summonable
 
     // use owner's speed if found, so that the pet can still follow the
     // owner if he is riding a mount, etc.
-    public override float speed => owner != null ? owner.speed : base.speed;
+    public override int Speed => owner != null ? owner.Speed : base.Speed;
 
     [Header("Death")]
     public float deathTime = 2; // enough for animation
@@ -134,12 +134,12 @@ public partial class Pet : Summonable
         //    so we don't need to worry about an animation number etc.
         if (isClient) // no need for animations on the server
         {
-            animator.SetBool("MOVING", state == "MOVING" && agent.velocity != Vector2.zero);
-            animator.SetBool("CASTING", state == "CASTING");
+            animator.SetBool("MOVING", State == "MOVING" && agent.velocity != Vector2.zero);
+            animator.SetBool("CASTING", State == "CASTING");
             foreach (Skill skill in skills)
                 animator.SetBool(skill.name, skill.CastTimeRemaining() > 0);
-            animator.SetBool("STUNNED", state == "STUNNED");
-            animator.SetBool("DEAD", state == "DEAD");
+            animator.SetBool("STUNNED", State == "STUNNED");
+            animator.SetBool("DEAD", State == "DEAD");
             animator.SetFloat("LookX", lookDirection.x);
             animator.SetFloat("LookY", lookDirection.y);
         }
@@ -153,7 +153,7 @@ public partial class Pet : Summonable
     {
         // draw the movement area (around 'start' if game running,
         // or around current position if still editing)
-        Vector2 startHelp = Application.isPlaying ? owner.petDestination : (Vector2)transform.position;
+        Vector2 startHelp = Application.isPlaying ? owner.PetDestination : (Vector2)transform.position;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(startHelp, returnDistance);
 
@@ -189,50 +189,50 @@ public partial class Pet : Summonable
 
     bool EventDied()
     {
-        return health == 0;
+        return Health == 0;
     }
 
     bool EventDeathTimeElapsed()
     {
-        return state == "DEAD" && NetworkTime.time >= deathTimeEnd;
+        return State == "DEAD" && NetworkTime.time >= deathTimeEnd;
     }
 
     bool EventTargetDisappeared()
     {
-        return target == null;
+        return Target == null;
     }
 
     bool EventTargetDied()
     {
-        return target != null && target.health == 0;
+        return Target != null && Target.Health == 0;
     }
 
     bool EventTargetTooFarToAttack()
     {
-        return target != null &&
+        return Target != null &&
                0 <= currentSkill && currentSkill < skills.Count &&
                !CastCheckDistance(skills[currentSkill], out Vector2 destination);
     }
 
     bool EventTargetTooFarToFollow()
     {
-        return target != null &&
-               Vector2.Distance(owner.petDestination, target.collider.ClosestPointOnBounds(transform.position)) > followDistance;
+        return Target != null &&
+               Vector2.Distance(owner.PetDestination, Target.collider.ClosestPointOnBounds(transform.position)) > followDistance;
     }
 
     bool EventNeedReturnToOwner()
     {
-        return Vector2.Distance(owner.petDestination, transform.position) > returnDistance;
+        return Vector2.Distance(owner.PetDestination, transform.position) > returnDistance;
     }
 
     bool EventNeedTeleportToOwner()
     {
-        return Vector2.Distance(owner.petDestination, transform.position) > teleportDistance;
+        return Vector2.Distance(owner.PetDestination, transform.position) > teleportDistance;
     }
 
     bool EventAggro()
     {
-        return target != null && target.health > 0;
+        return Target != null && Target.Health > 0;
     }
 
     bool EventSkillRequest()
@@ -248,7 +248,7 @@ public partial class Pet : Summonable
 
     bool EventMoveEnd()
     {
-        return state == "MOVING" && !IsMoving();
+        return State == "MOVING" && !IsMoving();
     }
 
     bool EventStunned()
@@ -281,32 +281,32 @@ public partial class Pet : Summonable
         if (EventTargetDied())
         {
             // we had a target before, but it died now. clear it.
-            target = null;
+            Target = null;
             currentSkill = -1;
             return "IDLE";
         }
         if (EventNeedTeleportToOwner())
         {
-            agent.Warp(owner.petDestination);
+            agent.Warp(owner.PetDestination);
             return "IDLE";
         }
         if (EventNeedReturnToOwner())
         {
             // return to owner only while IDLE
-            target = null;
+            Target = null;
             currentSkill = -1;
             agent.stoppingDistance = 0;
-            agent.destination = owner.petDestination;
+            agent.destination = owner.PetDestination;
             return "MOVING";
         }
         if (EventTargetTooFarToFollow())
         {
             // we had a target before, but it's out of follow range now.
             // clear it and go back to start. don't stay here.
-            target = null;
+            Target = null;
             currentSkill = -1;
             agent.stoppingDistance = 0;
-            agent.destination = owner.petDestination;
+            agent.destination = owner.PetDestination;
             return "MOVING";
         }
         if (EventTargetTooFarToAttack())
@@ -314,7 +314,7 @@ public partial class Pet : Summonable
             // we had a target before, but it's out of attack range now.
             // follow it. (use collider point(s) to also work with big entities)
             agent.stoppingDistance = CurrentCastRange() * attackToMoveRangeRatio;
-            agent.destination = target.collider.ClosestPointOnBounds(transform.position);
+            agent.destination = Target.collider.ClosestPointOnBounds(transform.position);
             return "MOVING";
         }
         if (EventSkillRequest())
@@ -331,7 +331,7 @@ public partial class Pet : Summonable
             else
             {
                 // invalid target. stop trying to cast.
-                target = null;
+                Target = null;
                 currentSkill = -1;
                 return "IDLE";
             }
@@ -381,24 +381,24 @@ public partial class Pet : Summonable
         if (EventTargetDied())
         {
             // we had a target before, but it died now. clear it.
-            target = null;
+            Target = null;
             currentSkill = -1;
             agent.ResetMovement();
             return "IDLE";
         }
         if (EventNeedTeleportToOwner())
         {
-            agent.Warp(owner.petDestination);
+            agent.Warp(owner.PetDestination);
             return "IDLE";
         }
         if (EventTargetTooFarToFollow())
         {
             // we had a target before, but it's out of follow range now.
             // clear it and go back to start. don't stay here.
-            target = null;
+            Target = null;
             currentSkill = -1;
             agent.stoppingDistance = 0;
-            agent.destination = owner.petDestination;
+            agent.destination = owner.PetDestination;
             return "MOVING";
         }
         if (EventTargetTooFarToAttack())
@@ -406,7 +406,7 @@ public partial class Pet : Summonable
             // we had a target before, but it's out of attack range now.
             // follow it. (use collider point(s) to also work with big entities)
             agent.stoppingDistance = CurrentCastRange() * attackToMoveRangeRatio;
-            agent.destination = target.collider.ClosestPointOnBounds(transform.position);
+            agent.destination = Target.collider.ClosestPointOnBounds(transform.position);
             return "MOVING";
         }
         if (EventAggro())
@@ -455,7 +455,7 @@ public partial class Pet : Summonable
             if (skills[currentSkill].cancelCastIfTargetDied)
             {
                 currentSkill = -1;
-                target = null;
+                Target = null;
                 return "IDLE";
             }
         }
@@ -465,7 +465,7 @@ public partial class Pet : Summonable
             if (skills[currentSkill].cancelCastIfTargetDied)
             {
                 currentSkill = -1;
-                target = null;
+                Target = null;
                 return "IDLE";
             }
         }
@@ -476,7 +476,7 @@ public partial class Pet : Summonable
 
             // did the target die? then clear it so that the monster doesn't
             // run towards it if the target respawned
-            if (target.health == 0) target = null;
+            if (Target.Health == 0) Target = null;
 
             // go back to IDLE
             lastSkill = currentSkill;
@@ -556,12 +556,12 @@ public partial class Pet : Summonable
     [Server]
     protected override string UpdateServer()
     {
-        if (state == "IDLE")    return UpdateServer_IDLE();
-        if (state == "MOVING")  return UpdateServer_MOVING();
-        if (state == "CASTING") return UpdateServer_CASTING();
-        if (state == "STUNNED") return UpdateServer_STUNNED();
-        if (state == "DEAD")    return UpdateServer_DEAD();
-        Debug.LogError("invalid state:" + state);
+        if (State == "IDLE")    return UpdateServer_IDLE();
+        if (State == "MOVING")  return UpdateServer_MOVING();
+        if (State == "CASTING") return UpdateServer_CASTING();
+        if (State == "STUNNED") return UpdateServer_STUNNED();
+        if (State == "DEAD")    return UpdateServer_DEAD();
+        Debug.LogError("invalid state:" + State);
         return "IDLE";
     }
 
@@ -657,15 +657,15 @@ public partial class Pet : Summonable
             // => we do NOT use Utils.ClosestDistance, because then we often
             //    also end up nervously switching between two animated targets,
             //    since their collides moves with the animation.
-            if (target == null)
+            if (Target == null)
             {
-                target = entity;
+                Target = entity;
             }
             else
             {
-                float oldDistance = Vector2.Distance(transform.position, target.transform.position);
+                float oldDistance = Vector2.Distance(transform.position, Target.transform.position);
                 float newDistance = Vector2.Distance(transform.position, entity.transform.position);
-                if (newDistance < oldDistance * 0.8) target = entity;
+                if (newDistance < oldDistance * 0.8) Target = entity;
             }
 
             // addon system hooks

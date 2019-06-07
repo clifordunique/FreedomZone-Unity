@@ -47,8 +47,8 @@ public class NetworkNavMeshAgentRubberbanding2D : NetworkBehaviour
         //       only resets it next frame etc.
         //    -> not while STUNNED.
         // -> maybe a distance check in case we get too far off from latency
-        return entity.health > 0 &&
-               (entity.state == "IDLE" || entity.state == "MOVING");
+        return entity.Health > 0 &&
+               (entity.State == "IDLE" || entity.State == "MOVING");
     }
 
     [Command]

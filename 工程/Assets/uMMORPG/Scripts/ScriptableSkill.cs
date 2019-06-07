@@ -41,7 +41,7 @@ public abstract partial class ScriptableSkill : ScriptableObject
 
     [Header("Properties")]
     public int maxLevel = 1;
-    public LinearInt manaCosts;
+    public LinearInt mindCosts;
     public LinearFloat castTime;
     public LinearFloat cooldown;
     public LinearFloat castRange;
@@ -56,8 +56,8 @@ public abstract partial class ScriptableSkill : ScriptableObject
     public virtual bool CheckSelf(Entity caster, int skillLevel)
     {
         // has a weapon (important for projectiles etc.), no cooldown, hp, mp?
-        return caster.health > 0 &&
-               caster.mana >= manaCosts.Get(skillLevel) &&
+        return caster.Health > 0 &&
+               caster.Mind >= mindCosts.Get(skillLevel) &&
                caster.GetEquippedWeaponCategory().StartsWith(requiredWeaponCategory);
     }
 
@@ -119,7 +119,7 @@ public abstract partial class ScriptableSkill : ScriptableObject
         tip.Replace("{CASTTIME}", Utils.PrettySeconds(castTime.Get(level)));
         tip.Replace("{COOLDOWN}", Utils.PrettySeconds(cooldown.Get(level)));
         tip.Replace("{CASTRANGE}", castRange.Get(level).ToString());
-        tip.Replace("{MANACOSTS}", manaCosts.Get(level).ToString());
+        tip.Replace("{MANACOSTS}", mindCosts.Get(level).ToString());
 
         // only show requirements if necessary
         if (showRequirements)

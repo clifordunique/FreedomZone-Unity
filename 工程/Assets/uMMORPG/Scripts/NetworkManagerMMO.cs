@@ -477,8 +477,8 @@ public partial class NetworkManagerMMO : NetworkManager
                                 EquipmentInfo info = prefab.equipmentInfo[i];
                                 prefab.equipment.Add(info.defaultItem.item != null ? new ItemSlot(new Item(info.defaultItem.item), info.defaultItem.amount) : new ItemSlot());
                             }
-                            prefab.health = prefab.healthMax; // after equipment in case of boni
-                            prefab.mana = prefab.manaMax; // after equipment in case of boni
+                            prefab.Health = prefab.HealthMax; // after equipment in case of boni
+                            prefab.Mind = prefab.MindMax; // after equipment in case of boni
 
                             // addon system hooks
                             Utils.InvokeMany(typeof(NetworkManagerMMO), this, "OnServerCharacterCreate_", message, prefab);

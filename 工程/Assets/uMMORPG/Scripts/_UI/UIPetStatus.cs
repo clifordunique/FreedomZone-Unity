@@ -16,13 +16,13 @@ public class UIPetStatus : MonoBehaviour
     {
         Player player = Player.localPlayer;
 
-        if (player != null && player.activePet != null)
+        if (player != null && player.ActivePet != null)
         {
-            Pet pet = player.activePet;
+            Pet pet = player.ActivePet;
             panel.SetActive(true);
 
             healthSlider.value = pet.HealthPercent();
-            healthSlider.GetComponent<UIShowToolTip>().text = "Health: " + pet.health + " / " + pet.healthMax;
+            healthSlider.GetComponent<UIShowToolTip>().text = "Health: " + pet.Health + " / " + pet.HealthMax;
 
             experienceSlider.value = pet.ExperiencePercent();
             experienceSlider.GetComponent<UIShowToolTip>().text = "Experience: " + pet.experience + " / " + pet.experienceMax;

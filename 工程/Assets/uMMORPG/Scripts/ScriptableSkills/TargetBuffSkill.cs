@@ -13,18 +13,18 @@ public class TargetBuffSkill : BuffSkill
     Entity CorrectedTarget(Entity caster)
     {
         // targeting nothing? then try to cast on self
-        if (caster.target == null)
+        if (caster.Target == null)
             return canBuffSelf ? caster : null;
 
         // targeting self?
-        if (caster.target == caster)
+        if (caster.Target == caster)
             return canBuffSelf ? caster : null;
 
         // targeting someone of same type? buff them or self
-        if (caster.target.GetType() == caster.GetType())
+        if (caster.Target.GetType() == caster.GetType())
         {
             if (canBuffOthers)
-                return caster.target;
+                return caster.Target;
             else if (canBuffSelf)
                 return caster;
             else
@@ -32,10 +32,10 @@ public class TargetBuffSkill : BuffSkill
         }
 
         // targeting an enemy? buff them or self
-        if (caster.CanAttack(caster.target))
+        if (caster.CanAttack(caster.Target))
         {
             if (canBuffEnemies)
-                return caster.target;
+                return caster.Target;
             else if (canBuffSelf)
                 return caster;
             else
@@ -49,20 +49,20 @@ public class TargetBuffSkill : BuffSkill
     public override bool CheckTarget(Entity caster)
     {
         // correct the target
-        caster.target = CorrectedTarget(caster);
+        caster.Target = CorrectedTarget(caster);
 
         // can only buff the target if it's not dead
-        return caster.target != null && caster.target.health > 0;
+        return caster.Target != null && caster.Target.Health > 0;
     }
 
     // (has corrected target already)
     public override bool CheckDistance(Entity caster, int skillLevel, out Vector2 destination)
     {
         // target still around?
-        if (caster.target != null)
+        if (caster.Target != null)
         {
-            destination = caster.target.collider.ClosestPointOnBounds(caster.transform.position);
-            return Utils.ClosestDistance(caster.collider, caster.target.collider) <= castRange.Get(skillLevel);
+            destination = caster.Target.collider.ClosestPointOnBounds(caster.transform.position);
+            return Utils.ClosestDistance(caster.collider, caster.Target.collider) <= castRange.Get(skillLevel);
         }
         destination = caster.transform.position;
         return false;
@@ -73,13 +73,13 @@ public class TargetBuffSkill : BuffSkill
     {
         // note: caster already has the corrected target because we returned it in StartCast
         // can't buff dead people
-        if (caster.target != null && caster.target.health > 0)
+        if (caster.Target != null && caster.Target.Health > 0)
         {
             // add buff or replace if already in there
-            caster.target.AddOrRefreshBuff(new Buff(this, skillLevel));
+            caster.Target.AddOrRefreshBuff(new Buff(this, skillLevel));
 
             // show effect on target
-            SpawnEffect(caster, caster.target);
+            SpawnEffect(caster, caster.Target);
         }
     }
 }

@@ -47,15 +47,15 @@ public partial class Npc : Entity
         base.OnStartServer();
 
         // all npcs should spawn with full health and mana
-        health = healthMax;
-        mana = manaMax;
+        Health = HealthMax;
+        Mind = MindMax;
 
         // addon system hooks
         Utils.InvokeMany(GetType(), this, "OnStartServer_");
     }
 
     // finite state machine states /////////////////////////////////////////////
-    [Server] protected override string UpdateServer() { return state; }
+    [Server] protected override string UpdateServer() { return State; }
     [Client]
     [Obsolete]
     protected override void UpdateClient()

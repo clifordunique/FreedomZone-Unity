@@ -59,27 +59,27 @@ public partial class UICharacterInfo : MonoBehaviour
     {
         if (panel.activeSelf)
         {
-            damageText.text = entity.damage.ToString();
-            defenseText.text = entity.defense.ToString();
-            healthText.text = entity.healthMax.ToString();
-            manaText.text = entity.manaMax.ToString();
-            criticalChanceText.text = (entity.criticalChance * 100).ToString("F0") + "%";
-            blockChanceText.text = (entity.blockChance * 100).ToString("F0") + "%";
-            speedText.text = entity.speed.ToString();
+            damageText.text = entity.Strength.ToString();
+            defenseText.text = entity.Defense.ToString();
+            healthText.text = entity.HealthMax.ToString();
+            manaText.text = entity.MindMax.ToString();
+            criticalChanceText.text = (entity.CriticalChance * 100).ToString("F0") + "%";
+            blockChanceText.text = (entity.BlockChance * 100).ToString("F0") + "%";
+            speedText.text = entity.Speed.ToString();
             levelText.text = entity.level.ToString();
 
             if (entity.GetType() == typeof(Player))
             {
                 Player player = (Player)entity;
-                currentExperienceText.text = player.experience.ToString();
-                maximumExperienceText.text = player.experienceMax.ToString();
+                currentExperienceText.text = player.Experience.ToString();
+                maximumExperienceText.text = player.ExperienceMax.ToString();
                 skillExperienceText.text = player.skillExperience.ToString();
 
-                strengthText.text = player.strength.ToString();
+                strengthText.text = player.healthAdditional.ToString();
                 strengthButton.interactable = player.AttributesSpendable() > 0;
                 strengthButton.onClick.SetListener(() => { player.CmdIncreaseStrength(); });
 
-                intelligenceText.text = player.intelligence.ToString();
+                intelligenceText.text = player.intelligenceAdditional.ToString();
                 intelligenceButton.interactable = player.AttributesSpendable() > 0;
                 intelligenceButton.onClick.SetListener(() => { player.CmdIncreaseIntelligence(); });
             }

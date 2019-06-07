@@ -52,16 +52,16 @@ public class TargetProjectileSkill : DamageSkill
     public override bool CheckTarget(Entity caster)
     {
         // target exists, alive, not self, oktype?
-        return caster.target != null && caster.CanAttack(caster.target);
+        return caster.Target != null && caster.CanAttack(caster.Target);
     }
 
     public override bool CheckDistance(Entity caster, int skillLevel, out Vector2 destination)
     {
         // target still around?
-        if (caster.target != null)
+        if (caster.Target != null)
         {
-            destination = caster.target.collider.ClosestPointOnBounds(caster.transform.position);
-            return Utils.ClosestDistance(caster.collider, caster.target.collider) <= castRange.Get(skillLevel);
+            destination = caster.Target.collider.ClosestPointOnBounds(caster.transform.position);
+            return Utils.ClosestDistance(caster.collider, caster.Target.collider) <= castRange.Get(skillLevel);
         }
         destination = caster.transform.position;
         return false;
@@ -69,19 +69,15 @@ public class TargetProjectileSkill : DamageSkill
 
     public override void Apply(Entity caster, int skillLevel)
     {
-        // consume ammo if needed
+        //消耗弹药
         ConsumeRequiredWeaponsAmmo(caster);
 
-        // spawn the skill effect. this can be used for anything ranging from
-        // blood splatter to arrows to chain lightning.
-        // -> we need to call an RPC anyway, it doesn't make much of a diff-
-        //    erence if we use NetworkServer.Spawn for everything.
-        // -> we try to spawn it at the weapon's projectile mount
+        //显示技能效果
         if (projectile != null)
         {
-            GameObject go = Instantiate(projectile.gameObject, caster.effectMount.position, caster.effectMount.rotation);
+            GameObject go = Instantiate(projectile.gameObject, caster.EffectMount.position, caster.EffectMount.rotation);
             ProjectileSkillEffect effect = go.GetComponent<ProjectileSkillEffect>();
-            effect.target = caster.target;
+            effect.target = caster.Target;
             effect.caster = caster;
             effect.damage = damage.Get(skillLevel);
             effect.stunChance = stunChance.Get(skillLevel);

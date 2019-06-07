@@ -59,7 +59,7 @@ public partial struct Skill
     public float castTime => data.castTime.Get(level);
     public float cooldown => data.cooldown.Get(level);
     public float castRange => data.castRange.Get(level);
-    public int manaCosts => data.manaCosts.Get(level);
+    public int mindCosts => data.mindCosts.Get(level);
     public bool followupDefaultAttack => data.followupDefaultAttack;
     public Sprite image => data.image;
     public bool learnDefault => data.learnDefault;

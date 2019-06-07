@@ -8,9 +8,11 @@ public class EquipmentItem : UsableItem
     [Header("Equipment")]
     public string category;
     public int healthBonus;
-    public int manaBonus;
+    public int mindBonus;
+    public int powerBonus;
     public int damageBonus;
     public int defenseBonus;
+    public int intelligenceBonus;
     [Range(0, 1)] public float blockChanceBonus;
     [Range(0, 1)] public float criticalChanceBonus;
 
@@ -61,10 +63,15 @@ public class EquipmentItem : UsableItem
     {
         StringBuilder tip = new StringBuilder(base.ToolTip());
         tip.Replace("{CATEGORY}", category);
+
+        tip.Replace("{HEALTHBONUS}", healthBonus.ToString());
+        tip.Replace("{MANABONUS}", mindBonus.ToString());
+        tip.Replace("{体力加成}", powerBonus.ToString());
+
         tip.Replace("{DAMAGEBONUS}", damageBonus.ToString());
         tip.Replace("{DEFENSEBONUS}", defenseBonus.ToString());
-        tip.Replace("{HEALTHBONUS}", healthBonus.ToString());
-        tip.Replace("{MANABONUS}", manaBonus.ToString());
+        tip.Replace("{智慧加成}", intelligenceBonus.ToString());
+
         tip.Replace("{BLOCKCHANCEBONUS}", Mathf.RoundToInt(blockChanceBonus * 100).ToString());
         tip.Replace("{CRITICALCHANCEBONUS}", Mathf.RoundToInt(criticalChanceBonus * 100).ToString());
         return tip.ToString();

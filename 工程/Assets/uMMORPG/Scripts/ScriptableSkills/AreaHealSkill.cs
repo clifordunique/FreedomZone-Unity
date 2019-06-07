@@ -11,7 +11,7 @@ public class AreaHealSkill : HealSkill
     {
         // no target necessary, but still set to self so that LookAt(target)
         // doesn't cause the player to look at a target that doesn't even matter
-        caster.target = caster;
+        caster.Target = caster;
         return true;
     }
 
@@ -35,7 +35,7 @@ public class AreaHealSkill : HealSkill
         {
             Entity candidate = co.GetComponentInParent<Entity>();
             if (candidate != null &&
-                candidate.health > 0 && // can't heal dead people
+                candidate.Health > 0 && // can't heal dead people
                 candidate.GetType() == caster.GetType()) // only on same type
             {
                 candidates.Add(candidate);
@@ -45,8 +45,8 @@ public class AreaHealSkill : HealSkill
         // apply to all candidates
         foreach (Entity candidate in candidates)
         {
-            candidate.health += healsHealth.Get(skillLevel);
-            candidate.mana += healsMana.Get(skillLevel);
+            candidate.Health += healsHealth.Get(skillLevel);
+            candidate.Mind += healsMana.Get(skillLevel);
 
             // show effect on candidate
             SpawnEffect(caster, candidate);

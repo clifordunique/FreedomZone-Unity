@@ -12,7 +12,7 @@ public partial class UIRespawn : MonoBehaviour
     {
         Player player = Player.localPlayer;
 
-        if (player != null && player.health == 0)
+        if (player != null && player.Health == 0)
         {
             panel.SetActive(true);
             button.onClick.SetListener(() => { player.CmdRespawn(); });
