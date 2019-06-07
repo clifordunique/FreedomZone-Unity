@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 114202398674343234}
   - component: {fileID: 114828805264073220}
   m_Layer: 0
-  m_Name: Blessing
+  m_Name: "\u795D\u798F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
@@ -49,7 +49,7 @@ MonoBehaviour:
   serverOnly: 0
   localPlayerAuthority: 0
   m_AssetId: 
-  m_SceneId: 536178623
+  m_SceneId: 4066509238
 --- !u!212 &212660835987482984
 SpriteRenderer:
   m_ObjectHideFlags: 0

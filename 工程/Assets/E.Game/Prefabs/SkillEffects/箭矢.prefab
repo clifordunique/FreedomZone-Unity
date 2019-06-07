@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 114941114663955406}
   - component: {fileID: 114726659603648916}
   m_Layer: 0
-  m_Name: Arrow
+  m_Name: "\u7BAD\u77E2"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   serverOnly: 0
   localPlayerAuthority: 0
   m_AssetId: 
-  m_SceneId: 2118938806
+  m_SceneId: 4161240347
 --- !u!114 &114941114663955406
 MonoBehaviour:
   m_ObjectHideFlags: 0

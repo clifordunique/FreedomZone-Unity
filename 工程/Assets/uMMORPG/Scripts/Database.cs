@@ -116,9 +116,15 @@ public partial class Database : MonoBehaviour
                             y REAL NOT NULL,
                             level INTEGER NOT NULL,
                             health INTEGER NOT NULL,
-                            mana INTEGER NOT NULL,
-                            strength INTEGER NOT NULL,
-                            intelligence INTEGER NOT NULL,
+                            mind INTEGER NOT NULL,
+                            power INTEGER NOT NULL,
+                            healthAdd INTEGER NOT NULL,
+                            mindAdd INTEGER NOT NULL,
+                            powerAdd INTEGER NOT NULL,
+                            strengthAdd INTEGER NOT NULL,
+                            defenseAdd INTEGER NOT NULL,
+                            runSpeedMultipleAdd INTEGER NOT NULL,
+                            intelligenceAdd INTEGER NOT NULL,
                             experience INTEGER NOT NULL,
                             skillExperience INTEGER NOT NULL,
                             gold INTEGER NOT NULL,
@@ -545,6 +551,7 @@ public partial class Database : MonoBehaviour
             {
                 GameObject go = Instantiate(prefab.gameObject);
                 Player player = go.GetComponent<Player>();
+                Debug.Log("读取到的存档中数据数量：" + mainrow.Count);
 
                 player.name               = (string)mainrow[0];
                 player.account            = (string)mainrow[1];
@@ -553,16 +560,18 @@ public partial class Database : MonoBehaviour
                 float y                   = (float)mainrow[4];
 
                 player.level              = Convert.ToInt32((long)mainrow[5]);
+
                 float health              = (long)mainrow[6];
                 float mind                = (long)mainrow[7];
                 float power               = (long)mainrow[8];
-                player.healthAdditional   = Convert.ToInt32((long)mainrow[9]);
-                player.mindAdditional     = Convert.ToInt32((long)mainrow[10]);
-                player.powerAdditional    = Convert.ToInt32((long)mainrow[11]);
+
+                player.healthAdditional = Convert.ToInt32((long)mainrow[9]);
+                player.mindAdditional = Convert.ToInt32((long)mainrow[10]);
+                player.powerAdditional = Convert.ToInt32((long)mainrow[11]);
                 player.strengthAdditional = Convert.ToInt32((long)mainrow[12]);
-                player.defenseAdditional  = Convert.ToInt32((long)mainrow[13]);
+                player.defenseAdditional = Convert.ToInt32((long)mainrow[13]);
                 player.runSpeedMultipleAdditional = Convert.ToInt32((long)mainrow[14]);
-                player.intelligenceAdditional     = Convert.ToInt32((long)mainrow[15]);
+                player.intelligenceAdditional = Convert.ToInt32((long)mainrow[15]);
 
                 player.Experience         = (long)mainrow[16];
                 player.skillExperience    = (long)mainrow[17];
@@ -710,7 +719,7 @@ public partial class Database : MonoBehaviour
         // only use a transaction if not called within SaveMany transaction
         if (useTransaction) ExecuteNonQuery("BEGIN");
 
-        ExecuteNonQuery("INSERT OR REPLACE INTO characters VALUES (@name, @account, @class, @x, @y, @level, @health, @mind, @healthAdditional, @intelligenceAdditional, @experience, @skillExperience, @gold, @coins, @online, @lastsaved, 0)",
+        ExecuteNonQuery("INSERT OR REPLACE INTO characters VALUES (@name, @account, @class, @x, @y, @level, @health, @mind, @power, @healthAdd, @mindAdd, @powerAdd, @strengthAdd, @defenseAdd, @runSpeedMultipleAdd, @intelligenceAdd, @experience, @skillExperience, @gold, @coins, @online, @lastsaved, 0)",
                         new SqliteParameter("@name", player.name),
                         new SqliteParameter("@account", player.account),
                         new SqliteParameter("@class", player.className),
@@ -720,13 +729,13 @@ public partial class Database : MonoBehaviour
                         new SqliteParameter("@health", player.Health),
                         new SqliteParameter("@mind", player.Mind),
                         new SqliteParameter("@power", player.Power),
-                        new SqliteParameter("@healthAdditional", player.healthAdditional),
-                        new SqliteParameter("@mindAdditional", player.mindAdditional),
-                        new SqliteParameter("@powerAdditional", player.powerAdditional),
-                        new SqliteParameter("@strengthAdditional", player.strengthAdditional),
-                        new SqliteParameter("@defenseAdditional", player.defenseAdditional),
-                        new SqliteParameter("@runSpeedMultipleAdditional", player.runSpeedMultipleAdditional),
-                        new SqliteParameter("@intelligenceAdditional", player.intelligenceAdditional),
+                        new SqliteParameter("@healthAdd", player.healthAdditional),
+                        new SqliteParameter("@mindAdd", player.mindAdditional), 
+                        new SqliteParameter("@powerAdd",  player.powerAdditional),
+                        new SqliteParameter("@strengthAdd", player.strengthAdditional),
+                        new SqliteParameter("@defenseAdd", player.defenseAdditional),
+                        new SqliteParameter("@runSpeedMultipleAdd", player.runSpeedMultipleAdditional),
+                        new SqliteParameter("@intelligenceAdd", player.intelligenceAdditional),
                         new SqliteParameter("@experience", player.Experience),
                         new SqliteParameter("@skillExperience", player.skillExperience),
                         new SqliteParameter("@gold", player.Money),

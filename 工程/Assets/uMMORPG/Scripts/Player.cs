@@ -143,7 +143,7 @@ public partial class Player : Entity
     {
         get
         {
-            return base.PowerMax + runSpeedMultipleAdditional;
+            return base.RunSpeedMultiple + runSpeedMultipleAdditional;
         }
     }
     public override int Intelligence
@@ -154,7 +154,7 @@ public partial class Player : Entity
                                   where slot.amount > 0
                                   select ((EquipmentItem)slot.item.data).intelligenceBonus).Sum();
 
-            return base.Defense + equipmentBonus + intelligenceAdditional;
+            return base.Intelligence + equipmentBonus + intelligenceAdditional;
         }
     }
 
@@ -1326,7 +1326,7 @@ public partial class Player : Entity
             //    level, so it's best if the player gets exp and level-ups
             //    first, then afterwards we try to level up the pet.
             if (ActivePet != null)
-                ActivePet.experience += BalanceExpReward(monster.rewardExperience, ActivePet.level, monster.level);
+                ActivePet.Experience += BalanceExpReward(monster.rewardExperience, ActivePet.level, monster.level);
 
             // increase quest kill counter for all party members
             if (InParty())
@@ -3083,21 +3083,24 @@ public partial class Player : Entity
                 // we will slide
                 agent.ResetMovement();
 
-                //跑步
-                int f = 1;
+                //是否跑步
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    f = RunSpeedMultiple;
+                    currentSpeed = Speed * RunSpeedMultiple;
+                }
+                else
+                {
+                    currentSpeed = Speed;
                 }
                 // casting? then set pending velocity
                 if (State == "CASTING")
                 {
-                    pendingVelocity = direction * Speed * f;
+                    pendingVelocity = direction * currentSpeed;
                     pendingVelocityValid = true;
                 }
                 else
                 {
-                    agent.velocity = direction * Speed * f;
+                    agent.velocity = direction * currentSpeed;
                 }
 
                 // clear requested skill in any case because if we clicked

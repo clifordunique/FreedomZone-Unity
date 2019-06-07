@@ -10,31 +10,30 @@ public partial class Pet : Summonable
     public TextMesh ownerNameOverlay;
 
     [Header("Experience")] // note: int is not enough (can have > 2 mil. easily)
-    public int maxLevel = 1;
-    [SyncVar, SerializeField] long _experience = 0;
-    public long experience
+    [SyncVar, SerializeField] long experience = 0;
+    public long Experience
     {
-        get { return _experience; }
+        get { return experience; }
         set
         {
-            if (value <= _experience)
+            if (value <= experience)
             {
                 // decrease
-                _experience = Math.Max(value, 0);
+                experience = Math.Max(value, 0);
             }
             else
             {
                 // increase with level ups
                 // set the new value (which might be more than expMax)
-                _experience = value;
+                experience = value;
 
                 // now see if we leveled up (possibly more than once too)
                 // (can't level up if already max level)
                 // (can only level up to owner level so he can still summon it.)
-                while (_experience >= experienceMax && level < maxLevel && level < owner.level)
+                while (experience >= ExperienceMax && level < maxLevel && level < owner.level)
                 {
                     // subtract current level's required exp, then level up
-                    _experience -= experienceMax;
+                    experience -= ExperienceMax;
                     ++level;
 
                     // keep player's pet item up to date
@@ -45,14 +44,14 @@ public partial class Pet : Summonable
                 }
 
                 // set to expMax if there is still too much exp remaining
-                if (_experience > experienceMax) _experience = experienceMax;
+                if (experience > ExperienceMax) experience = ExperienceMax;
             }
         }
     }
 
     // required experience grows by 10% each level (like Runescape)
-    [SerializeField] protected ExponentialLong _experienceMax = new ExponentialLong{multiplier=100, baseValue=1.1f};
-    public long experienceMax { get { return _experienceMax.Get(level); } }
+    [SerializeField] protected ExponentialLong experienceMax = new ExponentialLong{multiplier=100, baseValue=1.1f};
+    public long ExperienceMax { get { return experienceMax.Get(level); } }
 
     [Header("Movement")]
     public float returnDistance = 5; // return to player if dist > ...
@@ -85,7 +84,7 @@ public partial class Pet : Summonable
     {
         // pet also has experience, unlike summonable. sync that too.
         slot = base.SyncStateToItemSlot(slot);
-        slot.item.summonedExperience = experience;
+        slot.item.summonedExperience = Experience;
         return slot;
     }
 
@@ -640,7 +639,7 @@ public partial class Pet : Summonable
 
     // experience //////////////////////////////////////////////////////////////
     public float ExperiencePercent() {
-        return (experience != 0 && experienceMax != 0) ? (float)experience / (float)experienceMax : 0;
+        return (Experience != 0 && ExperienceMax != 0) ? (float)Experience / (float)ExperienceMax : 0;
     }
 
     // aggro ///////////////////////////////////////////////////////////////////

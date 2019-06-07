@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 114756905955995456}
   - component: {fileID: 82499746442397728}
   m_Layer: 11
-  m_Name: Baby Sapling
+  m_Name: "\u5C0F\u6811\u82D7"
   m_TagString: Pet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,7 +446,7 @@ MonoBehaviour:
   serverOnly: 0
   localPlayerAuthority: 0
   m_AssetId: 
-  m_SceneId: 2821191099
+  m_SceneId: 3864249015
 --- !u!212 &212100246418578002
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -600,48 +600,73 @@ MonoBehaviour:
   animator: {fileID: 95318507263515734}
   collider: {fileID: 58708499328608610}
   audioSource: {fileID: 82499746442397728}
-  _state: IDLE
+  state: IDLE
+  lookDirection: {x: 0, y: -1}
   lastCombatTime: 0
+  inSafeZone: 0
+  maxLevel: 4
   level: 1
-  _healthMax:
-    baseValue: 100
-    bonusPerLevel: 10
   invincible: 0
+  healthMax:
+    baseValue: 10
+    bonusPerLevel: 0
   healthRecovery: 1
-  _healthRecoveryRate:
+  healthRecoveryRate:
+    baseValue: 0.00001
+    bonusPerLevel: 0
+  mindMax:
+    baseValue: 10
+    bonusPerLevel: 0
+  mindRecovery: 1
+  mindRecoveryRate:
+    baseValue: 0.001
+    bonusPerLevel: 0
+  powerMax:
+    baseValue: 10
+    bonusPerLevel: 0
+  powerRecovery: 1
+  powerRecoveryRate:
+    baseValue: 0.01
+    bonusPerLevel: 0
+  strength:
     baseValue: 1
     bonusPerLevel: 0
-  _manaMax:
-    baseValue: 0
-    bonusPerLevel: 0
-  manaRecovery: 0
-  _manaRecoveryRate:
+  defense:
     baseValue: 1
     bonusPerLevel: 0
-  _damage:
-    baseValue: 1
-    bonusPerLevel: 1
-  _defense:
-    baseValue: 1
-    bonusPerLevel: 1
-  _blockChance:
-    baseValue: 0
+  speed:
+    baseValue: 2
     bonusPerLevel: 0
-  _criticalChance:
-    baseValue: 0
-    bonusPerLevel: 0
-  _speed:
+  runSpeedMultiple:
     baseValue: 3
     bonusPerLevel: 0
+  intelligence:
+    baseValue: 1
+    bonusPerLevel: 0
+  blockChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  criticalChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  money: 0
   damagePopupPrefab: {fileID: 179236, guid: e81ebbaa55e254e31b9909cef04e3855, type: 3}
   skillTemplates:
   - {fileID: 11400000, guid: 7e24399e4df35402ba7bc26193ae3f4f, type: 2}
   currentSkill: -1
-  _effectMount: {fileID: 4339297944359994}
-  _gold: 0
-  stunnedOverlay: {fileID: 102668619609018180}
-  inSafeZone: 0
-  lookDirection: {x: 0, y: -1}
+  effectMount: {fileID: 0}
+  panName: {fileID: 0}
+  panGuild: {fileID: 0}
+  guildPrefix: '['
+  guildSuffix: ']'
+  panStunned: {fileID: 0}
+  panDialog: {fileID: 0}
+  dialogContent: 
+  panQuestMark: {fileID: 0}
+  clrDefault: {r: 1, g: 1, b: 1, a: 1}
+  clrOffender: {r: 1, g: 0, b: 1, a: 1}
+  clrMurderer: {r: 1, g: 0, b: 0, a: 1}
+  clrParty: {r: 0.341, g: 0.965, b: 0.702, a: 1}
   ownerNameOverlay: {fileID: 102385918810107318}
   maxLevel: 4
   _experience: 0

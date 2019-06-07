@@ -563,7 +563,7 @@ MonoBehaviour:
   serverOnly: 0
   localPlayerAuthority: 0
   m_AssetId: 
-  m_SceneId: 3981949025
+  m_SceneId: 3489029652
 --- !u!212 &212307643813772112
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -718,39 +718,56 @@ MonoBehaviour:
   animator: {fileID: 95285503367757758}
   collider: {fileID: 58458078561927908}
   audioSource: {fileID: 82079193383261124}
-  _state: IDLE
+  state: IDLE
+  lookDirection: {x: 0, y: -1}
   lastCombatTime: 0
+  inSafeZone: 0
+  maxLevel: 4
   level: 1
-  _healthMax:
-    baseValue: 100
-    bonusPerLevel: 10
   invincible: 0
+  healthMax:
+    baseValue: 10
+    bonusPerLevel: 0
   healthRecovery: 1
-  _healthRecoveryRate:
+  healthRecoveryRate:
+    baseValue: 0.00001
+    bonusPerLevel: 0
+  mindMax:
+    baseValue: 10
+    bonusPerLevel: 0
+  mindRecovery: 1
+  mindRecoveryRate:
+    baseValue: 0.001
+    bonusPerLevel: 0
+  powerMax:
+    baseValue: 10
+    bonusPerLevel: 0
+  powerRecovery: 1
+  powerRecoveryRate:
+    baseValue: 0.01
+    bonusPerLevel: 0
+  strength:
     baseValue: 1
     bonusPerLevel: 0
-  _manaMax:
-    baseValue: 100
-    bonusPerLevel: 10
-  manaRecovery: 1
-  _manaRecoveryRate:
+  defense:
     baseValue: 1
     bonusPerLevel: 0
-  _damage:
-    baseValue: 1
-    bonusPerLevel: 1
-  _defense:
-    baseValue: 1
-    bonusPerLevel: 1
-  _blockChance:
-    baseValue: 0.2
-    bonusPerLevel: 0.01
-  _criticalChance:
-    baseValue: 0
+  speed:
+    baseValue: 2
     bonusPerLevel: 0
-  _speed:
+  runSpeedMultiple:
     baseValue: 3
     bonusPerLevel: 0
+  intelligence:
+    baseValue: 1
+    bonusPerLevel: 0
+  blockChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  criticalChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  money: 0
   damagePopupPrefab: {fileID: 179236, guid: e81ebbaa55e254e31b9909cef04e3855, type: 3}
   skillTemplates:
   - {fileID: 11400000, guid: e8c70712f354d410990baff8084c6869, type: 2}
@@ -759,8 +776,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8787f5fcf36d147f4a81923ba2e80eb9, type: 2}
   - {fileID: 11400000, guid: 048820e847e6f481ebe913901407b12c, type: 2}
   currentSkill: -1
-  _effectMount: {fileID: 4637076039056732}
-  _gold: 0
+  effectMount: {fileID: 0}
   panName: {fileID: 1129356754104400542}
   panGuild: {fileID: 5600189202568400476}
   guildPrefix: '['
@@ -773,8 +789,6 @@ MonoBehaviour:
   clrOffender: {r: 1, g: 0, b: 1, a: 1}
   clrMurderer: {r: 1, g: 0, b: 0, a: 1}
   clrParty: {r: 0.341, g: 0.965, b: 0.702, a: 1}
-  inSafeZone: 0
-  lookDirection: {x: 0, y: -1}
   chat: {fileID: 114438020945256178}
   avatarCamera: {fileID: 20925768905277832}
   rubberbanding: {fileID: 114502432644699358}
@@ -782,12 +796,16 @@ MonoBehaviour:
   portraitIcon: {fileID: 21300000, guid: 6478ee7ee492b4e6fbde7bfc84dc223e, type: 3}
   account: 
   className: 
-  strength: 0
-  intelligence: 0
-  maxLevel: 4
-  _experience: 0
-  _experienceMax:
-    multiplier: 100
+  healthAdditional: 0
+  mindAdditional: 0
+  powerAdditional: 0
+  strengthAdditional: 0
+  defenseAdditional: 0
+  runSpeedMultipleAdditional: 0
+  intelligenceAdditional: 0
+  experience: 0
+  experienceMax:
+    multiplier: 10
     baseValue: 10
   skillExperience: 0
   indicatorPrefab: {fileID: 1415353125337104, guid: 34a489ea6a9bf4d09a676e1822ca80b8,
@@ -877,6 +895,7 @@ MonoBehaviour:
   targetNearestKey: 9
   localPlayerClickThrough: 1
   cancelActionKey: 27
+  attackToMoveRangeRatio: 0.8
   offenderBuff: {fileID: 11400000, guid: 1428e0c0ce75b4eb387eb15ef6d8f147, type: 2}
   murdererBuff: {fileID: 11400000, guid: e2fb925463fdc4e4e8a13a692c37022b, type: 2}
   tradeRequestFrom: 
@@ -901,7 +920,6 @@ MonoBehaviour:
   guildInviteWaitSeconds: 3
   partyInviteFrom: 
   partyInviteWaitSeconds: 3
-  attackToMoveRangeRatio: 0.8
   deathExperienceLossPercent: 0.05
   nextRiskyActionTime: 0
 --- !u!114 &114438020945256178

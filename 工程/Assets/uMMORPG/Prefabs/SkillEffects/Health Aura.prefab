@@ -49,7 +49,7 @@ MonoBehaviour:
   serverOnly: 0
   localPlayerAuthority: 0
   m_AssetId: 
-  m_SceneId: 2208330427
+  m_SceneId: 2535788802
 --- !u!212 &212565807475512060
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -221,6 +221,7 @@ public abstract partial class Entity : NetworkBehaviour
             return runSpeedMultiple.Get(level);
         }
     }
+    [SerializeField, ReadOnly] protected int currentSpeed = 0;
 
     [Header("【智慧】")]
     [SerializeField] protected LinearInt intelligence = new LinearInt { baseValue = 1 };

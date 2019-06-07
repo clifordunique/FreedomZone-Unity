@@ -26,7 +26,7 @@ public class PetItem : SummonableItem
         pet.owner = player;
         pet.Health = slot.item.summonedHealth;
         pet.level = slot.item.summonedLevel;
-        pet.experience = slot.item.summonedExperience;
+        pet.Experience = slot.item.summonedExperience;
 
         NetworkServer.Spawn(go);
         player.ActivePet = go.GetComponent<Pet>(); // set syncvar to go after spawning
