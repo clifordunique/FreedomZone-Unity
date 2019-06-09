@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f97670c6ee91364db70c30c7ae3e066, type: 3}
+  m_Name: "\u9762\u5305"
+  m_EditorClassIdentifier: 
+  m_IsSurveyable: 1
+  m_IsPickable: 1
+  m_IsDestructible: 1
+  m_IsContainer: 0
+  m_IsIndividual: 1
+  m_Prefab: {fileID: 1013527653619396, guid: bc43adea6651fa84898166b9e53dbd25, type: 3}
+  m_Icon: {fileID: 21300000, guid: b6f139b9cd675d044973f8755508048a, type: 3}
+  m_InteractorName: "\u9762\u5305"
+  m_Describe: "\u4E00\u79CD\u5E38\u89C1\u7684\u9762\u7C89\u5236\u54C1"
+  m_Price: 5
+  m_HealthMax: 50
+  m_CapacityMax: 0
+  m_LoadMax: 0
+  m_Component: []
+  m_HealthNow: 50
+  m_Size: 1
+  m_Mass: 0.2
+  m_CarryingItems: []
+  m_CapacityUsedNow: 0
+  m_LoadUsedNow: 0

@@ -1,0 +1,343 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "浮泽世界",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAFF+qBtyKM79qY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Main",
+					"defaultDiagram": true,
+					"ownedViews": [
+						{
+							"_type": "UMLClassView",
+							"_id": "AAAAAAFnJaZLKXfV20I=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"model": {
+								"$ref": "AAAAAAFnJaX18XeJ/g8="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAFnJaZLKXfWLj8=",
+									"_parent": {
+										"$ref": "AAAAAAFnJaZLKXfV20I="
+									},
+									"model": {
+										"$ref": "AAAAAAFnJaX18XeJ/g8="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFnJaZLKXfXnAY=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfWLj8="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 28,
+											"top": 28,
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFnJaZLKXfYq0U=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfWLj8="
+											},
+											"font": "Arial;13;1",
+											"left": 301,
+											"top": 231,
+											"width": 107.3134765625,
+											"height": 13,
+											"text": "PlayerModel"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFnJaZLKXfZSrk=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfWLj8="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 28,
+											"top": 28,
+											"width": 73.67724609375,
+											"height": 13,
+											"text": "(from Model)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFnJaZLKXfa2gU=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfWLj8="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"left": 315,
+											"top": 260,
+											"width": 41.919921875,
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 296,
+									"top": 224,
+									"width": 117.3134765625,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFnJaZLKXfXnAY="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAFnJaZLKXfYq0U="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAFnJaZLKXfZSrk="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFnJaZLKXfa2gU="
+									}
+								},
+								{
+									"_type": "UMLAttributeCompartmentView",
+									"_id": "AAAAAAFnJaZLKXfbCSc=",
+									"_parent": {
+										"$ref": "AAAAAAFnJaZLKXfV20I="
+									},
+									"model": {
+										"$ref": "AAAAAAFnJaX18XeJ/g8="
+									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFnJdDSOngLWAM=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfbCSc="
+											},
+											"model": {
+												"$ref": "AAAAAAFnJdDR8XgInd4="
+											},
+											"font": "Arial;13;0",
+											"left": 301,
+											"top": 254,
+											"width": 107.3134765625,
+											"height": 13,
+											"text": "+PlayerID",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFnJdE5tHgSQ0Y=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfbCSc="
+											},
+											"model": {
+												"$ref": "AAAAAAFnJdE5a3gP3Gg="
+											},
+											"font": "Arial;13;0",
+											"left": 301,
+											"top": 269,
+											"width": 107.3134765625,
+											"height": 13,
+											"text": "+PlayerName",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFnmO7Qs6O9/dw=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfbCSc="
+											},
+											"model": {
+												"$ref": "AAAAAAFnmO7QhKO6om8="
+											},
+											"font": "Arial;13;0",
+											"left": 301,
+											"top": 284,
+											"width": 107.3134765625,
+											"height": 13,
+											"text": "+FirstLogin",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFnmO8QvaPE6t8=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfbCSc="
+											},
+											"model": {
+												"$ref": "AAAAAAFnmO8QlqPByP8="
+											},
+											"font": "Arial;13;0",
+											"left": 301,
+											"top": 299,
+											"width": 107.3134765625,
+											"height": 13,
+											"text": "+LastLogin",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFnmPAxtaPPUgc=",
+											"_parent": {
+												"$ref": "AAAAAAFnJaZLKXfbCSc="
+											},
+											"model": {
+												"$ref": "AAAAAAFnmPAxjaPMyCg="
+											},
+											"font": "Arial;13;0",
+											"left": 301,
+											"top": 314,
+											"width": 107.3134765625,
+											"height": 13,
+											"text": "+TotalOnline",
+											"horizontalAlignment": 0
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 296,
+									"top": 249,
+									"width": 117.3134765625,
+									"height": 83
+								},
+								{
+									"_type": "UMLOperationCompartmentView",
+									"_id": "AAAAAAFnJaZLKXfcxaM=",
+									"_parent": {
+										"$ref": "AAAAAAFnJaZLKXfV20I="
+									},
+									"model": {
+										"$ref": "AAAAAAFnJaX18XeJ/g8="
+									},
+									"font": "Arial;13;0",
+									"left": 296,
+									"top": 332,
+									"width": 117.3134765625,
+									"height": 10
+								},
+								{
+									"_type": "UMLReceptionCompartmentView",
+									"_id": "AAAAAAFnJaZLKXfdNeE=",
+									"_parent": {
+										"$ref": "AAAAAAFnJaZLKXfV20I="
+									},
+									"model": {
+										"$ref": "AAAAAAFnJaX18XeJ/g8="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 14,
+									"top": 14,
+									"width": 10,
+									"height": 10
+								},
+								{
+									"_type": "UMLTemplateParameterCompartmentView",
+									"_id": "AAAAAAFnJaZLKXfe5do=",
+									"_parent": {
+										"$ref": "AAAAAAFnJaZLKXfV20I="
+									},
+									"model": {
+										"$ref": "AAAAAAFnJaX18XeJ/g8="
+									},
+									"visible": false,
+									"font": "Arial;13;0",
+									"left": 14,
+									"top": 14,
+									"width": 10,
+									"height": 10
+								}
+							],
+							"font": "Arial;13;0",
+							"containerChangeable": true,
+							"left": 296,
+							"top": 224,
+							"width": 117.3134765625,
+							"height": 118,
+							"nameCompartment": {
+								"$ref": "AAAAAAFnJaZLKXfWLj8="
+							},
+							"attributeCompartment": {
+								"$ref": "AAAAAAFnJaZLKXfbCSc="
+							},
+							"operationCompartment": {
+								"$ref": "AAAAAAFnJaZLKXfcxaM="
+							},
+							"receptionCompartment": {
+								"$ref": "AAAAAAFnJaZLKXfdNeE="
+							},
+							"templateParameterCompartment": {
+								"$ref": "AAAAAAFnJaZLKXfe5do="
+							}
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAFnJaX18XeJ/g8=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "PlayerModel",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFnJdDR8XgInd4=",
+							"_parent": {
+								"$ref": "AAAAAAFnJaX18XeJ/g8="
+							},
+							"name": "PlayerID"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFnJdE5a3gP3Gg=",
+							"_parent": {
+								"$ref": "AAAAAAFnJaX18XeJ/g8="
+							},
+							"name": "PlayerName"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFnmO7QhKO6om8=",
+							"_parent": {
+								"$ref": "AAAAAAFnJaX18XeJ/g8="
+							},
+							"name": "FirstLogin"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFnmO8QlqPByP8=",
+							"_parent": {
+								"$ref": "AAAAAAFnJaX18XeJ/g8="
+							},
+							"name": "LastLogin"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFnmPAxjaPMyCg=",
+							"_parent": {
+								"$ref": "AAAAAAFnJaX18XeJ/g8="
+							},
+							"name": "TotalOnline"
+						}
+					]
+				}
+			]
+		}
+	],
+	"author": "E"
+}
