@@ -9,12 +9,12 @@ using E.Utility;
 
 public partial class Entity
 {
-
-    void Awake_E() {}
+    //void Awake_E() { }
     void OnEnable()
     {
         if (panName != null)
         {
+            //设置角色名字显示模式
             switch (UIManager.Singleton.entityInfoDisplayMode)
             {
                 case UIManager.EntityInfoDisplayMode.AlwaysShow:
@@ -37,13 +37,12 @@ public partial class Entity
             }
         }
     }
-    void Update_E(){}
-    void OnStartServer_E() {}
-    [Server] void DealDamageAt_E(Entity entity, int amount) {}
-    [Client] void OnDamageReceived_E(int amount, DamageType damageType) {}
-    [Server] void OnDeath_E() {}
-
-
+    //void Update_E(){}
+    //void OnStartServer_E() {}
+    //[Server] void DealDamageAt_E(Entity entity, int amount) {}
+    //[Client] void OnDamageReceived_E(int amount, DamageType damageType) {}
+    //[Server] void OnDeath_E() {}
+    
     private void OnMouseEnter()
     {
         GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.8f, 0.8f);
@@ -92,21 +91,19 @@ public partial class Entity
 public partial class NetworkManagerMMO
 {
     public GameState gameState;
-
-
-    void Start_E() { }
-    void OnStartServer_E() { }
-    void OnStopServer_E() { }
-    void OnClientConnect_E(NetworkConnection conn) { }
-    void OnServerLogin_E(LoginMsg message) { }
-    void OnClientCharactersAvailable_E(CharactersAvailableMsg message) { }
-    void OnServerAddPlayer_E(string account, GameObject player, NetworkConnection conn, AddPlayerMessage message) { }
-    void OnServerCharacterCreate_E(CharacterCreateMsg message, Player player) { }
-    void OnServerCharacterDelete_E(CharacterDeleteMsg message) { }
-    void OnServerDisconnect_E(NetworkConnection conn) { }
-    void OnClientDisconnect_E(NetworkConnection conn) { }
-
-
+    
+    //void Start_E() { }
+    //void OnStartServer_E() { }
+    //void OnStopServer_E() { }
+    //void OnClientConnect_E(NetworkConnection conn) { }
+    //void OnServerLogin_E(LoginMsg message) { }
+    //void OnClientCharactersAvailable_E(CharactersAvailableMsg message) { }
+    //void OnServerAddPlayer_E(string account, GameObject player, NetworkConnection conn, AddPlayerMessage message) { }
+    //void OnServerCharacterCreate_E(CharacterCreateMsg message, Player player) { }
+    //void OnServerCharacterDelete_E(CharacterDeleteMsg message) { }
+    //void OnServerDisconnect_E(NetworkConnection conn) { }
+    //void OnClientDisconnect_E(NetworkConnection conn) { }
+    
     public enum GameState
     {
         Loading,
