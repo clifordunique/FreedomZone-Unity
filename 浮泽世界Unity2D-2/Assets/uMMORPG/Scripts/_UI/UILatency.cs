@@ -4,7 +4,7 @@ using Mirror;
 
 namespace E.Game
 {
-    public class UILatency : UIBase
+    public class UILatency : MonoBehaviour
     {
         public Text latencyText;
 

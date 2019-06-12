@@ -1,4 +1,4 @@
-// Unity only calculates 'n' navmesh pathfinding iterations per frame. The
+﻿// Unity only calculates 'n' navmesh pathfinding iterations per frame. The
 // default value of 100 is fine for small projects, but an MMO with huge amounts
 // of agents will require more iterations per frame to avoid movement delays.
 //
@@ -18,7 +18,7 @@ public class NavMeshPathfindingIterationsPerFrame : MonoBehaviour
 
     void Awake()
     {
-        print("设置每帧的NavMesh寻路迭代次数从 " + NavMesh.pathfindingIterationsPerFrame + " 到 " + iterations);
+        print("Setting NavMesh Pathfinding Iterations Per Frame from " + NavMesh.pathfindingIterationsPerFrame + " to " + iterations);
         NavMesh.pathfindingIterationsPerFrame = iterations;
     }
 }

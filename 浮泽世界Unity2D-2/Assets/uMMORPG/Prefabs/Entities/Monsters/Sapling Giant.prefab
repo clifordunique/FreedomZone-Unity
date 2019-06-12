@@ -382,10 +382,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverOnly: 0
-  localPlayerAuthority: 0
-  m_AssetId: 
-  m_SceneId: 369991779
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+  m_AssetId: 477adec992c3c4377970ce3f90d06675
+  m_SceneId: 0
 --- !u!212 &212100246418578002
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -539,73 +539,47 @@ MonoBehaviour:
   animator: {fileID: 95318507263515734}
   collider: {fileID: 58708499328608610}
   audioSource: {fileID: 82075154709326552}
-  state: IDLE
-  lookDirection: {x: 0, y: -1}
-  lastCombatTime: 0
-  inSafeZone: 0
-  maxLevel: 1
+  _state: IDLE
   level: 1
+  _healthMax:
+    baseValue: 160
+    bonusPerLevel: 0
   invincible: 0
-  healthMax:
-    baseValue: 10
-    bonusPerLevel: 0
   healthRecovery: 1
-  healthRecoveryRate:
-    baseValue: 0.00001
-    bonusPerLevel: 0
-  mindMax:
-    baseValue: 10
-    bonusPerLevel: 0
-  mindRecovery: 1
-  mindRecoveryRate:
-    baseValue: 0.001
-    bonusPerLevel: 0
-  powerMax:
-    baseValue: 10
-    bonusPerLevel: 0
-  powerRecovery: 1
-  powerRecoveryRate:
-    baseValue: 0.01
-    bonusPerLevel: 0
-  strength:
+  _healthRecoveryRate:
     baseValue: 1
     bonusPerLevel: 0
-  defense:
+  _manaMax:
+    baseValue: 30
+    bonusPerLevel: 0
+  manaRecovery: 0
+  _manaRecoveryRate:
     baseValue: 1
     bonusPerLevel: 0
-  speed:
+  _damage:
+    baseValue: 50
+    bonusPerLevel: 0
+  _defense:
+    baseValue: 10
+    bonusPerLevel: 0
+  _blockChance:
+    baseValue: 0
+    bonusPerLevel: 0
+  _criticalChance:
+    baseValue: 0.5
+    bonusPerLevel: 0
+  _speed:
     baseValue: 2
     bonusPerLevel: 0
-  runSpeedMultiple:
-    baseValue: 3
-    bonusPerLevel: 0
-  intelligence:
-    baseValue: 1
-    bonusPerLevel: 0
-  blockChance:
-    baseValue: 0
-    bonusPerLevel: 0
-  criticalChance:
-    baseValue: 0
-    bonusPerLevel: 0
-  money: 0
   damagePopupPrefab: {fileID: 179236, guid: e81ebbaa55e254e31b9909cef04e3855, type: 3}
   skillTemplates:
   - {fileID: 11400000, guid: 55c456369c23f491db63594f97f7b8fa, type: 2}
   currentSkill: -1
-  effectMount: {fileID: 0}
-  panName: {fileID: 0}
-  panGuild: {fileID: 0}
-  guildPrefix: '['
-  guildSuffix: ']'
-  panStunned: {fileID: 0}
-  panDialog: {fileID: 0}
-  dialogContent: 
-  panQuestMark: {fileID: 0}
-  clrDefault: {r: 1, g: 1, b: 1, a: 1}
-  clrOffender: {r: 1, g: 0, b: 1, a: 1}
-  clrMurderer: {r: 1, g: 0, b: 0, a: 1}
-  clrParty: {r: 0.341, g: 0.965, b: 0.702, a: 1}
+  _effectMount: {fileID: 4339297944359994}
+  _gold: 0
+  stunnedOverlay: {fileID: 102385918810107318}
+  inSafeZone: 0
+  lookDirection: {x: 0, y: -1}
   moveProbability: 0.2
   moveDistance: 6
   followDistance: 10

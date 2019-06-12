@@ -205,7 +205,7 @@ public partial struct Quest
 // database ////////////////////////////////////////////////////////////////////
 public partial class Database
 {
-    void Initialize_Example()
+    void Connect_Example()
     {
         // it's usually best to create an extra table for your addon. example:
         //ExecuteNonQuery(@"CREATE TABLE IF NOT EXISTS example (

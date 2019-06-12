@@ -562,10 +562,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverOnly: 0
-  localPlayerAuthority: 0
-  m_AssetId: 
-  m_SceneId: 492657601
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+  m_AssetId: 8b4dd7850385ccb45b87b83a84a4ad4a
+  m_SceneId: 0
 --- !u!212 &212307643813772112
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -721,7 +721,6 @@ MonoBehaviour:
   collider: {fileID: 58458078561927908}
   audioSource: {fileID: 82079193383261124}
   _state: IDLE
-  lastCombatTime: 0
   level: 1
   _healthMax:
     baseValue: 100
@@ -786,8 +785,8 @@ MonoBehaviour:
   maxLevel: 4
   _experience: 0
   _experienceMax:
-    multiplier: 100
     baseValue: 10
+    bonusPerLevel: 10
   skillExperience: 0
   indicatorPrefab: {fileID: 1415353125337104, guid: 34a489ea6a9bf4d09a676e1822ca80b8,
     type: 3}
@@ -896,6 +895,7 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 7c79c11de18f2441c88df3e38606ccda, type: 2}
   coins: 0
   couponWaitSeconds: 3
+  guildName: 
   guildInviteFrom: 
   guildInviteWaitSeconds: 3
   partyInviteFrom: 
@@ -1219,10 +1219,9 @@ Camera:
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
+  m_GateFitMode: 2
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2

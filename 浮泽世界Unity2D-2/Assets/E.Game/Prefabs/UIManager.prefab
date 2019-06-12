@@ -4193,8 +4193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1794c31702a0448e085ef766a2f2a273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 114
   panel: {fileID: 822305137209867915}
+  hotKey: 114
   slotPrefab: {fileID: 114763234018988344, guid: 499615dc942954df3a501059adab9262,
     type: 3}
   content: {fileID: 822305136708769486}
@@ -10885,7 +10885,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Message
+  m_Text: Disconnected.
 --- !u!1 &822305136039062741
 GameObject:
   m_ObjectHideFlags: 0
@@ -14404,8 +14404,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a1a3b254b7ca47d0b49631ddccd27d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 113
   panel: {fileID: 822305137245996923}
+  hotKey: 113
   content: {fileID: 822305137388190627}
   slotPrefab: {fileID: 114581274115082628, guid: 523341064aa6a4650bc512fe93752b72,
     type: 3}
@@ -15831,7 +15831,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1332}
   m_SizeDelta: {x: 260, y: 10}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &822305136250462091
@@ -20462,8 +20462,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11a626ec1854463caa68aaba30ffe2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 120
   panel: {fileID: 822305135815385583}
+  hotKey: 120
   categorySlotPrefab: {fileID: 114211806386149246, guid: 5366cd841abb54e3cb2f47b3bbb7311d,
     type: 3}
   categoryContent: {fileID: 822305136478831582}
@@ -21518,8 +21518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf10881d50ff45ec93655e548223b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 105
   panel: {fileID: 822305136233882091}
+  hotKey: 105
   slotPrefab: {fileID: 114075261892402862, guid: fe25bab38867c41dd8562025769a8b9c,
     type: 3}
   content: {fileID: 822305135815979313}
@@ -21783,8 +21783,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5499aa27c44431a8b4cc4920dd013f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 99
   panel: {fileID: 822305136224618861}
+  hotKey: 99
   ingredientSlotPrefab: {fileID: 114041017982653056, guid: f2df70ab9569e4a3caf749ef389fd4dc,
     type: 3}
   ingredientContent: {fileID: 822305136146762421}
@@ -22572,8 +22572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b3383ce70dc47f0b0ccb5a1f1df376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 101
   panel: {fileID: 822305137295843345}
+  hotKey: 101
   slotPrefab: {fileID: 114437474404965448, guid: dc39d3162d66c470fa525e646b286bee,
     type: 3}
   content: {fileID: 822305136560907056}
@@ -32004,8 +32004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9570149daf443cab3bd45ff34446c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 116
   panel: {fileID: 822305136755008547}
+  hotKey: 116
   damageText: {fileID: 822305136122246894}
   defenseText: {fileID: 822305137118805047}
   healthText: {fileID: 822305135714745428}
@@ -34182,8 +34182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cb80dba4f9dc4e259c5aa8741921f99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 112
   panel: {fileID: 822305135976523118}
+  hotKey: 112
   currentCapacityText: {fileID: 822305135919746401}
   maximumCapacityText: {fileID: 822305137701602558}
   slotPrefab: {fileID: 114077505131969210, guid: 6a2d8735fa3a14bce98ac00f526bde56,
@@ -40573,9 +40573,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc50cac6f9a354f5db256e68b456c541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 822305135733728755}
   uiCharacterCreation: {fileID: 822305136345965933}
   uiConfirmation: {fileID: 822305136862268684}
-  panel: {fileID: 822305135733728755}
   startButton: {fileID: 822305135883005243}
   deleteButton: {fileID: 822305136490601496}
   createButton: {fileID: 822305136657185078}
@@ -46534,8 +46534,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a015ce8f276b421bb92ec2360340c03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPopup: {fileID: 822305136405491870}
   panel: {fileID: 822305135726850468}
+  uiPopup: {fileID: 822305136405491870}
   statusText: {fileID: 822305136994828376}
   accountInput: {fileID: 822305137024665420}
   passwordInput: {fileID: 822305136925935251}
@@ -55671,8 +55671,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a903f30846e3a4a5aa4f0d366ea993af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hotKey: 103
   panel: {fileID: 822305136815326246}
+  hotKey: 103
   nameText: {fileID: 822305136565133254}
   masterText: {fileID: 822305136118949274}
   currentCapacityText: {fileID: 822305136269486411}
