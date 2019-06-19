@@ -1,0 +1,45 @@
+﻿using System.Text;
+using UnityEngine;
+using Mirror;
+
+[CreateAssetMenu(menuName= "E Item/坐骑", order = 5)]
+public class MountItem : SummonableItem
+{
+    // usage
+    public override bool CanUse(Player player, int inventoryIndex)
+    {
+        return base.CanUse(player, inventoryIndex) &&
+               (player.ActiveMount == null || player.ActiveMount.gameObject == player.inventory[inventoryIndex].item.summoned);
+    }
+
+    public override void Use(Player player, int inventoryIndex)
+    {
+        // always call base function too
+        base.Use(player, inventoryIndex);
+
+        // summon
+        if (player.ActiveMount == null)
+        {
+            // summon at player position
+            ItemSlot slot = player.inventory[inventoryIndex];
+            GameObject go = Instantiate(summonPrefab.gameObject, player.transform.position, player.transform.rotation);
+            Mount mount = go.GetComponent<Mount>();
+            mount.name = summonPrefab.name; // avoid "(Clone)"
+            mount.owner = player;
+            mount.Health = slot.item.summonedHealth;
+
+            NetworkServer.Spawn(go);
+            player.ActiveMount = go.GetComponent<Mount>(); // set syncvar to go after spawning
+
+            // set item summoned pet reference so we know it can't be sold etc.
+            slot.item.summoned = go;
+            player.inventory[inventoryIndex] = slot;
+        }
+        // unsummon
+        else
+        {
+            // destroy from world. item.summoned and activePet will be null.
+            NetworkServer.Destroy(player.ActiveMount.gameObject);
+        }
+    }
+}

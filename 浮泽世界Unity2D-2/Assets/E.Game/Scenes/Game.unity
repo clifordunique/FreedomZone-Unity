@@ -47501,7 +47501,7 @@ PrefabInstance:
     - target: {fileID: 822305137585916293, guid: 2065acc7123c5484991558c82cec94f5,
         type: 3}
       propertyPath: m_Name
-      value: UIManager
+      value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 822305137585916289, guid: 2065acc7123c5484991558c82cec94f5,
         type: 3}
@@ -48232,7 +48232,7 @@ PrefabInstance:
     - target: {fileID: 3135017763196590131, guid: ead3f7d736bf3ac499cee1ad32bef85d,
         type: 3}
       propertyPath: m_Name
-      value: CameraManager
+      value: Camera2D
       objectReference: {fileID: 0}
     - target: {fileID: 3135017763196590130, guid: ead3f7d736bf3ac499cee1ad32bef85d,
         type: 3}

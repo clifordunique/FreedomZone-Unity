@@ -658,7 +658,7 @@ MonoBehaviour:
   serverOnly: 0
   localPlayerAuthority: 0
   m_AssetId: 
-  m_SceneId: 369385016
+  m_SceneId: 0
 --- !u!212 &212293974572567764
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -869,6 +869,7 @@ MonoBehaviour:
   runSpeedMultiple:
     baseValue: 3
     bonusPerLevel: 0
+  currentSpeed: 0
   intelligence:
     baseValue: 5
     bonusPerLevel: 0
@@ -920,64 +921,60 @@ MonoBehaviour:
   indicator: {fileID: 0}
   inventorySize: 30
   defaultItems:
-  - item: {fileID: 11400000, guid: d3348cb9f78edf74ebdf4562a5733759, type: 2}
-    amount: 10
-  - item: {fileID: 11400000, guid: cf183f237f571bf4d8af017c132d05e0, type: 2}
-    amount: 10
-  - item: {fileID: 11400000, guid: bc84d6d7e3379d941b5694169d3b889c, type: 2}
-    amount: 5
-  - item: {fileID: 11400000, guid: 7f89de329f721f94882bab86e2ee7cee, type: 2}
-    amount: 3
+  - Item: {fileID: 11400000, guid: d3348cb9f78edf74ebdf4562a5733759, type: 2}
+    Amount: 1
+  - Item: {fileID: 11400000, guid: cf183f237f571bf4d8af017c132d05e0, type: 2}
+    Amount: 1
   inventorySplitKeys: 300100002f010000
   trash:
     item:
-      hash: 0
       summoned: {fileID: 0}
       summonedHealth: 0
       summonedLevel: 0
       summonedExperience: 0
+      Hash: 0
     amount: 0
   equipmentInfo:
   - requiredCategory: Weapon
     location: {fileID: 114128691416174258}
     defaultItem:
-      item: {fileID: 11400000, guid: c2766a7ff74b94ddcb7b5dbf12b433a9, type: 2}
-      amount: 1
+      Item: {fileID: 0}
+      Amount: 0
   - requiredCategory: Head
     location: {fileID: 114128245362295418}
     defaultItem:
-      item: {fileID: 0}
-      amount: 0
+      Item: {fileID: 0}
+      Amount: 0
   - requiredCategory: Chest
     location: {fileID: 114541782386516508}
     defaultItem:
-      item: {fileID: 0}
-      amount: 0
+      Item: {fileID: 0}
+      Amount: 0
   - requiredCategory: Legs
     location: {fileID: 114307188850208848}
     defaultItem:
-      item: {fileID: 0}
-      amount: 0
+      Item: {fileID: 0}
+      Amount: 0
   - requiredCategory: Ammo
     location: {fileID: 0}
     defaultItem:
-      item: {fileID: 11400000, guid: 4dc493627ec434f5dadf44c28f65c795, type: 2}
-      amount: 500
+      Item: {fileID: 0}
+      Amount: 0
   - requiredCategory: Shoulders
     location: {fileID: 114811266627514562}
     defaultItem:
-      item: {fileID: 0}
-      amount: 0
+      Item: {fileID: 0}
+      Amount: 0
   - requiredCategory: Hands
     location: {fileID: 114472768097116582}
     defaultItem:
-      item: {fileID: 0}
-      amount: 0
+      Item: {fileID: 0}
+      Amount: 0
   - requiredCategory: Feet
     location: {fileID: 114944323255977258}
     defaultItem:
-      item: {fileID: 0}
-      amount: 0
+      Item: {fileID: 0}
+      Amount: 0
   skillbar:
   - reference: 
     hotKey: 49

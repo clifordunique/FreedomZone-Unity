@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6278966895035493787}
   - component: {fileID: 6278966894451251321}
   - component: {fileID: 6278966894451251320}
-  - component: {fileID: 6278966894451251327}
   - component: {fileID: 6278966894451251324}
   m_Layer: 0
   m_Name: NetworkManager
@@ -114,7 +113,7 @@ MonoBehaviour:
   OnClientDataReceived:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Mirror.UnityEventByteArray, Mirror, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Mirror.UnityEventArraySegment, Mirror, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   OnClientError:
     m_PersistentCalls:
@@ -133,7 +132,7 @@ MonoBehaviour:
   OnServerDataReceived:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: Mirror.UnityEventIntByteArray, Mirror, Version=0.0.0.0, Culture=neutral,
+    m_TypeName: Mirror.UnityEventIntArraySegment, Mirror, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   OnServerError:
     m_PersistentCalls:
@@ -160,21 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da3cf03c51ae5478ba91e7318f7e6cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  databaseFile: 1.database
---- !u!114 &6278966894451251327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6278966894451251325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e51506a3a4b245d9a60419b73240ad9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recommended: 2018.3.6f1
-  download: https://unity3d.com/unity/qa/lts-releases
+  databaseFile: 0.database
 --- !u!114 &6278966894451251324
 MonoBehaviour:
   m_ObjectHideFlags: 0
