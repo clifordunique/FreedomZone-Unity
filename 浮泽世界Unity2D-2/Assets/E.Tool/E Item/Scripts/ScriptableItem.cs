@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using E.Utility;
 
 [CreateAssetMenu(menuName= "E Item/基础物品", order = 0)]
-public partial class ScriptableItem : ScriptableObject
+public partial class ScriptableItem : StaticScriptableObject<ScriptableItem>
 {
     [Header("【基本信息】")]
     [Tooltip("物品图标")] public Sprite image;
@@ -28,33 +29,6 @@ public partial class ScriptableItem : ScriptableObject
         tip.Replace("{购买价}", buyPrice.ToString());
         tip.Replace("{出售价}", sellPrice.ToString());
         return tip.ToString();
-    }
-
-    static Dictionary<int, ScriptableItem> cache;
-    public static Dictionary<int, ScriptableItem> Dict
-    {
-        get
-        {
-            // not loaded yet?
-            if (cache == null)
-            {
-                // get all ScriptableItems in resources
-                ScriptableItem[] items = Resources.LoadAll<ScriptableItem>("");
-
-                // check for duplicates, then add to cache
-                List<string> duplicates = items.ToList().FindDuplicates(item => item.name);
-                if (duplicates.Count == 0)
-                {
-                    cache = items.ToDictionary(item => item.name.GetStableHashCode(), item => item);
-                }
-                else
-                {
-                    foreach (string duplicate in duplicates)
-                        Debug.LogError("Resources文件夹包含多个同名的ScriptableItem{" + duplicate + "}，如果您使用的是'Warrior / Ring'和'Archer / Ring'等子文件夹，请将它们重命名为'Warrior /（Warrior）Ring'和'Archer /（Archer）Ring'。");
-                }
-            }
-            return cache;
-        }
     }
 
     // validation //////////////////////////////////////////////////////////////

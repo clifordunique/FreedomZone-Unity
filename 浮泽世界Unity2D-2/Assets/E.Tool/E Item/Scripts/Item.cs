@@ -19,9 +19,9 @@ public partial struct Item
     {
         get
         {
-            if (!ScriptableItem.Dict.ContainsKey(Hash))
+            if (!ScriptableItem.Dictionary.ContainsKey(Hash))
                 throw new KeyNotFoundException("哈希值{" + Hash + "}找不到对应ScriptableItem，确保所有ScriptableItem都在Resources文件夹中，以便正确加载它们。");
-            return ScriptableItem.Dict[Hash];
+            return ScriptableItem.Dictionary[Hash];
         }
     }
     public string Name => Data.name;

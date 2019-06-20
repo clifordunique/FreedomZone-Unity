@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using E.Utility;
 
-public abstract class ScriptableQuest : ScriptableObject
+public abstract class ScriptableQuest : StaticScriptableObject<ScriptableQuest>
 {
     [Header("通用")]
     [SerializeField, TextArea(1, 30)] protected string toolTip; // not public, use ToolTip()
@@ -38,32 +39,5 @@ public abstract class ScriptableQuest : ScriptableObject
         tip.Replace("{奖励经验}", rewardExperience.ToString());
         tip.Replace("{奖励物品}", rewardItem != null ? rewardItem.name : "");
         return tip.ToString();
-    }
-
-    static Dictionary<int, ScriptableQuest> cache;
-    public static Dictionary<int, ScriptableQuest> Dict
-    {
-        get
-        {
-            // not loaded yet?
-            if (cache == null)
-            {
-                // get all ScriptableQuests in resources
-                ScriptableQuest[] quests = Resources.LoadAll<ScriptableQuest>("");
-
-                // check for duplicates, then add to cache
-                List<string> duplicates = quests.ToList().FindDuplicates(quest => quest.name);
-                if (duplicates.Count == 0)
-                {
-                    cache = quests.ToDictionary(quest => quest.name.GetStableHashCode(), quest => quest);
-                }
-                else
-                {
-                    foreach (string duplicate in duplicates)
-                        Debug.LogError("Resources文件夹包含多个同名的ScriptableQuests{" + duplicate + "}，如果您使用的是'Warrior / BeginnerQuest'和'Archer / BeginnerQuest'等子文件夹，请将它们重命名为'Warrior /（Warrior）BeginnerQuest'和'Archer /（Archer）BeginnerQuest'。");
-                }
-            }
-            return cache;
-        }
     }
 }

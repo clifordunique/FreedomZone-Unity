@@ -15,17 +15,17 @@ namespace E.Tool
 {
     public class StoryMenuItemConfig : MonoBehaviour
     {
-        [MenuItem("Tools/E Story/创建故事树", false, 99)]
+        [MenuItem("Tools/E Story/创建故事树", false, 1)]
         public static void CreateStoryTreeAsset()
         {
             AssetCreator<StoryTree>.CreateAsset();
         }
-        [MenuItem("Tools/E Story/创建故事节点", false, 100)]
+        [MenuItem("Tools/E Story/创建故事节点", false, 2)]
         public static void CreateStoryNodeAsset()
         {
             AssetCreator<StoryNode>.CreateAsset();
         }
-        [MenuItem("Tools/E Story/创建节点内容", false, 101)]
+        [MenuItem("Tools/E Story/创建节点内容", false, 3)]
         public static void CreateStoryContentAsset()
         {
             AssetCreator<StoryContent>.CreateAsset();

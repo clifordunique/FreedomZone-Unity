@@ -345,7 +345,7 @@ namespace Mirror
             // OR into scene id
             m_SceneId = (m_SceneId & 0xFFFFFFFF) | shiftedHash;
 
-            // log it. this is incredibly useful to debug sceneId issues.
+            // 记录下来。这对调试sceneId问题非常有用。
             Debug.Log("角色{" + name + "} 位于场景 {" + gameObject.scene.name + "}" +
                 "\n场景文件路径哈希值 {" + pathHash.ToString("X") + "} 已添加进到场景文件哈希值 {" + m_SceneId.ToString("X") + "}");
         }

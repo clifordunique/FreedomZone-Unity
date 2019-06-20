@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public abstract partial class ScriptableSkill : ScriptableObject
+public abstract partial class ScriptableSkill : StaticScriptableObject<ScriptableSkill>
 {
     [Header("【基本信息】")]
     public Sprite image;
@@ -30,33 +30,6 @@ public abstract partial class ScriptableSkill : ScriptableObject
 
     [Header("【声音】")]
     public AudioClip castSound;
-
-    static Dictionary<int, ScriptableSkill> cache;
-    public static Dictionary<int, ScriptableSkill> Dict
-    {
-        get
-        {
-            // not loaded yet?
-            if (cache == null)
-            {
-                // get all ScriptableSkills in resources
-                ScriptableSkill[] skills = Resources.LoadAll<ScriptableSkill>("");
-
-                // check for duplicates, then add to cache
-                List<string> duplicates = skills.ToList().FindDuplicates(skill => skill.name);
-                if (duplicates.Count == 0)
-                {
-                    cache = skills.ToDictionary(skill => skill.name.GetStableHashCode(), skill => skill);
-                }
-                else
-                {
-                    foreach (string duplicate in duplicates)
-                        Debug.LogError("Resources文件夹包含多个同名的ScriptableSkills{" + duplicate + "}，如果您使用的是'Warrior / NormalAttack'和'Archer / NormalAttack'等子文件夹，请将它们重命名为'Warrior /（Warrior）NormalAttack'和'Archer /（Archer）NormalAttack'。");
-                }
-            }
-            return cache;
-        }
-    }
 
     public virtual bool CheckSelf(Entity caster, int skillLevel)
     {

@@ -383,7 +383,7 @@ namespace E.Tool
                 int slot = Convert.ToInt32((long)row[1]);
                 if (slot < player.inventorySize)
                 {
-                    if (ScriptableItem.Dict.TryGetValue(itemName.GetStableHashCode(), out ScriptableItem itemData))
+                    if (ScriptableItem.Dictionary.TryGetValue(itemName.GetStableHashCode(), out ScriptableItem itemData))
                     {
                         Item item = new Item(itemData);
                         int amount = Convert.ToInt32((long)row[2]);
@@ -413,7 +413,7 @@ namespace E.Tool
                 int slot = Convert.ToInt32((long)row[1]);
                 if (slot < player.equipmentInfo.Length)
                 {
-                    if (ScriptableItem.Dict.TryGetValue(itemName.GetStableHashCode(), out ScriptableItem itemData))
+                    if (ScriptableItem.Dictionary.TryGetValue(itemName.GetStableHashCode(), out ScriptableItem itemData))
                     {
                         Item item = new Item(itemData);
                         int amount = Convert.ToInt32((long)row[2]);
@@ -472,7 +472,7 @@ namespace E.Tool
             foreach (List<object> row in table)
             {
                 string buffName = (string)row[0];
-                if (ScriptableSkill.Dict.TryGetValue(buffName.GetStableHashCode(), out ScriptableSkill skillData))
+                if (ScriptableSkill.Dictionary.TryGetValue(buffName.GetStableHashCode(), out ScriptableSkill skillData))
                 {
                     // make sure that 1 <= level <= maxlevel (in case we removed a skill
                     // level etc)
@@ -496,7 +496,7 @@ namespace E.Tool
             foreach (List<object> row in table)
             {
                 string questName = (string)row[0];
-                if (ScriptableQuest.Dict.TryGetValue(questName.GetStableHashCode(), out ScriptableQuest questData))
+                if (ScriptableQuest.Dictionary.TryGetValue(questName.GetStableHashCode(), out ScriptableQuest questData))
                 {
                     Quest quest = new Quest(questData);
                     quest.progress = Convert.ToInt32((long)row[1]);

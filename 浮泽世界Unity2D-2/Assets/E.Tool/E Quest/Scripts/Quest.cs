@@ -47,9 +47,9 @@ public partial struct Quest
             // note: ScriptableQuest.OnValidate 'is in resource folder' check
             //       causes Unity SendMessage warnings and false positives.
             //       this solution is a lot better.
-            if (!ScriptableQuest.Dict.ContainsKey(hash))
+            if (!ScriptableQuest.Dictionary.ContainsKey(hash))
                 throw new KeyNotFoundException("There is no ScriptableQuest with hash=" + hash + ". Make sure that all ScriptableQuests are in the Resources folder so they are loaded properly.");
-            return ScriptableQuest.Dict[hash];
+            return ScriptableQuest.Dictionary[hash];
         }
     }
     public string name => data.name;

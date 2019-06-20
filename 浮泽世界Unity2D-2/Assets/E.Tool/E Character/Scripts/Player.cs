@@ -2393,7 +2393,7 @@ public partial class Player : Entity
                 List<ItemSlot> items = validIndices.Select(index => inventory[index]).ToList();
 
                 // find recipe
-                ScriptableRecipe recipe = ScriptableRecipe.Dict.Values.ToList().Find(r => r.CanCraftWith(items)); // good enough for now
+                ScriptableRecipe recipe = ScriptableRecipe.Dictionary.Values.ToList().Find(r => r.CanCraftWith(items)); // good enough for now
                 if (recipe != null && recipe.result != null)
                 {
                     // enough space?
@@ -2427,7 +2427,7 @@ public partial class Player : Entity
             List<ItemSlot> items = validIndices.Select(index => inventory[index]).ToList();
 
             // find recipe
-            ScriptableRecipe recipe = ScriptableRecipe.Dict.Values.ToList().Find(r => r.CanCraftWith(items)); // good enough for now
+            ScriptableRecipe recipe = ScriptableRecipe.Dictionary.Values.ToList().Find(r => r.CanCraftWith(items)); // good enough for now
             if (recipe != null && recipe.result != null)
             {
                 // enough space?

@@ -77,7 +77,7 @@ namespace E.Tool
                                  player.inventory[index].amount > 0
                     ).ToList();
                     List<ItemSlot> items = validIndices.Select(index => player.inventory[index]).ToList();
-                    ScriptableRecipe recipe = ScriptableRecipe.Dict.Values.ToList().Find(r => r.CanCraftWith(items)); // good enough for now
+                    ScriptableRecipe recipe = ScriptableRecipe.Dictionary.Values.ToList().Find(r => r.CanCraftWith(items)); // good enough for now
                     if (recipe != null)
                     {
                         // refresh valid recipe
