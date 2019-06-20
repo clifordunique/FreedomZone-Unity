@@ -48,7 +48,7 @@ namespace Mirror
             // by simple eating the first one before the server starts
             Telepathy.Server.NextConnectionId();
 
-            Debug.Log("TelepathyTransport initialized!");
+            Debug.Log("TelepathyTransport“—≥ı ºªØ");
         }
 
         // client

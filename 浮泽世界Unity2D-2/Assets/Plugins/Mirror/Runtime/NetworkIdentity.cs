@@ -327,17 +327,12 @@ namespace Mirror
             sceneIds[m_SceneId] = this;
         }
 
-        // copy scene path hash into sceneId for scene objects.
-        // this is the only way for scene file duplication to not contain
-        // duplicate sceneIds as it seems.
-        // -> sceneId before: 0x00000000AABBCCDD
-        // -> then we clear the left 4 bytes, so that our 'OR' uses 0x00000000
-        // -> then we OR the hash into the 0x00000000 part
-        // -> buildIndex is not enough, because Editor and Build have different
-        //    build indices if there are disabled scenes in build settings, and
-        //    if no scene is in build settings then Editor and Build have
-        //    different indices too (Editor=0, Build=-1)
-        // => ONLY USE THIS FROM POSTPROCESSSCENE!
+        //将场景路径哈希复制到场景对象的sceneId中。 
+        //这是场景文件复制的唯一方法，因为它看起来不包含重复的sceneIds。
+        //之前的sceneId：0x00000000AABBCCDD然后我们清除左边的4个字节，
+        //这样我们的'OR'使用0x00000000然后我们或者哈希进入0x00000000部分buildIndex是不够的，
+        //因为如果构建设置中有禁用的场景，编辑器和构建有不同的构建索引 ，
+        //如果构建设置中没有场景，那么编辑器和构建也有不同的索引（编辑器= 0，构建= -1）仅在POST过程场景中使用它！
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void SetSceneIdSceneHashPartInternal()
         {
@@ -351,7 +346,8 @@ namespace Mirror
             m_SceneId = (m_SceneId & 0xFFFFFFFF) | shiftedHash;
 
             // log it. this is incredibly useful to debug sceneId issues.
-            Debug.Log(name + " in scene=" + gameObject.scene.name + " scene index hash(" + pathHash.ToString("X") + ") copied into sceneId: " + m_SceneId.ToString("X"));
+            Debug.Log("角色{" + name + "} 位于场景 {" + gameObject.scene.name + "}" +
+                "\n场景文件路径哈希值 {" + pathHash.ToString("X") + "} 已添加进到场景文件哈希值 {" + m_SceneId.ToString("X") + "}");
         }
 
         void SetupIDs()

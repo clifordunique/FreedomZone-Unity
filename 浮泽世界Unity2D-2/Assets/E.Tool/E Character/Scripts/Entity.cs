@@ -29,7 +29,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using E.Utility;
-using E.Game;
+using E.Tool;
 
 public enum DamageType : byte { Normal, Block, Crit };
 

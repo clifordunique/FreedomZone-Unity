@@ -23,7 +23,7 @@ namespace E.Utility
             }
         }
 
-        public virtual void Awake()
+        protected virtual void Awake()
         {
             if (singleton == null)
             {

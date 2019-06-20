@@ -26,7 +26,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using E.Utility;
-using E.Game;
+using E.Tool;
 
 public enum TradeStatus : byte { Free, Locked, Accepted }
 public enum CraftingState : byte { None, InProgress, Success, Failed }
@@ -2561,7 +2561,7 @@ public partial class Player : Entity
     [Server]
     void ProcessCoinOrders()
     {
-        List<long> orders = Database.singleton.GrabCharacterOrders(name);
+        List<long> orders = Database.Singleton.GrabCharacterOrders(name);
         foreach (long reward in orders)
         {
             coins += reward;

@@ -10,8 +10,8 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using UnityEngine;
 using Mirror;
-using E.Game;
 using E.Utility;
+using E.Tool;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -181,7 +181,7 @@ public partial class NetworkManagerMMO : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        print("OnClientConnect");
+        print("客户端已连接");
 
         // setup handlers
         NetworkClient.RegisterHandler<CharactersAvailableMsg>(OnClientCharactersAvailable);
@@ -199,7 +199,7 @@ public partial class NetworkManagerMMO : NetworkManager
         string hash = Utils.PBKDF2Hash(loginPassword, passwordSalt + loginAccount);
         LoginMsg message = new LoginMsg{account=loginAccount, password=hash, version=Application.version};
         conn.Send(message);
-        print("login message was sent");
+        print("登录信息已发送");
 
         // set state
         state = NetworkState.Handshake;
@@ -229,8 +229,8 @@ public partial class NetworkManagerMMO : NetworkManager
     CharactersAvailableMsg MakeCharactersAvailableMessage(string account)
     {
         // load from database
-        List<Player> characters = Database.singleton.CharactersForAccount(account)
-                                    .Select(character => Database.singleton.CharacterLoad(character, GetPlayerClasses(), true))
+        List<Player> characters = Database.Singleton.CharactersForAccount(account)
+                                    .Select(character => Database.Singleton.CharacterLoad(character, GetPlayerClasses(), true))
                                     .Select(go => go.GetComponent<Player>())
                                     .ToList();
 
@@ -252,12 +252,12 @@ public partial class NetworkManagerMMO : NetworkManager
             if (IsAllowedAccountName(message.account))
             {
                 // validate account info
-                if (Database.singleton.TryLogin(message.account, message.password))
+                if (Database.Singleton.TryLogin(message.account, message.password))
                 {
                     // not in lobby and not in world yet?
                     if (!AccountLoggedIn(message.account))
                     {
-                        print("login successful: " + message.account);
+                        print("登入成功: " + message.account);
 
                         // add to logged in accounts
                         lobby[conn] = message.account;
@@ -267,7 +267,7 @@ public partial class NetworkManagerMMO : NetworkManager
                     }
                     else
                     {
-                        print("account already logged in: " + message.account);
+                        print("账户已登入 " + message.account);
                         ServerSendError(conn, "already logged in", true);
 
                         // note: we should disconnect the client here, but we can't as
@@ -278,19 +278,19 @@ public partial class NetworkManagerMMO : NetworkManager
                 }
                 else
                 {
-                    print("invalid account or password for: " + message.account);
+                    print("无效的账户或密码: " + message.account);
                     ServerSendError(conn, "invalid account", true);
                 }
             }
             else
             {
-                print("account name not allowed: " + message.account);
+                print("账户名称无效: " + message.account);
                 ServerSendError(conn, "account name not allowed", true);
             }
         }
         else
         {
-            print("version mismatch: " + message.account + " expected:" + Application.version + " received: " + message.version);
+            print("版本不匹配: " + message.account + " expected:" + Application.version + " received: " + message.version);
             ServerSendError(conn, "outdated version", true);
         }
     }
@@ -333,7 +333,7 @@ public partial class NetworkManagerMMO : NetworkManager
     void OnClientCharactersAvailable(NetworkConnection conn, CharactersAvailableMsg message)
     {
         charactersAvailableMsg = message;
-        print("characters available:" + charactersAvailableMsg.characters.Length);
+        print("存档中可用角色：" + charactersAvailableMsg.characters.Length);
 
         // set state
         state = NetworkState.Lobby;
@@ -351,7 +351,7 @@ public partial class NetworkManagerMMO : NetworkManager
             if (prefab != null)
                 LoadPreview(prefab.gameObject, selectionLocations[i], i, character);
             else
-                Debug.LogWarning("Character Selection: no prefab found for class " + character.className);
+                Debug.LogWarning("没有找到对应类名的预制体 " + character.className);
         }
 
         // setup camera
@@ -375,7 +375,7 @@ public partial class NetworkManagerMMO : NetworkManager
                 //  no netMsg.conn key)
                 int index = BitConverter.ToInt32(message.value, 0);
                 string account = lobby[conn];
-                List<string> characters = Database.singleton.CharactersForAccount(account);
+                List<string> characters = Database.Singleton.CharactersForAccount(account);
 
                 // validate index
                 if (0 <= index && index < characters.Count)
@@ -383,7 +383,7 @@ public partial class NetworkManagerMMO : NetworkManager
                     print(account + " selected player " + characters[index]);
 
                     // load character data
-                    GameObject go = Database.singleton.CharacterLoad(characters[index], GetPlayerClasses(), false);
+                    GameObject go = Database.Singleton.CharacterLoad(characters[index], GetPlayerClasses(), false);
 
                     // add to client
                     NetworkServer.AddPlayerForConnection(conn, go);
@@ -438,10 +438,10 @@ public partial class NetworkManagerMMO : NetworkManager
             {
                 // not existant yet?
                 string account = lobby[conn];
-                if (!Database.singleton.CharacterExists(message.name))
+                if (!Database.Singleton.CharacterExists(message.name))
                 {
                     // not too may characters created yet?
-                    if (Database.singleton.CharactersForAccount(account).Count < characterLimit)
+                    if (Database.Singleton.CharactersForAccount(account).Count < characterLimit)
                     {
                         // valid class index?
                         List<Player> classes = GetPlayerClasses();
@@ -473,7 +473,7 @@ public partial class NetworkManagerMMO : NetworkManager
                             prefab.Mind = prefab.MindMax; // after equipment in case of boni
 
                             // save the player
-                            Database.singleton.CharacterSave(prefab, false);
+                            Database.Singleton.CharacterSave(prefab, false);
                             Destroy(prefab.gameObject);
 
                             // send available characters list again, causing
@@ -520,14 +520,14 @@ public partial class NetworkManagerMMO : NetworkManager
         if (lobby.ContainsKey(conn))
         {
             string account = lobby[conn];
-            List<string> characters = Database.singleton.CharactersForAccount(account);
+            List<string> characters = Database.Singleton.CharactersForAccount(account);
 
             // validate index
             if (0 <= message.value && message.value < characters.Count)
             {
                 // delete the character
                 print("delete character: " + characters[message.value]);
-                Database.singleton.CharacterDelete(characters[message.value]);
+                Database.Singleton.CharacterDelete(characters[message.value]);
 
                 // send the new character list to client
                 conn.Send(MakeCharactersAvailableMessage(account));
@@ -553,8 +553,8 @@ public partial class NetworkManagerMMO : NetworkManager
     // duplicates.
     void SavePlayers()
     {
-        Database.singleton.CharacterSaveMany(Player.onlinePlayers.Values);
-        if (Player.onlinePlayers.Count > 0) Debug.Log("saved " + Player.onlinePlayers.Count + " player(s)");
+        Database.Singleton.CharacterSaveMany(Player.onlinePlayers.Values);
+        if (Player.onlinePlayers.Count > 0) Debug.Log("已保存{" + Player.onlinePlayers.Count + "}个玩家的数据");
     }
 
     // stop/disconnect /////////////////////////////////////////////////////////
@@ -584,7 +584,7 @@ public partial class NetworkManagerMMO : NetworkManager
         // save player (if any)
         if (conn.playerController != null)
         {
-            Database.singleton.CharacterSave(conn.playerController.GetComponent<Player>(), false);
+            Database.Singleton.CharacterSave(conn.playerController.GetComponent<Player>(), false);
             print("saved:" + conn.playerController.name);
         }
         else print("no player to save for: " + conn);
@@ -635,7 +635,7 @@ public partial class NetworkManagerMMO : NetworkManager
         if (NetworkClient.isConnected)
         {
             StopClient();
-            print("OnApplicationQuit: stopped client");
+            print("应用退出时: 退出客户端");
         }
     }
 

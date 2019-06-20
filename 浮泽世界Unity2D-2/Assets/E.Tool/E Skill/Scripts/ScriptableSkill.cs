@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract partial class ScriptableSkill : ScriptableObject
 {
-    [Header("信息")]
+    [Header("【基本信息】")]
     public Sprite image;
     public bool followupDefaultAttack;
     public bool learnDefault; // normal attack etc.
@@ -14,21 +14,21 @@ public abstract partial class ScriptableSkill : ScriptableObject
     public bool cancelCastIfTargetDied; // direct hit may want to cancel if target died. buffs doesn't care. etc.
     [SerializeField, TextArea(1, 30)] protected string toolTip;
 
-    [Header("要求")]
+    [Header("【使用限制】")]
     public ScriptableSkill predecessor; // this skill has to be learned first
     public int predecessorLevel = 1; // level of predecessor skill that is required
     public string requiredWeaponCategory = ""; // "" = no weapon needed; "Weapon" = requires a weapon, "WeaponSword" = requires a sword weapon, etc.
     public LinearInt requiredLevel; // required player level
     public LinearLong requiredSkillExperience;
 
-    [Header("属性")]
+    [Header("【属性】")]
     public int maxLevel = 1;
     public LinearInt mindCosts;
     public LinearFloat castTime;
     public LinearFloat cooldown;
     public LinearFloat castRange;
 
-    [Header("声音")]
+    [Header("【声音】")]
     public AudioClip castSound;
 
     static Dictionary<int, ScriptableSkill> cache;

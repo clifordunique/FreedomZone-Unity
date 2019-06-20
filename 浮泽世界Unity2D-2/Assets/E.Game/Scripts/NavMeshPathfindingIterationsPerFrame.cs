@@ -18,7 +18,7 @@ public class NavMeshPathfindingIterationsPerFrame : MonoBehaviour
 
     void Awake()
     {
-        print("Setting NavMesh Pathfinding Iterations Per Frame from " + NavMesh.pathfindingIterationsPerFrame + " to " + iterations);
+        print("设置每帧的NavMesh路径查找迭代次数，从 {" + NavMesh.pathfindingIterationsPerFrame + "} 到 {" + iterations + "}");
         NavMesh.pathfindingIterationsPerFrame = iterations;
     }
 }
