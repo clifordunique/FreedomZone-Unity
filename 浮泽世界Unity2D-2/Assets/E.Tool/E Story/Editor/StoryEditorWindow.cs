@@ -8,7 +8,6 @@
 using UnityEngine;
 using UnityEditor;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using E.Utility;
 
@@ -16,19 +15,52 @@ namespace E.Tool
 {
     public class StoryEditorWindow : EditorWindow
     {
+        //运行数据
+        public static StoryEditorWindow instance;
+        private static StoryEditorConfig config;
+        private static List<ScriptableStory> storys;
         /// <summary>
         /// 窗口实例
         /// </summary>
-        public static StoryEditorWindow Instance;
+        public static StoryEditorWindow Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = GetWindow<StoryEditorWindow>();
+                }
+                return instance;
+            }
+        }
         /// <summary>
         /// 配置信息
         /// </summary>
-        public static StoryEditorConfig Config;
-
+        public static StoryEditorConfig Config
+        {
+            get
+            {
+                if (config == null)
+                {
+                    config = StoryEditorConfig.GetDictionaryValues()[0];
+                }
+                return config;
+            }
+        }
         /// <summary>
         /// 故事集和
         /// </summary>
-        private static List<ScriptableStory> Storys = new List<ScriptableStory>();
+        public static List<ScriptableStory> Storys
+        {
+            get
+            {
+                if (storys == null)
+                {
+                    storys = ScriptableStory.GetDictionaryValues();
+                }
+                return storys;
+            }
+        }
         /// <summary>
         /// 当前故事
         /// </summary>
@@ -46,6 +78,7 @@ namespace E.Tool
         /// </summary>
         private static StoryNode DownStoryNode;
 
+        //窗口样式
         /// <summary>
         /// 窗口尺寸
         /// </summary>
@@ -67,6 +100,7 @@ namespace E.Tool
         /// </summary>
         private static float Yoffset;
 
+
         //打开
         /// <summary>
         /// 打开窗口
@@ -74,11 +108,9 @@ namespace E.Tool
         [MenuItem("E Tool/E Story/打开编辑器窗口 %#w", false, 0)]
         public static void Open()
         {
-            //获取配置信息
-            Config = StoryEditorConfig.GetDictionaryValues()[0];
             //创建窗口
-            Instance = GetWindow<StoryEditorWindow>();
             Instance.titleContent = new GUIContent(StoryEditorConfig.WindowTitle);
+            Instance.wantsMouseMove = true;
             Reset();
             Refresh();
             //Show();
@@ -88,18 +120,18 @@ namespace E.Tool
         /// 打开故事
         /// </summary>
         /// <param name="story"></param>
-        private static void OpenStoryTree(ScriptableStory story)
+        private static void OpenStory(ScriptableStory story)
         {
             if (story != null)
             {
                 CurrentStory = story;
-                ClearStoryTreeNullNodes(CurrentStory);
+                ClearCurrentStoryNullNodes();
                 Selection.activeObject = CurrentStory;
-                Instance.ShowNotification(new GUIContent("故事打开成功：" + CurrentStory.name));
+                Instance.ShowNotification(new GUIContent("已打开故事：" + CurrentStory.name));
             }
             else
             {
-                Debug.LogError("故事打开失败：对象为空");
+                Debug.LogError("未打开故事：对象为空");
             }
         }
 
@@ -107,7 +139,7 @@ namespace E.Tool
         /// <summary>
         /// 关闭故事
         /// </summary>
-        private static void CloseStory()
+        private static void CloseCurrentStory()
         {
             CurrentStory = null;
         }
@@ -122,7 +154,7 @@ namespace E.Tool
             ScriptableStory story = AssetCreator<ScriptableStory>.CreateAsset(Config.StoryResourcesFolder, "Story");
             if (story != null)
             {
-                OpenStoryTree(story);
+                OpenStory(story);
                 AssetDatabase.Refresh();
             }
         }
@@ -148,7 +180,7 @@ namespace E.Tool
             }
             else
             {
-                Debug.LogWarning("你需要先打开一个故事才能为其创建故事节点");
+                Instance.ShowNotification(new GUIContent("未指定故事"));
             }
         }
         [MenuItem("E Tool/E Story/创建节点内容", false, 3)]
@@ -178,38 +210,34 @@ namespace E.Tool
         /// <summary>
         /// 删除故事
         /// </summary>
-        private static void DeleteStory(ScriptableStory story)
+        private static void DeleteCurrentStory()
         {
-            if (story == null)
+            if (CurrentStory != null)
             {
-                Instance.ShowNotification(new GUIContent("未指定要删除的故事"));
-            }
-            else
-            {
-                string str = "确认要删除故事 {" + story.name + "} 以及其所有节点吗？本地文件也将一并删除，这将无法恢复。";
+                string str = "确认要删除故事 {" + CurrentStory.name + "} 以及其所有节点吗？本地文件也将一并删除，这将无法恢复。";
                 if (EditorUtility.DisplayDialog("警告", str, "确认", "取消"))
                 {
-                    if (story.Nodes != null)
+                    if (CurrentStory.Nodes != null)
                     {
-                        for (int i = 0; i < story.Nodes.Count; i++)
+                        for (int i = 0; i < CurrentStory.Nodes.Count; i++)
                         {
-                            if (story.Nodes[i] != null)
+                            if (CurrentStory.Nodes[i] != null)
                             {
-                                DeleteStoryNode(story.Nodes[i], false);
+                                DeleteStoryNode(CurrentStory.Nodes[i], false);
                                 i--;
                             }
                         }
-                        Debug.Log("已删除所有 {" + story.name + "} 的故事节点");
+                        Debug.Log("已删除所有 {" + CurrentStory.name + "} 的故事节点");
                     }
-                    Storys.Remove(story);
-
-                    Selection.activeObject = story;
-                    string[] strs = Selection.assetGUIDs;
-                    string path = AssetDatabase.GUIDToAssetPath(strs[0]);
+                    string path = GetCurrentStoryPath();
                     AssetDatabase.DeleteAsset(path);
                     AssetDatabase.Refresh();
                     Debug.Log("已删除故事 {" + path + "}");
                 }
+            }
+            else
+            {
+                Instance.ShowNotification(new GUIContent("未指定故事"));
             }
         }
         /// <summary>
@@ -249,11 +277,9 @@ namespace E.Tool
         /// </summary>
         private static void Refresh()
         {
-            Instance.wantsMouseMove = true;
             ClearTempConnect();
+            RefreshStorys();
 
-            Storys.Clear();
-            Storys.AddRange(ScriptableStory.ReGetDictionary().Values);
             string names = "已载入故事 {";
             for (int i = 0; i < Storys.Count; i++)
             {
@@ -276,6 +302,13 @@ namespace E.Tool
                 Debug.Log("未找到任何故事，请确保其位于Resources文件夹内。");
                 CurrentStory = null;
             }
+        }
+        /// <summary>
+        /// 刷新故事结合
+        /// </summary>
+        private static void RefreshStorys()
+        {
+            storys = ScriptableStory.ReGetDictionaryValues();
         }
         /// <summary>
         /// 刷新鼠标坐标
@@ -386,6 +419,24 @@ namespace E.Tool
             }
         }
 
+        //获取
+        /// <summary>
+        /// 获取当前故事的路径
+        /// </summary>
+        /// <returns></returns>
+        private static string GetCurrentStoryPath()
+        {
+            if (CurrentStory != null)
+            {
+                UnityEngine.Object ob = Selection.activeObject;
+                Selection.activeObject = CurrentStory;
+                string[] strs = Selection.assetGUIDs;
+                Selection.activeObject = ob;
+                return AssetDatabase.GUIDToAssetPath(strs[0]);
+            }
+            else return null;
+        }
+
         //选择
         /// <summary>
         /// 选择故事节点
@@ -418,7 +469,7 @@ namespace E.Tool
                     CreateStoryNodeContent();
                     break;
                 case 4:
-                    DeleteStory(CurrentStory);
+                    DeleteCurrentStory();
                     break;
                 case 5:
                     ClearNodeUpChoices(CurrentStoryNode);
@@ -431,7 +482,7 @@ namespace E.Tool
                     DeleteStoryNode(CurrentStoryNode, true);
                     break;
                 case 8:
-                    CloseStory();
+                    CloseCurrentStory();
                     break;
                 case 9:
                     SetNodeType(CurrentStoryNode, StoryNodeType.起始节点);
@@ -444,7 +495,7 @@ namespace E.Tool
                     break;
 
                 default:
-                    Debug.LogError("此右键菜单无实现");
+                    Debug.LogError("此右键菜单无实现方法");
                     break;
             }
         }
@@ -574,31 +625,38 @@ namespace E.Tool
         /// <summary>
         /// 清除故事节点列表的空节点
         /// </summary>
-        private static void ClearStoryTreeNullNodes(ScriptableStory story)
+        private static void ClearCurrentStoryNullNodes()
         {
-            if (story.Nodes != null)
+            if (CurrentStory != null)
             {
-                //移除空位
-                for (int i = 0; i < story.Nodes.Count; i++)
+                if (CurrentStory.Nodes != null)
                 {
-                    if (story.Nodes[i] == null)
+                    //移除空位
+                    for (int i = 0; i < CurrentStory.Nodes.Count; i++)
                     {
-                        story.Nodes.RemoveAt(i);
-                        i--;
+                        if (CurrentStory.Nodes[i] == null)
+                        {
+                            CurrentStory.Nodes.RemoveAt(i);
+                            i--;
+                        }
+                    }
+                }
+                if (CurrentStory.EndNodes != null)
+                {
+                    //移除空位
+                    for (int i = 0; i < CurrentStory.EndNodes.Count; i++)
+                    {
+                        if (CurrentStory.EndNodes[i] == null)
+                        {
+                            CurrentStory.EndNodes.RemoveAt(i);
+                            i--;
+                        }
                     }
                 }
             }
-            if (story.EndNodes != null)
+            else
             {
-                //移除空位
-                for (int i = 0; i < story.EndNodes.Count; i++)
-                {
-                    if (story.EndNodes[i] == null)
-                    {
-                        story.EndNodes.RemoveAt(i);
-                        i--;
-                    }
-                }
+                Instance.ShowNotification(new GUIContent("未指定故事"));
             }
         }
         /// <summary>
@@ -732,7 +790,7 @@ namespace E.Tool
                 {
                     if (GUI.Button(new Rect(box.x + 5, box.y + 25 * i + 25, box.width - 10, 20), Storys[i].name))
                     {
-                        OpenStoryTree(Storys[i]);
+                        OpenStory(Storys[i]);
                     }
                 }
             }
@@ -742,12 +800,12 @@ namespace E.Tool
             EditorGUI.DrawRect(new Rect(0, Instance.position.height - 20, Instance.position.width, 20), Config.NormalNode);
             string mousePos = "X: " + MousePos.x + "  Y: " + MousePos.y;
             EditorGUI.LabelField(new Rect(5, Instance.position.height - 20, 110, 20), mousePos);
-            string currenStoryTreePath = "无";
-            if (CurrentStory != null)
+            string currenStoryPath = GetCurrentStoryPath();
+            if (currenStoryPath == null)
             {
-                currenStoryTreePath = Application.dataPath + /*Resources. +*/ "/" + CurrentStory.name + ".asset";
+                currenStoryPath = "无";
             }
-            EditorGUI.LabelField(new Rect(115, Instance.position.height - 20, Instance.position.width, 20), "当前打开的故事：" + currenStoryTreePath);
+            EditorGUI.LabelField(new Rect(115, Instance.position.height - 20, Instance.position.width, 20), "当前打开的故事：" + currenStoryPath);
         }
         /// <summary>
         /// 绘制右键菜单
@@ -780,18 +838,18 @@ namespace E.Tool
         /// 绘制故事
         /// </summary>
         /// <param name="storyTree"></param>
-        private static void DrawStory(ScriptableStory story)
+        private static void DrawStory()
         {
-            if (story != null)
+            if (CurrentStory != null)
             {
-                if (story.Nodes != null)
+                if (CurrentStory.Nodes != null)
                 {
-                    for (int i = 0; i < story.Nodes.Count; i++)
+                    for (int i = 0; i < CurrentStory.Nodes.Count; i++)
                     {
-                        int j = story.Nodes.Count - 1 - i;
-                        if (story.Nodes[j] != null)
+                        int j = CurrentStory.Nodes.Count - 1 - i;
+                        if (CurrentStory.Nodes[j] != null)
                         {
-                            DrawStoryNode(story.Nodes[j]);
+                            DrawStoryNode(CurrentStory.Nodes[j]);
                         }
                     }
                 }
@@ -1044,7 +1102,7 @@ namespace E.Tool
             DrawBG();
             DrawNodeCurve();
             DrawTempCurve();
-            DrawStory(CurrentStory);
+            DrawStory();
             GUI.EndScrollView();
 
             DrawFixedPanel();

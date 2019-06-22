@@ -15,7 +15,7 @@ MonoBehaviour:
   StoryResourcesFolder: Assets/E.Tool/E Story/Resources/Example Storys
   ViewWidth: 3000
   ViewHeight: 3000
-  DefaultNodeSize: {x: 250, y: 80}
+  DefaultNodeSize: {x: 250, y: 90}
   NormalNode: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   SelectNode: {r: 0.9, g: 0.85, b: 0.5, a: 1}
   MainLine: {r: 0, g: 0.7, b: 0, a: 1}

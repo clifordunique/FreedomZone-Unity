@@ -22,7 +22,6 @@ namespace E.Utility
 
         public static Dictionary<int, T> ReGetDictionary()
         {
-            dictionary = new Dictionary<int, T>();
             LoadDictionary();
             return Dictionary;
         }
@@ -30,6 +29,12 @@ namespace E.Utility
         {
             List<T> values = new List<T>();
             values.AddRange(Dictionary.Values);
+            return values;
+        }
+        public static List<T> ReGetDictionaryValues()
+        {
+            List<T> values = new List<T>();
+            values.AddRange(ReGetDictionary().Values);
             return values;
         }
 
