@@ -82,7 +82,7 @@ namespace E.Tool
             Reset();
             Refresh();
             //Show();
-            Debug.Log("打开故事编辑器");
+            Debug.Log("故事编辑器已打开");
         }
         /// <summary>
         /// 打开故事
@@ -291,7 +291,7 @@ namespace E.Tool
         /// <param name="node"></param>
         private static int RefreshStoryNodeHeight(StoryNode node)
         {
-            int baseHeight = 50;
+            int baseHeight = Config.DefaultNodeSize.y;
             if (node.Content != null)
             {
                 switch (node.Content.ContentType)
@@ -301,19 +301,11 @@ namespace E.Tool
                         {
                             baseHeight = 175;
                         }
-                        else
-                        {
-                            baseHeight = 50;
-                        }
                         break;
                     case StoryContentType.过场动画:
                         if (node.Content != null)
                         {
                             baseHeight = 175;
-                        }
-                        else
-                        {
-                            baseHeight = 50;
                         }
                         break;
                     default:
@@ -854,6 +846,16 @@ namespace E.Tool
                 //节点属性
                 node.IsPassed = EditorGUI.ToggleLeft(new Rect(node.Rect.x + node.Rect.width - 45, node.Rect.y + 5, 100, 16), "通过", node.IsPassed);
                 node.IsMainNode = EditorGUI.ToggleLeft(new Rect(node.Rect.x + node.Rect.width - 45, node.Rect.y + 25, 100, 16), "主线", node.IsMainNode);
+                EditorGUI.LabelField(new Rect(node.Rect.x + 5, node.Rect.y + 45, 30, 16), "周目");
+                node.ID.Round = EditorGUI.IntField(new Rect(node.Rect.x + 5, node.Rect.y + 65, 30, 16), node.ID.Round);
+                EditorGUI.LabelField(new Rect(node.Rect.x + 40, node.Rect.y + 45, 30, 16), "章节");
+                node.ID.Chapter = EditorGUI.IntField(new Rect(node.Rect.x + 40, node.Rect.y + 65, 30, 16), node.ID.Chapter);
+                EditorGUI.LabelField(new Rect(node.Rect.x + 75, node.Rect.y + 45, 30, 16), "场景");
+                node.ID.Scene = EditorGUI.IntField(new Rect(node.Rect.x + 75, node.Rect.y + 65, 30, 16), node.ID.Scene);
+                EditorGUI.LabelField(new Rect(node.Rect.x + 110, node.Rect.y + 45, 30, 16), "片段");
+                node.ID.Part = EditorGUI.IntField(new Rect(node.Rect.x + 110, node.Rect.y + 65, 30, 16), node.ID.Part);
+                EditorGUI.LabelField(new Rect(node.Rect.x + 145, node.Rect.y + 45, 30, 16), "分支");
+                node.ID.Branch = EditorGUI.IntField(new Rect(node.Rect.x + 145, node.Rect.y + 65, 30, 16), node.ID.Branch);
 
                 //节点内容
                 SerializedObject serializedObject = new SerializedObject(node);
@@ -866,17 +868,6 @@ namespace E.Tool
                     EditorGUI.LabelField(new Rect(node.Rect.x + 5, node.Rect.y + 25, 40, 16), "类型");
                     node.Content.ContentType = (StoryContentType)EditorGUI.EnumPopup(new Rect(node.Rect.x + 45, node.Rect.y + 25, node.Rect.width - 123, 20), GUIContent.none, node.Content.ContentType);
                     node.Content.IsReaded = EditorGUI.ToggleLeft(new Rect(node.Rect.x + node.Rect.width - 45, node.Rect.y + 65, 45, 16), "阅读", node.Content.IsReaded);
-
-                    EditorGUI.LabelField(new Rect(node.Rect.x + 5, node.Rect.y + 45, 30, 16), "周目");
-                    node.ID.Round = EditorGUI.IntField(new Rect(node.Rect.x + 5, node.Rect.y + 65, 30, 16), node.ID.Round);
-                    EditorGUI.LabelField(new Rect(node.Rect.x + 40, node.Rect.y + 45, 30, 16), "章节");
-                    node.ID.Chapter = EditorGUI.IntField(new Rect(node.Rect.x + 40, node.Rect.y + 65, 30, 16), node.ID.Chapter);
-                    EditorGUI.LabelField(new Rect(node.Rect.x + 75, node.Rect.y + 45, 30, 16), "场景");
-                    node.ID.Scene = EditorGUI.IntField(new Rect(node.Rect.x + 75, node.Rect.y + 65, 30, 16), node.ID.Scene);
-                    EditorGUI.LabelField(new Rect(node.Rect.x + 110, node.Rect.y + 45, 30, 16), "片段");
-                    node.ID.Part = EditorGUI.IntField(new Rect(node.Rect.x + 110, node.Rect.y + 65, 30, 16), node.ID.Part);
-                    EditorGUI.LabelField(new Rect(node.Rect.x + 145, node.Rect.y + 45, 30, 16), "分支");
-                    node.ID.Branch = EditorGUI.IntField(new Rect(node.Rect.x + 145, node.Rect.y + 65, 30, 16), node.ID.Branch);
 
                     EditorGUI.LabelField(new Rect(node.Rect.x + 5, node.Rect.y + 85, 40, 16), "时间");
                     int y = EditorGUI.IntField(new Rect(node.Rect.x + 45, node.Rect.y + 85, 40, 16), node.Content.Time.Year);
@@ -907,14 +898,7 @@ namespace E.Tool
                         if (nextNode != null)
                         {
                             string label = "";
-                            if (nextNode.Content != null)
-                            {
-                                label = "分支" + nextNode.ID.Branch;
-                            }
-                            else
-                            {
-                                label = "分支?";
-                            }
+                            label = "分支" + nextNode.ID.Branch;
                             EditorGUI.LabelField(new Rect(node.Rect.x + 5, node.Rect.y + 20 * i + baseHeight, 40, 16), label);
                             node.Choices[i].ChoiceText = EditorGUI.TextField(new Rect(node.Rect.x + 45, node.Rect.y + 20 * i + baseHeight, node.Rect.width - 75, 16), node.Choices[i].ChoiceText);
                             if (GUI.Button(new Rect(node.Rect.x + node.Rect.width - 25, node.Rect.y + 20 * i + baseHeight, 20, 16), "X"))

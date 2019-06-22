@@ -25,7 +25,7 @@ namespace E.Tool
         [Header("【个性化界面】")]
         public int ViewWidth = 3000;
         public int ViewHeight = 3000;
-        public Vector2 DefaultNodeSize = new Vector2(250, 50);
+        public Vector2Int DefaultNodeSize = new Vector2Int(250, 90);
         public Color NormalNode = new Color(0.9f, 0.9f, 0.9f);
         public Color SelectNode = new Color(0.9f, 0.85f, 0.5f);
         public Color MainLine = new Color(0, 0.7f, 0);
@@ -38,12 +38,12 @@ namespace E.Tool
 
             ViewWidth = 3000;
             ViewHeight = 3000;
+            DefaultNodeSize = new Vector2Int(250, 90);
             NormalNode = new Color(0.9f, 0.9f, 0.9f);
             SelectNode = new Color(0.9f, 0.85f, 0.5f);
             MainLine = new Color(0, 0.7f, 0);
             BranchLine = new Color(0.7f, 0, 0);
             BGLine = new Color(0, 0, 0, 0.1f);
-            DefaultNodeSize = new Vector2(250, 50);
         }
     }
 }

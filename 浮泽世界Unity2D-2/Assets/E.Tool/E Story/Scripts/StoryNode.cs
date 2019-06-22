@@ -24,7 +24,7 @@ namespace E.Tool
         //节点内容
         public StoryContent Content;
         //节点显示
-        [ReadOnly, Tooltip("节点在故事编辑器内的坐标及尺寸")] public Rect Rect = new Rect(100, 100, 250, 50);
+        [ReadOnly, Tooltip("节点在故事编辑器内的坐标及尺寸")] public Rect Rect;
         [ReadOnly, Tooltip("节点分支选项（请在故事书编辑器内指定）")] public List<StoryChoice> Choices = new List<StoryChoice>();
     }
 
