@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using E.Utility;
 
-public abstract class ScriptableQuest : StaticScriptableObject<ScriptableQuest>
+public abstract class ScriptableQuest : ScriptableObjectDictionary<ScriptableQuest>
 {
     [Header("通用")]
     [SerializeField, TextArea(1, 30)] protected string toolTip; // not public, use ToolTip()

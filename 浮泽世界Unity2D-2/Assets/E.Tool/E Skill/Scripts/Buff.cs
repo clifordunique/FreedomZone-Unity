@@ -11,7 +11,7 @@ public partial struct Buff
     // hashcode used to reference the real ScriptableSkill (can't link to data
     // directly because synclist only supports simple types). and syncing a
     // string's hashcode instead of the string takes WAY less bandwidth.
-    public int hash;
+    public int Hash;
 
     // dynamic stats (cooldowns etc.)
     public int level;
@@ -20,7 +20,7 @@ public partial struct Buff
     // constructors
     public Buff(BuffSkill data, int level)
     {
-        hash = data.name.GetStableHashCode();
+        Hash = data.name.GetStableHashCode();
         this.level = level;
         buffTimeEnd = NetworkTime.time + data.buffTime.Get(level); // start buff immediately
     }
@@ -34,9 +34,9 @@ public partial struct Buff
             // note: ScriptableSkill.OnValidate 'is in resource folder' check
             //       causes Unity SendMessage warnings and false positives.
             //       this solution is a lot better.
-            if (!ScriptableSkill.Dictionary.ContainsKey(hash))
-                throw new KeyNotFoundException("There is no ScriptableSkill with hash=" + hash + ". Make sure that all ScriptableSkills are in the Resources folder so they are loaded properly.");
-            return (BuffSkill)ScriptableSkill.Dictionary[hash];
+            if (!ScriptableSkill.Dictionary.ContainsKey(Hash))
+                throw new KeyNotFoundException("There is no ScriptableSkill with hash=" + Hash + ". Make sure that all ScriptableSkills are in the Resources folder so they are loaded properly.");
+            return (BuffSkill)ScriptableSkill.Dictionary[Hash];
         }
     }
     public string name => data.name;

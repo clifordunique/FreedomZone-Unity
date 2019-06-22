@@ -29,7 +29,7 @@ namespace E.Utility
             pth.maxFile = pth.file.Length;
             pth.fileTitle = new string(new char[64]);
             pth.maxFileTitle = pth.fileTitle.Length;
-            pth.initialDir = Application.dataPath.Replace("/", "\\") + "\\Resources"; //默认路径
+            pth.initialDir = Application.dataPath.Replace("/", "\\"); //默认路径
             pth.title = "打开项目";
             pth.defExt = "dat";
             pth.flags = 0x00080000 | 0x00001000 | 0x00000800 | 0x00000200 | 0x00000008;
@@ -54,7 +54,7 @@ namespace E.Utility
             pth.maxFile = pth.file.Length;
             pth.fileTitle = new string(new char[64]);
             pth.maxFileTitle = pth.fileTitle.Length;
-            pth.initialDir = Application.dataPath; //默认路径
+            pth.initialDir = Application.dataPath.Replace("/", "\\"); //默认路径
             pth.title = "保存项目";
             pth.defExt = "asset";
             pth.flags = 0x00080000 | 0x00001000 | 0x00000800 | 0x00000200 | 0x00000008;

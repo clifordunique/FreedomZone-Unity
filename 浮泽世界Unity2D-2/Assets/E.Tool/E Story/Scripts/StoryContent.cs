@@ -14,7 +14,7 @@ using E.Utility;
 namespace E.Tool
 {
     [CreateAssetMenu(menuName = "E Story/节点内容", order = 2)]
-    public class StoryContent : ScriptableObject
+    public class StoryContent : ScriptableObjectDictionary<StoryContent>
     {
         //是否已阅读
         public bool IsReaded;

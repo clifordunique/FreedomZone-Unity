@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public abstract partial class ScriptableSkill : StaticScriptableObject<ScriptableSkill>
+public abstract partial class ScriptableSkill : ScriptableObjectDictionary<ScriptableSkill>
 {
     [Header("【基本信息】")]
     public Sprite image;

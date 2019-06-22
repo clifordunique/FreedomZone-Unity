@@ -14,8 +14,8 @@ using System.Linq;
 
 namespace E.Tool
 {
-    [CreateAssetMenu(menuName = "E Story/故事树", order = 0)]
-    public class StoryTree : StaticScriptableObject<StoryTree>
+    [CreateAssetMenu(menuName = "E Story/故事", order = 0)]
+    public class ScriptableStory : ScriptableObjectDictionary<ScriptableStory>
     {
         [Header("故事树描述")]
         public string Describe;

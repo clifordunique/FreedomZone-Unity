@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d8a28373960df8439b0e2afba893253, type: 3}
-  m_Name: Story-1-1-1
+  m_Script: {fileID: 11500000, guid: fddaeb3ceb9edaa42a207ef610f9456d, type: 3}
+  m_Name: Story-1
   m_EditorClassIdentifier: 
-  IsReaded: 0
-  Position: 
-  Summary: 
-  ContentType: 0
-  Sentences: []
-  Animations: []
+  Describe: 
+  IsPassed: 0
+  Nodes: []
+  StartNode: {fileID: 0}
+  EndNodes: []
+  CompletionPercent: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 using E.Utility;
 
 [CreateAssetMenu(menuName= "E Item/基础物品", order = 0)]
-public partial class ScriptableItem : StaticScriptableObject<ScriptableItem>
+public partial class ScriptableItem : ScriptableObjectDictionary<ScriptableItem>
 {
     [Header("【基本信息】")]
     [Tooltip("物品图标")] public Sprite image;

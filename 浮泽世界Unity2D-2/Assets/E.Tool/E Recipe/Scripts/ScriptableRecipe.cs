@@ -4,7 +4,7 @@ using System.Linq;
 using E.Utility;
 
 [CreateAssetMenu(fileName="新食谱", menuName="E Recipe", order=0)]
-public class ScriptableRecipe : StaticScriptableObject<ScriptableRecipe>
+public class ScriptableRecipe : ScriptableObjectDictionary<ScriptableRecipe>
 {
     public static int recipeSize = 6;
     public List<ScriptableItemAndAmount> ingredients = new List<ScriptableItemAndAmount>(6);

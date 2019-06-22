@@ -16,7 +16,7 @@ public partial struct Quest
     // hashcode used to reference the real ScriptableQuest (can't link to data
     // directly because synclist only supports simple types). and syncing a
     // string's hashcode instead of the string takes WAY less bandwidth.
-    public int hash;
+    public int Hash;
 
     // the progress field can be used by inheriting from ScriptableQuests
     // -> the field can be:
@@ -33,7 +33,7 @@ public partial struct Quest
     // constructors
     public Quest(ScriptableQuest data)
     {
-        hash = data.name.GetStableHashCode();
+        Hash = data.name.GetStableHashCode();
         progress = 0;
         completed = false;
     }
@@ -47,9 +47,9 @@ public partial struct Quest
             // note: ScriptableQuest.OnValidate 'is in resource folder' check
             //       causes Unity SendMessage warnings and false positives.
             //       this solution is a lot better.
-            if (!ScriptableQuest.Dictionary.ContainsKey(hash))
-                throw new KeyNotFoundException("There is no ScriptableQuest with hash=" + hash + ". Make sure that all ScriptableQuests are in the Resources folder so they are loaded properly.");
-            return ScriptableQuest.Dictionary[hash];
+            if (!ScriptableQuest.Dictionary.ContainsKey(Hash))
+                throw new KeyNotFoundException("哈希值{" + Hash + "}找不到对应ScriptableQuest，确保所有ScriptableQuest都在Resources文件夹中，以便正确加载它们。");
+            return ScriptableQuest.Dictionary[Hash];
         }
     }
     public string name => data.name;

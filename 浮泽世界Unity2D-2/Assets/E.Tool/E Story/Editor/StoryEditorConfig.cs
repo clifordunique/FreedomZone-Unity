@@ -14,32 +14,27 @@ using E.Utility;
 namespace E.Tool
 {
     [Serializable]
-    public class EStoryEditorConfig : ScriptableObject
+    public class StoryEditorConfig : ScriptableObjectDictionary<StoryEditorConfig>
     {
         public const string WindowTitle = "E Story";
 
-        [Header("资源文件夹")]
-        public string StoryTreeFolder = "Assets/E.Tool/E Story/Resources/Storys/StoryTrees";
-        public string StoryNodeFolder = "Assets/E.Tool/E Story/Resources/Storys/StoryNodes";
-        public string StoryContentFolder = "Assets/E.Tool/E Story/Resources/Storys/StoryContents";
+        [Header("【资源文件夹】")]
+        [Tooltip("在故事编辑窗口内点击右键创建的资源将会在此目录下创建对应文件")]
+        public string StoryResourcesFolder = "Assets/E.Tool/E Story/Resources/Example Storys";
 
-        [Header("个性化界面")]
-        public int ViewWidth = 5000;
-        public int ViewHeight = 5000;
+        [Header("【个性化界面】")]
+        public int ViewWidth = 3000;
+        public int ViewHeight = 3000;
         public Vector2 DefaultNodeSize = new Vector2(250, 50);
         public Color NormalNode = new Color(0.9f, 0.9f, 0.9f);
         public Color SelectNode = new Color(0.9f, 0.85f, 0.5f);
         public Color MainLine = new Color(0, 0.7f, 0);
         public Color BranchLine = new Color(0.7f, 0, 0);
         public Color BGLine = new Color(0, 0, 0, 0.1f);
-        //public Color Shadow = new Color(0, 0, 0, 0.1f);
-
 
         public void Reset()
         {
-            StoryTreeFolder = "Assets/E.Tool/E Story/Resources/Storys/StoryTrees";
-            StoryNodeFolder = "Assets/E.Tool/E Story/Resources/Storys/StoryNodes";
-            StoryContentFolder = "Assets/E.Tool/E Story/Resources/Storys/StoryContents";
+            StoryResourcesFolder = "Assets/E.Tool/E Story/Resources/Example Storys";
 
             ViewWidth = 3000;
             ViewHeight = 3000;
@@ -48,7 +43,6 @@ namespace E.Tool
             MainLine = new Color(0, 0.7f, 0);
             BranchLine = new Color(0.7f, 0, 0);
             BGLine = new Color(0, 0, 0, 0.1f);
-            //Shadow = new Color(0, 0, 0, 0.1f);
             DefaultNodeSize = new Vector2(250, 50);
         }
     }
