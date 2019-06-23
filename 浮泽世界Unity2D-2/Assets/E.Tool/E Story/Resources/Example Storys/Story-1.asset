@@ -14,7 +14,155 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Describe: 
   IsPassed: 0
-  Nodes: []
-  StartNode: {fileID: 0}
-  EndNodes: []
-  CompletionPercent: 0
+  Nodes:
+  - ID:
+      Round: 1
+      Chapter: 1
+      Scene: 1
+      Part: 1
+      Branch: 6
+    Type: 0
+    IsPassed: 0
+    IsMainNode: 0
+    Content: {fileID: 0}
+    NextNodes:
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 1
+        Branch: 3
+    Rect:
+      x: 599
+      y: 220
+      width: 250
+      height: 110
+    IsFold: 0
+  - ID:
+      Round: 1
+      Chapter: 1
+      Scene: 1
+      Part: 1
+      Branch: 3
+    Type: 0
+    IsPassed: 0
+    IsMainNode: 0
+    Content: {fileID: 0}
+    NextNodes:
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 1
+        Branch: 4
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 1
+        Branch: 5
+    Rect:
+      x: 638
+      y: 391
+      width: 250
+      height: 130
+    IsFold: 0
+  - ID:
+      Round: 1
+      Chapter: 1
+      Scene: 1
+      Part: 1
+      Branch: 2
+    Type: 0
+    IsPassed: 1
+    IsMainNode: 1
+    Content: {fileID: 0}
+    NextNodes:
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 1
+        Branch: 4
+    Rect:
+      x: 164
+      y: 312
+      width: 250
+      height: 110
+    IsFold: 0
+  - ID:
+      Round: 1
+      Chapter: 1
+      Scene: 1
+      Part: 1
+      Branch: 4
+    Type: 2
+    IsPassed: 1
+    IsMainNode: 1
+    Content: {fileID: 0}
+    NextNodes: []
+    Rect:
+      x: 363
+      y: 597
+      width: 290
+      height: 90
+    IsFold: 0
+  - ID:
+      Round: 1
+      Chapter: 1
+      Scene: 1
+      Part: 1
+      Branch: 5
+    Type: 2
+    IsPassed: 0
+    IsMainNode: 0
+    Content: {fileID: 0}
+    NextNodes: []
+    Rect:
+      x: 742
+      y: 603
+      width: 250
+      height: 90
+    IsFold: 0
+  - ID:
+      Round: 1
+      Chapter: 1
+      Scene: 1
+      Part: 1
+      Branch: 1
+    Type: 1
+    IsPassed: 0
+    IsMainNode: 1
+    Content: {fileID: 0}
+    NextNodes:
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 1
+        Branch: 4
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 1
+        Branch: 2
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 1
+        Branch: 6
+    Rect:
+      x: 376
+      y: 16
+      width: 250
+      height: 150
+    IsFold: 1

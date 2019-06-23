@@ -13,27 +13,35 @@ using E.Utility;
 
 namespace E.Tool
 {
-    [CreateAssetMenu(menuName = "E Story/节点内容", order = 2)]
+    [CreateAssetMenu(menuName = "E Story/故事内容", order = 2)]
     public class StoryContent : ScriptableObjectDictionary<StoryContent>
     {
-        //是否已阅读
-        public bool IsReaded;
-
-        //内容信息
-        public DateTime Time;
-        public string Position;
-        [TextArea] public string Summary;
-        public StoryContentType ContentType;
-        [Tooltip("剧情对话")] public StorySentence[] Sentences;
+        [Tooltip("是否已阅读")] public bool IsReaded;
+        [Tooltip("发生时间")] public DateTime Time;
+        [Tooltip("发生地点")] public string Position;
+        [Tooltip("摘要"), TextArea] public string Summary;
+        [Tooltip("内容类型")] public ContentType Type;
+        [Tooltip("剧情对话")] public Sentence[] Sentences;
         [Tooltip("过场动画")] public Animation[] Animations;
-    }
 
-    [Serializable]
-    public struct StorySentence
-    {
-        [Tooltip("发言者")] public string Speaker;
-        [Tooltip("发言者表情")] public Sprite SpeakerExpression;
-        [Tooltip("是否已阅读过此句话")] public bool IsReaded;
-        [Tooltip("发言内容"), TextArea] public string Words;
+        public StoryContent()
+        {
+            IsReaded = false;
+            Time = new DateTime();
+            Position = "";
+            Summary = "";
+            Type = ContentType.剧情对话;
+            Sentences = new Sentence[0];
+            Animations = new Animation[0];
+        }
+
+        [Serializable]
+        public struct Sentence
+        {
+            [Tooltip("发言者")] public string Speaker;
+            [Tooltip("发言者表情")] public Sprite SpeakerExpression;
+            [Tooltip("是否已阅读过此句话")] public bool IsReaded;
+            [Tooltip("发言内容"), TextArea] public string Words;
+        }
     }
 }

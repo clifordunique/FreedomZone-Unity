@@ -14,10 +14,8 @@ using E.Utility;
 namespace E.Tool
 {
     [Serializable]
-    public class StoryEditorConfig : ScriptableObjectDictionary<StoryEditorConfig>
+    public class StoryEditorWindowSetting : ScriptableObjectDictionary<StoryEditorWindowSetting>
     {
-        public const string WindowTitle = "E Story";
-
         [Header("【资源文件夹】")]
         [Tooltip("在故事编辑窗口内点击右键创建的资源将会在此目录下创建对应文件")]
         public string StoryResourcesFolder = "Assets/E.Tool/E Story/Resources/Example Storys";

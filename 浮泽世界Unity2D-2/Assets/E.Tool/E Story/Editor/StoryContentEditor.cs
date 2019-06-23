@@ -49,19 +49,19 @@ namespace E.Tool
             EditorGUILayout.Space();
 
             EditorGUILayout.LabelField("内容类型");
-            Content.ContentType = (StoryContentType)EditorGUILayout.EnumPopup(Content.ContentType);
+            Content.Type = (ContentType)EditorGUILayout.EnumPopup(Content.Type);
             EditorGUILayout.Space();
 
             SerializedObject serializedObject = new SerializedObject(Content);
             SerializedProperty Sentences = serializedObject.FindProperty("Sentences");
             SerializedProperty Animations = serializedObject.FindProperty("Animations");
             //设置内容折叠
-            switch (Content.ContentType)
+            switch (Content.Type)
             {
-                case StoryContentType.剧情对话:
+                case ContentType.剧情对话:
                     EditorGUILayout.PropertyField(Sentences, true);
                     break;
-                case StoryContentType.过场动画:
+                case ContentType.过场动画:
                     EditorGUILayout.PropertyField(Animations, true);
                     break;
                 default:
