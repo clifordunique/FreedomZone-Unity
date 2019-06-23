@@ -25,18 +25,14 @@ namespace E.Tool
         }
         public override void OnInspectorGUI()
         {
-            SerializedObject str = new SerializedObject(Target);
-            SerializedProperty describe = str.FindProperty("Describe");
-            SerializedProperty isPassed = str.FindProperty("IsPassed");
-
-            EditorGUILayout.PropertyField(describe, new GUIContent("【故事描述】"), true);
+            EditorGUILayout.LabelField("【故事描述】");
+            Target.Describe = EditorGUILayout.TextArea(Target.Describe);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("【故事进度】");
-            EditorGUILayout.PropertyField(isPassed, new GUIContent("是否已通关"), true);
+            Target.IsPassed = EditorGUILayout.Toggle("是否已通关", Target.IsPassed);
             EditorGUILayout.TextField("全节点通过百分比", (Target.GetAllNodesPassPercentage() * 100).ToString("f2") + "% (" + Target.GetAllNodesPassFraction() + ")"); 
             EditorGUILayout.TextField("全结局解锁百分比", (Target.GetAllEndingNodesPassPercentage() * 100).ToString("f2") + "% (" + Target.GetAllEndingNodesPassFraction() + ")");
-            str.ApplyModifiedProperties();
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("【故事节点】");

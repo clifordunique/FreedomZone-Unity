@@ -43,6 +43,17 @@ namespace E.Tool
             [Tooltip("角色表情")] public Sprite Expression;
             [Tooltip("角色说话内容"), TextArea(1, 10)] public string Words;
             [Tooltip("是否已阅读过此句话")] public bool IsReaded;
+
+            [Tooltip("节点展开")] public bool IsFold;
+
+            public Sentence()
+            {
+                Speaker = "";
+                Expression = null;
+                Words = "";
+                IsReaded = false;
+                IsFold = true;
+            }
         }
     }
 }

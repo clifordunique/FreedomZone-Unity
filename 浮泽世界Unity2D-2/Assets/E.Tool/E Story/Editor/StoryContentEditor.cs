@@ -25,10 +25,6 @@ namespace E.Tool
         }
         public override void OnInspectorGUI()
         {
-            //SerializedObject serializedObject = new SerializedObject(Target);
-            //SerializedProperty Sentences = serializedObject.FindProperty("Sentences");
-            //SerializedProperty Animations = serializedObject.FindProperty("Animations");
-
             EditorGUILayout.LabelField("【阅读情况】");
             Target.IsReaded = EditorGUILayout.ToggleLeft("已阅读过此内容", Target.IsReaded);
 
@@ -56,32 +52,36 @@ namespace E.Tool
             switch (Target.Type)
             {
                 case ContentType.剧情对话:
-                    //EditorGUILayout.PropertyField(Sentences, true);
-                    //EditorGUILayout.LabelField("【对话内容】");
                     if (Target.Sentences.Count > 0)
                     {
                         for (int i = 0; i < Target.Sentences.Count; i++)
                         {
                             StoryContent.Sentence item = Target.Sentences[i];
-                            EditorGUILayout.LabelField("对话 " + (i + 1).ToString());
 
-                            EditorGUILayout.BeginVertical(EditorStyles.inspectorDefaultMargins);
-                            EditorGUILayout.BeginHorizontal();
-                            item.Speaker = EditorGUILayout.TextField(item.Speaker);
-                            item.Expression = (Sprite)EditorGUILayout.ObjectField(item.Expression, typeof(Sprite));
-                            EditorGUILayout.EndHorizontal();
-
-                            item.Words = EditorGUILayout.TextArea(item.Words);
-
-                            EditorGUILayout.BeginHorizontal();
-                            item.IsReaded = EditorGUILayout.ToggleLeft("已阅读过此句话", item.IsReaded);
-                            if (GUILayout.Button("X"))
+                            string temp = item.Expression == null ? "旁白" : "未命名角色";
+                            string temp1 = item.Speaker.Length > 0 ? item.Speaker : temp;
+                            string temp2 = item.Words.Length > 10 ? item.Words.Substring(0, 10) + "..." : item.Words;
+                            item.IsFold = EditorGUILayout.Foldout(item.IsFold, temp1 + "：" + temp2, true);
+                            if (item.IsFold)
                             {
-                                Target.Sentences.Remove(item);
-                                i--;
+                                EditorGUILayout.BeginVertical(EditorStyles.inspectorDefaultMargins);
+                                EditorGUILayout.BeginHorizontal();
+                                item.Speaker = EditorGUILayout.TextField(item.Speaker);
+                                item.Expression = (Sprite)EditorGUILayout.ObjectField(item.Expression, typeof(Sprite));
+                                EditorGUILayout.EndHorizontal();
+
+                                item.Words = EditorGUILayout.TextArea(item.Words);
+
+                                EditorGUILayout.BeginHorizontal();
+                                item.IsReaded = EditorGUILayout.ToggleLeft("已阅读过此句话", item.IsReaded);
+                                if (GUILayout.Button("X"))
+                                {
+                                    Target.Sentences.Remove(item);
+                                    i--;
+                                }
+                                EditorGUILayout.EndHorizontal();
+                                EditorGUILayout.EndVertical();
                             }
-                            EditorGUILayout.EndHorizontal();
-                            EditorGUILayout.EndVertical();
                         }
                     }
                     else
@@ -98,8 +98,6 @@ namespace E.Tool
                     EditorGUILayout.EndHorizontal();
                     break;
                 case ContentType.过场动画:
-                    //EditorGUILayout.PropertyField(Animations, true);
-                    //EditorGUILayout.LabelField("【动画内容】");
                     break;
                 default:
                     break;
