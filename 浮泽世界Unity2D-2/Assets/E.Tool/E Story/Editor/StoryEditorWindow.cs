@@ -2,13 +2,13 @@
 // 作者：E Star
 // 创建时间：2019-02-22 01:31:07
 // 当前版本：1.0
-// 作用描述：
-// 挂载目标：
+// 作用描述：E Story 编辑器窗口类
+// 挂载目标：无
 // ========================================================
-using UnityEngine;
-using UnityEditor;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEditor;
 using E.Utility;
 
 namespace E.Tool

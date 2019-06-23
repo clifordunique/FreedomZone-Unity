@@ -2,14 +2,14 @@
 // 作者：E Star
 // 创建时间：2019-03-10 17:03:03
 // 当前版本：1.0
-// 作用描述：
-// 挂载目标：
+// 作用描述：自定义Inspector面板显示ScriptableStory的样式
+// 挂载目标：无
 // ========================================================
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System;
 using E.Utility;
 
 namespace E.Tool
@@ -17,43 +17,40 @@ namespace E.Tool
     [CustomEditor(typeof(ScriptableStory))]
     public class StoryEditor : Editor
     {
-        private ScriptableStory Story;
+        private ScriptableStory Target;
 
         private void OnEnable()
         {
-            Story = (ScriptableStory)target;
+            Target = (ScriptableStory)target;
         }
-
         public override void OnInspectorGUI()
         {
-            SerializedObject str = new SerializedObject(Story);
+            SerializedObject str = new SerializedObject(Target);
             SerializedProperty describe = str.FindProperty("Describe");
             SerializedProperty isPassed = str.FindProperty("IsPassed");
-            //SerializedProperty nodes = str.FindProperty("Nodes");
 
             EditorGUILayout.PropertyField(describe, new GUIContent("【故事描述】"), true);
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("【故事进度】");
             EditorGUILayout.PropertyField(isPassed, new GUIContent("是否已通关"), true);
-            //EditorGUILayout.PropertyField(nodes, new GUIContent("节点"), true);
-            EditorGUILayout.TextField("全节点通过百分比", (Story.GetAllNodesPassPercentage() * 100).ToString("f2") + "% (" + Story.GetAllNodesPassFraction() + ")"); 
-            EditorGUILayout.TextField("全结局解锁百分比", (Story.GetAllEndingNodesPassPercentage() * 100).ToString("f2") + "% (" + Story.GetAllEndingNodesPassFraction() + ")");
+            EditorGUILayout.TextField("全节点通过百分比", (Target.GetAllNodesPassPercentage() * 100).ToString("f2") + "% (" + Target.GetAllNodesPassFraction() + ")"); 
+            EditorGUILayout.TextField("全结局解锁百分比", (Target.GetAllEndingNodesPassPercentage() * 100).ToString("f2") + "% (" + Target.GetAllEndingNodesPassFraction() + ")");
             str.ApplyModifiedProperties();
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("【故事节点】");
-            if (Story.Nodes.Count > 0)
+            if (Target.Nodes.Count > 0)
             {
-                if (Story.GetStartNode() == null)
+                if (Target.GetStartNode() == null)
                 {
                     EditorGUILayout.HelpBox("请设置一个起始节点", MessageType.Warning);
                 }
-                if (Story.GetEndingNodes().Count == 0)
+                if (Target.GetEndingNodes().Count == 0)
                 {
                     EditorGUILayout.HelpBox("请至少设置一个结局节点", MessageType.Warning);
                 }
-                foreach (Node item in Story.Nodes)
+                foreach (Node item in Target.Nodes)
                 {
                     item.IsFold = EditorGUILayout.Foldout(item.IsFold, item.ID.Round + "-" + item.ID.Chapter + "-" + item.ID.Scene + "-" + item.ID.Part + "-" + item.ID.Branch, true);
                     if (item.IsFold)
@@ -71,7 +68,7 @@ namespace E.Tool
                         NodeID id = new NodeID(round, chapter, scene, part, branch);
                         if (!id.Equals(item.ID))
                         {
-                            Story.SetNodeID(item, id);
+                            Target.SetNodeID(item, id);
                         }
                         //节点布局
                         EditorGUILayout.LabelField("节点布局 {X坐标-Y坐标-宽-高}");
@@ -84,7 +81,7 @@ namespace E.Tool
                         item.Rect = new RectInt(x, y, w, h);
                         //节点类型
                         NodeType type = (NodeType)EditorGUILayout.EnumPopup("节点类型", item.Type);
-                        Story.SetNodeType(item, type);
+                        Target.SetNodeType(item, type);
                         //节点内容
                         item.Content = (StoryContent)EditorGUILayout.ObjectField("节点内容", item.Content, typeof(StoryContent));
                         //是否已通过

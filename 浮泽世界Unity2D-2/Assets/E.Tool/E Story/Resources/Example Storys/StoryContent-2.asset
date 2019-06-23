@@ -15,6 +15,6 @@ MonoBehaviour:
   IsReaded: 0
   Position: 
   Summary: 
-  ContentType: 0
+  Type: 0
   Sentences: []
   Animations: []

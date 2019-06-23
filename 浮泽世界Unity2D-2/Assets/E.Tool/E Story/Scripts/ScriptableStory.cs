@@ -2,17 +2,15 @@
 // 作者：E Star
 // 创建时间：2019-02-27 01:18:23
 // 当前版本：1.0
-// 作用描述：
-// 挂载目标：
+// 作用描述：可序列化故事类
+// 挂载目标：无
 // ========================================================
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using E.Utility;
-using System.Linq;
-using Object = UnityEngine.Object;
 using UnityEditor;
+using E.Utility;
 
 namespace E.Tool
 {
@@ -394,7 +392,6 @@ namespace E.Tool
         {
             return base.GetHashCode();
         }
-
     }
 
     public enum NodeType

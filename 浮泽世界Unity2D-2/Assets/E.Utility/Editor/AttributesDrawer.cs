@@ -5,9 +5,10 @@
 // 作用描述：
 // 挂载目标：
 // ========================================================
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEditor;
-using System.Collections;
 
 namespace E.Utility
 {
@@ -19,6 +20,19 @@ namespace E.Utility
             GUI.enabled = false;
             EditorGUI.PropertyField(position, property, label, true);
             GUI.enabled = true;
+        }
+    }
+
+    [CustomPropertyDrawer(typeof(RenameAttribute))] 
+    public class RenameDrawer : PropertyDrawer
+    {
+        public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+        {
+            //替换属性名称
+            RenameAttribute rename = (RenameAttribute)attribute;
+            label.text = rename.Name;
+            //重绘GUI
+            EditorGUI.PropertyField(position, property, label, true);
         }
     }
 }

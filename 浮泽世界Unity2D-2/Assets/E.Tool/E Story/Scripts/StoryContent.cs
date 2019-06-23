@@ -2,13 +2,14 @@
 // 作者：E Star
 // 创建时间：2019-02-27 01:05:45
 // 当前版本：1.0
-// 作用描述：
-// 挂载目标：
+// 作用描述：可序列化故事内容类
+// 挂载目标：无
 // ========================================================
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using UnityEditor;
 using E.Utility;
 
 namespace E.Tool
@@ -21,8 +22,8 @@ namespace E.Tool
         [Tooltip("发生地点")] public string Position;
         [Tooltip("摘要"), TextArea] public string Summary;
         [Tooltip("内容形式")] public ContentType Type;
-        [Tooltip("剧情对话")] public Sentence[] Sentences;
-        [Tooltip("过场动画")] public Animation[] Animations;
+        [Tooltip("剧情对话")] public List<Sentence> Sentences;
+        [Tooltip("过场动画")] public List<Animation> Animations;
 
         public StoryContent()
         {
@@ -31,17 +32,17 @@ namespace E.Tool
             Position = "";
             Summary = "";
             Type = ContentType.剧情对话;
-            Sentences = new Sentence[0];
-            Animations = new Animation[0];
+            Sentences = new List<Sentence>();
+            Animations = new List<Animation>();
         }
 
         [Serializable]
-        public struct Sentence
+        public class Sentence
         {
-            [Tooltip("发言者")] public string Speaker;
-            [Tooltip("发言者表情")] public Sprite SpeakerExpression;
+            [Tooltip("角色名称")] public string Speaker;
+            [Tooltip("角色表情")] public Sprite Expression;
+            [Tooltip("角色说话内容"), TextArea(1, 10)] public string Words;
             [Tooltip("是否已阅读过此句话")] public bool IsReaded;
-            [Tooltip("发言内容"), TextArea] public string Words;
         }
     }
 }
