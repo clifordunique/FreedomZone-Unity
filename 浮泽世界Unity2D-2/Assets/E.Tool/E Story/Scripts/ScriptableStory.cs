@@ -12,68 +12,16 @@ using System;
 using E.Utility;
 using System.Linq;
 using Object = UnityEngine.Object;
+using UnityEditor;
 
 namespace E.Tool
 {
     [CreateAssetMenu(menuName = "E Story/故事", order = 0)]
     public class ScriptableStory : ScriptableObjectDictionary<ScriptableStory>
     {
-        [Tooltip("故事描述"),TextArea(1, 10)] public string Describe;
+        [Tooltip("故事描述"), TextArea(1, 10)] public string Describe;
         [Tooltip("通过任意一个结局节点即可")] public bool IsPassed = false;
-        [Tooltip("部分字段只能在故事编辑器内更改")] public List<Node> Nodes = new List<Node>();
-
-        /// <summary>
-        /// 全节点通过百分比
-        /// </summary>
-        public float AllNodesPassPercentage
-        {
-            get
-            {
-                int pass = 0;
-                foreach (Node item in Nodes)
-                {
-                    if (item.IsPassed)
-                    {
-                        pass++;
-                    }
-                }
-                return (float)pass / Nodes.Count;
-            }
-        }
-        /// <summary>
-        /// 全结局解锁百分比
-        /// </summary>
-        public float AllEndingNodesPassPercentage
-        {
-            get
-            {
-                List<Node> endings = new List<Node>();
-                foreach (Node item in Nodes)
-                {
-                    if (item.Type == NodeType.结局节点)
-                    {
-                        endings.Add(item);
-                    }
-                }
-                if (endings.Count > 0)
-                {
-                    int pass = 0;
-                    foreach (Node item in endings)
-                    {
-                        if (item.IsPassed)
-                        {
-                            pass++;
-                        }
-                    }
-                    return (float)pass / endings.Count;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
-
+        public List<Node> Nodes = new List<Node>();
 
         /// <summary>
         /// 创建节点
@@ -112,6 +60,8 @@ namespace E.Tool
             }
             return false;
         }
+
+        //获取
         /// <summary>
         /// 获取节点
         /// </summary>
@@ -127,6 +77,105 @@ namespace E.Tool
                 }
             }
             return null;
+        }
+        /// <summary>
+        /// 获取节点
+        /// </summary>
+        public Node GetStartNode()
+        {
+            foreach (Node item in Nodes)
+            {
+                if (item.Type == NodeType.起始节点)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        /// <summary>
+        /// 获取结局节点
+        /// </summary>
+        public List<Node> GetEndingNodes()
+        {
+            List<Node> nodes = new List<Node>();
+            foreach (Node item in Nodes)
+            {
+                if (item.Type == NodeType.结局节点)
+                {
+                    nodes.Add(item);
+                }
+            }
+            return nodes;
+        }
+        /// <summary>
+        /// 获取通过的节点
+        /// </summary>
+        public List<Node> GetPassedNodes()
+        {
+            List<Node> nodes = new List<Node>();
+            foreach (Node item in Nodes)
+            {
+                if (item.IsPassed)
+                {
+                    nodes.Add(item);
+                }
+            }
+            return nodes;
+        }
+        /// <summary>
+        /// 获取通过的结局节点
+        /// </summary>
+        public List<Node> GetPassedEndingNodes()
+        {
+            List<Node> nodes = GetEndingNodes();
+            List<Node> nodesP = new List<Node>();
+            if (nodes.Count > 0)
+            {
+                foreach (Node item in nodes)
+                {
+                    if (item.IsPassed)
+                    {
+                        nodesP.Add(item);
+                    }
+                }
+            }
+            return nodesP;
+        }
+        /// <summary>
+        /// 获取全节点通过百分比（分数格式）
+        /// </summary>
+        public string GetAllNodesPassFraction()
+        {
+            return GetPassedNodes().Count + "/" + Nodes.Count;
+        }
+        /// <summary>
+        /// 获取全结局解锁百分比（分数格式）
+        /// </summary>
+        public string GetAllEndingNodesPassFraction()
+        {
+            return GetPassedEndingNodes().Count + "/" + GetEndingNodes().Count;
+        }
+        /// <summary>
+        /// 获取全节点通过百分比（小数格式）
+        /// </summary>
+        public float GetAllNodesPassPercentage()
+        {
+            if (GetPassedNodes().Count == 0)
+            {
+                return 0;
+            }
+            return (float)GetPassedNodes().Count / Nodes.Count;
+        }
+        /// <summary>
+        /// 获取全结局解锁百分比（小数格式）
+        /// </summary>
+        public float GetAllEndingNodesPassPercentage()
+        {
+            if (GetEndingNodes().Count == 0)
+            {
+                return 0;
+            }
+            return (float)GetPassedEndingNodes().Count / GetEndingNodes().Count;
         }
 
         //设置
@@ -189,6 +238,34 @@ namespace E.Tool
                 node.Type = nodeType;
             }
         }
+
+        //删除
+        /// <summary>
+        /// 删除节点
+        /// </summary>
+        public void DeleteNode(Node node)
+        {
+            if (Nodes.Contains(node))
+            {
+                string str = "确认要删除此节点吗？";
+                if (EditorUtility.DisplayDialog("警告", str, "确认", "取消"))
+                {
+                    Nodes.Remove(node);
+                }
+            }
+        }
+        /// <summary>
+        /// 删除节点内容
+        /// </summary>
+        public void DeleteNodeContent(Node node)
+        {
+            if (Nodes.Contains(node))
+            {
+                node.Content = null;
+            }
+        }
+
+        //清除
         /// <summary>
         /// 清除节点下行连接
         /// </summary>
@@ -219,6 +296,17 @@ namespace E.Tool
                         }
                     }
                 }
+            }
+        }
+        /// <summary>
+        /// 清空节点
+        /// </summary>
+        public void ClearNodes()
+        {
+            string str = "确认要清空所有节点吗？";
+            if (EditorUtility.DisplayDialog("警告", str, "确认", "取消"))
+            {
+                Nodes.Clear();
             }
         }
     }

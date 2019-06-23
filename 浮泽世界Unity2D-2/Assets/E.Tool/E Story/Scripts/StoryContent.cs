@@ -20,7 +20,7 @@ namespace E.Tool
         [Tooltip("发生时间")] public DateTime Time;
         [Tooltip("发生地点")] public string Position;
         [Tooltip("摘要"), TextArea] public string Summary;
-        [Tooltip("内容类型")] public ContentType Type;
+        [Tooltip("内容形式")] public ContentType Type;
         [Tooltip("剧情对话")] public Sentence[] Sentences;
         [Tooltip("过场动画")] public Animation[] Animations;
 

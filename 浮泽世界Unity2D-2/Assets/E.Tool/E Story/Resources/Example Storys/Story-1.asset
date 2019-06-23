@@ -12,19 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fddaeb3ceb9edaa42a207ef610f9456d, type: 3}
   m_Name: Story-1
   m_EditorClassIdentifier: 
-  Describe: 
+  Describe: "\u793A\u4F8B\u6545\u4E8B"
   IsPassed: 0
   Nodes:
   - ID:
       Round: 1
       Chapter: 1
       Scene: 1
-      Part: 1
-      Branch: 6
+      Part: 3
+      Branch: 1
     Type: 0
-    IsPassed: 0
-    IsMainNode: 0
-    Content: {fileID: 0}
+    IsPassed: 1
+    IsMainNode: 1
+    Content: {fileID: 11400000, guid: 9c857acfccd376646b73bd69edfa0b24, type: 2}
     NextNodes:
     - Describe: 
       ID:
@@ -32,49 +32,18 @@ MonoBehaviour:
         Chapter: 1
         Scene: 1
         Part: 1
-        Branch: 3
+        Branch: 2
     Rect:
-      x: 599
-      y: 220
+      x: 152
+      y: 577
       width: 250
-      height: 110
+      height: 195
     IsFold: 0
   - ID:
       Round: 1
       Chapter: 1
       Scene: 1
-      Part: 1
-      Branch: 3
-    Type: 0
-    IsPassed: 0
-    IsMainNode: 0
-    Content: {fileID: 0}
-    NextNodes:
-    - Describe: 
-      ID:
-        Round: 1
-        Chapter: 1
-        Scene: 1
-        Part: 1
-        Branch: 4
-    - Describe: 
-      ID:
-        Round: 1
-        Chapter: 1
-        Scene: 1
-        Part: 1
-        Branch: 5
-    Rect:
-      x: 638
-      y: 391
-      width: 250
-      height: 130
-    IsFold: 0
-  - ID:
-      Round: 1
-      Chapter: 1
-      Scene: 1
-      Part: 1
+      Part: 3
       Branch: 2
     Type: 0
     IsPassed: 1
@@ -87,10 +56,10 @@ MonoBehaviour:
         Chapter: 1
         Scene: 1
         Part: 1
-        Branch: 4
+        Branch: 2
     Rect:
-      x: 164
-      y: 312
+      x: 594
+      y: 591
       width: 250
       height: 110
     IsFold: 0
@@ -98,35 +67,49 @@ MonoBehaviour:
       Round: 1
       Chapter: 1
       Scene: 1
-      Part: 1
-      Branch: 4
-    Type: 2
+      Part: 2
+      Branch: 3
+    Type: 0
     IsPassed: 1
-    IsMainNode: 1
-    Content: {fileID: 0}
-    NextNodes: []
+    IsMainNode: 0
+    Content: {fileID: 11400000, guid: 9c857acfccd376646b73bd69edfa0b24, type: 2}
+    NextNodes:
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 3
+        Branch: 2
     Rect:
-      x: 363
-      y: 597
-      width: 290
-      height: 90
+      x: 606
+      y: 293
+      width: 250
+      height: 195
     IsFold: 0
   - ID:
       Round: 1
       Chapter: 1
       Scene: 1
-      Part: 1
-      Branch: 5
-    Type: 2
-    IsPassed: 0
-    IsMainNode: 0
-    Content: {fileID: 0}
-    NextNodes: []
+      Part: 2
+      Branch: 2
+    Type: 0
+    IsPassed: 1
+    IsMainNode: 1
+    Content: {fileID: 11400000, guid: de7698ccc0f825149ac08f48e0c5a944, type: 2}
+    NextNodes:
+    - Describe: 
+      ID:
+        Round: 1
+        Chapter: 1
+        Scene: 1
+        Part: 3
+        Branch: 1
     Rect:
-      x: 742
-      y: 603
+      x: 138
+      y: 286
       width: 250
-      height: 90
+      height: 195
     IsFold: 0
   - ID:
       Round: 1
@@ -135,34 +118,44 @@ MonoBehaviour:
       Part: 1
       Branch: 1
     Type: 1
-    IsPassed: 0
+    IsPassed: 1
     IsMainNode: 1
-    Content: {fileID: 0}
+    Content: {fileID: 11400000, guid: 6ab203b4e4424994d8bb84a8f594142f, type: 2}
     NextNodes:
     - Describe: 
       ID:
         Round: 1
         Chapter: 1
         Scene: 1
-        Part: 1
-        Branch: 4
-    - Describe: 
-      ID:
-        Round: 1
-        Chapter: 1
-        Scene: 1
-        Part: 1
+        Part: 2
         Branch: 2
     - Describe: 
       ID:
         Round: 1
         Chapter: 1
         Scene: 1
-        Part: 1
-        Branch: 6
+        Part: 2
+        Branch: 3
     Rect:
-      x: 376
-      y: 16
+      x: 391
+      y: 29
       width: 250
-      height: 150
+      height: 215
+    IsFold: 0
+  - ID:
+      Round: 1
+      Chapter: 1
+      Scene: 1
+      Part: 1
+      Branch: 2
+    Type: 2
+    IsPassed: 0
+    IsMainNode: 1
+    Content: {fileID: 0}
+    NextNodes: []
+    Rect:
+      x: 361
+      y: 897
+      width: 250
+      height: 90
     IsFold: 1
