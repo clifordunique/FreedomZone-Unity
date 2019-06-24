@@ -63,7 +63,7 @@ public class TargetBuffSkill : BuffSkill
         if (caster.Target != null)
         {
             destination = caster.Target.collider.ClosestPointOnBounds(caster.transform.position);
-            return Utils.ClosestDistance(caster.collider, caster.Target.collider) <= castRange.Get(skillLevel);
+            return Utility.ClosestDistance(caster.collider, caster.Target.collider) <= castRange.Get(skillLevel);
         }
         destination = caster.transform.position;
         return false;

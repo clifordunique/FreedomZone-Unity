@@ -237,11 +237,11 @@ namespace E.Tool
             }
         }
 
-        //删除
+        //移除
         /// <summary>
-        /// 删除节点
+        /// 移除节点
         /// </summary>
-        public void DeleteNode(Node node)
+        public void RemoveNode(Node node)
         {
             if (Nodes.Contains(node))
             {
@@ -253,9 +253,9 @@ namespace E.Tool
             }
         }
         /// <summary>
-        /// 删除节点内容
+        /// 移除节点内容
         /// </summary>
-        public void DeleteNodeContent(Node node)
+        public void RemoveNodeContent(Node node)
         {
             if (Nodes.Contains(node))
             {
@@ -316,7 +316,7 @@ namespace E.Tool
         [ReadOnly] public NodeType Type;
         public bool IsPassed;
         public bool IsMainNode;
-        [Tooltip("节点内容")] public StoryContent Content;
+        [Tooltip("节点内容")] public ScriptableContent Content;
         [Tooltip("节点分支选项")] public List<NextNode> NextNodes;
 
         [Tooltip("节点布局")] public RectInt Rect;

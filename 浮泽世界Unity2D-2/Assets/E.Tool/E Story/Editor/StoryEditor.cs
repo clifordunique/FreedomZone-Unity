@@ -79,7 +79,7 @@ namespace E.Tool
                         NodeType type = (NodeType)EditorGUILayout.EnumPopup("节点类型", item.Type);
                         Target.SetNodeType(item, type);
                         //节点内容
-                        item.Content = (StoryContent)EditorGUILayout.ObjectField("节点内容", item.Content, typeof(StoryContent));
+                        item.Content = (ScriptableContent)EditorGUILayout.ObjectField("节点内容", item.Content, typeof(ScriptableContent));
                         //是否已通过
                         item.IsPassed = EditorGUILayout.Toggle("是否已通过", item.IsPassed);
                         //是否为主线

@@ -94,7 +94,7 @@ public partial struct Skill
         StringBuilder tip = new StringBuilder(data.ToolTip(showLevel, showRequirements));
 
         // addon system hooks
-        Utils.InvokeMany(typeof(Skill), this, "ToolTip_", tip);
+        Utility.InvokeMany(typeof(Skill), this, "ToolTip_", tip);
 
         // only show upgrade if learned and not max level yet
         if (0 < level && level < maxLevel)

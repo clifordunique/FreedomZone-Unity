@@ -250,7 +250,7 @@ namespace E.Tool
                 AssetDatabase.Refresh();
             }
         }
-        [MenuItem("E Tool/E Story/创建故事节点", false, 2)]
+        [MenuItem("E Tool/E Story/创建节点", false, 2)]
         /// <summary>
         /// 创建故事节点
         /// </summary>
@@ -267,14 +267,14 @@ namespace E.Tool
         }
         [MenuItem("E Tool/E Story/创建节点内容", false, 3)]
         /// <summary>
-        /// 创建节点资源
+        /// 创建节点内容
         /// </summary>
         /// <param name="type"></param>
         private static void CreateContent()
         {
             if (CurrentStory.Nodes.Contains(CurrentNode))
             {
-                StoryContent storyContent = AssetCreator<StoryContent>.CreateAsset(Config.StoryResourcesFolder, "StoryContent");
+                ScriptableContent storyContent = AssetCreator<ScriptableContent>.CreateAsset(Config.StoryResourcesFolder, "Content");
                 if (storyContent != null)
                 {
                     CurrentNode.Content = storyContent;
@@ -284,7 +284,7 @@ namespace E.Tool
             }
             else
             {
-                Debug.LogWarning("你需要先选择一个节点才能为其创建资源");
+                Debug.LogWarning("未指定节点");
             }
         }
 
@@ -360,10 +360,10 @@ namespace E.Tool
                     CurrentStory.ClearNodeDownChoices(CurrentNode);
                     break;
                 case 6:
-                    CurrentStory.DeleteNodeContent(CurrentNode);
+                    CurrentStory.RemoveNodeContent(CurrentNode);
                     break;
                 case 7:
-                    CurrentStory.DeleteNode(CurrentNode);
+                    CurrentStory.RemoveNode(CurrentNode);
                     break;
                 case 8:
                     CloseCurrentStory();
@@ -393,92 +393,121 @@ namespace E.Tool
         /// </summary>
         private static void CheckMouseEvent()
         {
-            if (Event.current.type == EventType.MouseMove)
+            switch (Event.current.type)
             {
-                RefreshMousePosition();
-            }
-            if (Event.current.type == EventType.MouseDown)
-            {
-                RefreshMousePosition();
-                if (CurrentStory != null && CurrentStory.Nodes != null)
-                {
-                    //获取当前选中节点
-                    bool isInNode = false;
-                    foreach (Node item in CurrentStory.Nodes)
+                case EventType.MouseDown:
+                    RefreshMousePosition();
+                    if (CurrentStory != null && CurrentStory.Nodes != null)
                     {
-                        if (item.Rect.Contains(MousePos))
+                        //获取当前选中节点
+                        bool isInNode = false;
+                        foreach (Node item in CurrentStory.Nodes)
                         {
-                            Xoffset = MousePos.x - item.Rect.x;
-                            Yoffset = MousePos.y - item.Rect.y;
-                            isInNode = true;
-                            //选中此节点
-                            CurrentNode = item;
-                            //只展开此节点
-                            foreach (Node it in CurrentStory.Nodes)
+                            if (item.Rect.Contains(MousePos))
                             {
-                                it.IsFold = false;
+                                Xoffset = MousePos.x - item.Rect.x;
+                                Yoffset = MousePos.y - item.Rect.y;
+                                isInNode = true;
+                                //选中此节点
+                                CurrentNode = item;
+                                //只展开此节点
+                                foreach (Node it in CurrentStory.Nodes)
+                                {
+                                    it.IsFold = false;
+                                }
+                                item.IsFold = true;
+                                //选中节点内容资源
+                                if (CurrentNode.Content != null)
+                                {
+                                    Selection.activeObject = CurrentNode.Content;
+                                }
+                                else
+                                {
+                                    Selection.activeObject = CurrentStory;
+                                }
+                                break;
                             }
-                            item.IsFold = true;
-                            //选中节点内容资源
-                            if (CurrentNode.Content != null)
-                            {
-                                Selection.activeObject = CurrentNode.Content;
-                            }
-                            else
-                            {
-                                Selection.activeObject = CurrentStory;
-                            }
-                            break;
+                        }
+
+                        if (isInNode)
+                        {
+                            //将选中节点置顶显示
+                            CurrentStory.Nodes.Remove(CurrentNode);
+                            CurrentStory.Nodes.Insert(CurrentStory.Nodes.Count, CurrentNode);
+                        }
+                        else
+                        {
+                            CurrentNode = null;
+                            Selection.activeObject = CurrentStory;
                         }
                     }
-
-                    if (isInNode)
+                    break;
+                case EventType.MouseUp:
+                    RefreshMousePosition();
+                    break;
+                case EventType.MouseMove:
+                    RefreshMousePosition();
+                    break;
+                case EventType.MouseDrag:
+                    RefreshMousePosition();
+                    if (CurrentStory != null)
                     {
-                        //将选中节点置顶显示
-                        CurrentStory.Nodes.Remove(CurrentNode);
-                        CurrentStory.Nodes.Insert(CurrentStory.Nodes.Count, CurrentNode);
+                        if (CurrentStory.Nodes.Contains(CurrentNode))
+                        {
+                            if (CurrentNode.Rect.Contains(MousePos))
+                            {
+                                CurrentNode.Rect = new RectInt(MousePos.x - Xoffset, MousePos.y - Yoffset, CurrentNode.Rect.width, CurrentNode.Rect.height);
+                            }
+                        }
+                    }
+                    break;
+                case EventType.KeyDown:
+                    break;
+                case EventType.KeyUp:
+                    if (Input.GetKeyUp(KeyCode.KeypadEnter))
+                    {
+                        Debug.Log("!");
+                    }
+                    break;
+                case EventType.ScrollWheel:
+                    break;
+                case EventType.Repaint:
+                    break;
+                case EventType.Layout:
+                    break;
+                case EventType.DragUpdated:
+                    break;
+                case EventType.DragPerform:
+                    break;
+                case EventType.DragExited:
+                    break;
+                case EventType.Ignore:
+                    break;
+                case EventType.Used:
+                    break;
+                case EventType.ValidateCommand:
+                    break;
+                case EventType.ExecuteCommand:
+                    break;
+                case EventType.ContextClick:
+                    RefreshMousePosition();
+                    if (UpNode == null && DownNode == null)
+                    {
+                        DrawContextMenu();
+                        //设置该事件被使用
+                        Event.current.Use();
                     }
                     else
                     {
-                        CurrentNode = null;
-                        Selection.activeObject = CurrentStory;
+                        ClearTempConnect();
                     }
-                }
-            }
-            if (Event.current.type == EventType.MouseDrag)
-            {
-                RefreshMousePosition();
-                if (CurrentStory != null)
-                {
-                    if (CurrentStory.Nodes.Contains(CurrentNode))
-                    {
-                        if (CurrentNode.Rect.Contains(MousePos))
-                        {
-                            CurrentNode.Rect = new RectInt(MousePos.x - Xoffset, MousePos.y - Yoffset, CurrentNode.Rect.width, CurrentNode.Rect.height);
-                        }
-                    }
-                }
-            }
-            if (Event.current.type == EventType.MouseUp)
-            {
-                RefreshMousePosition();
-            }
-            if (Event.current.type == EventType.ContextClick)
-            {
-                RefreshMousePosition();
-                if (UpNode == null && DownNode == null)
-                {
-                    DrawContextMenu();
-                    //设置该事件被使用
-                    Event.current.Use();
-                }
-                else
-                {
-                    ClearTempConnect();
-                }
-            }
-            if (Event.current.isScrollWheel)
-            {
+                    break;
+                case EventType.MouseEnterWindow:
+                    break;
+                case EventType.MouseLeaveWindow:
+                    break;
+                default:
+                    break;
             }
         }
         /// <summary>
@@ -628,24 +657,24 @@ namespace E.Tool
 
                 if (CurrentNode != null)
                 {
-                    menu.AddItem(new GUIContent("删除当前节点"), false, DoMethod, 7);
-                    menu.AddItem(new GUIContent("清除所有节点"), false, DoMethod, 12);
+                    menu.AddItem(new GUIContent("删除节点"), false, DoMethod, 7);
+                    menu.AddItem(new GUIContent("删除所有节点"), false, DoMethod, 12);
                     menu.AddItem(new GUIContent("设为起始节点"), false, DoMethod, 9);
                     menu.AddItem(new GUIContent("设为中间节点"), false, DoMethod, 10);
                     menu.AddItem(new GUIContent("设为结局节点"), false, DoMethod, 11);
-                    menu.AddItem(new GUIContent("清除当前节点连接"), false, DoMethod, 5);
+                    menu.AddItem(new GUIContent("清除连接"), false, DoMethod, 5);
                     menu.AddSeparator("");
-                    menu.AddItem(new GUIContent("创建当前节点内容"), false, DoMethod, 3);
+                    menu.AddItem(new GUIContent("创建内容"), false, DoMethod, 3);
                     if (CurrentNode.Content != null)
                     {
-                        menu.AddItem(new GUIContent("清除当前节点内容"), false, DoMethod, 6);
+                        menu.AddItem(new GUIContent("清除内容"), false, DoMethod, 6);
                     }
                 }
                 else
                 {
                     if (CurrentStory.Nodes != null)
                     {
-                        menu.AddItem(new GUIContent("清除所有节点"), false, DoMethod, 12);
+                        menu.AddItem(new GUIContent("删除所有节点"), false, DoMethod, 12);
                     }
                 }
             }
@@ -744,8 +773,8 @@ namespace E.Tool
 
                 //内容
                 EditorGUI.LabelField(new Rect(rect.x + 5, rect.y + 45, 40, 16), "内容");
-                node.Content = (StoryContent)EditorGUI.ObjectField(new Rect(rect.x + 40, rect.y + 45, 153, 16), node.Content, typeof(StoryContent));
-                StoryContent sc = node.Content;
+                node.Content = (ScriptableContent)EditorGUI.ObjectField(new Rect(rect.x + 40, rect.y + 45, 153, 16), node.Content, typeof(ScriptableContent));
+                ScriptableContent sc = node.Content;
                 if (sc != null)
                 {
                     //形式
@@ -914,7 +943,6 @@ namespace E.Tool
         //mono
         private void Update()
         {
-            Instance.wantsMouseMove = true;
             Repaint();
         }
         private void OnGUI()
@@ -930,6 +958,16 @@ namespace E.Tool
             GUI.EndScrollView();
 
             DrawFixedPanel();
+        }
+        private void OnFocus()
+        {
+            if (!Instance.wantsMouseMove)
+            {
+                Instance.wantsMouseMove = true;
+            }
+        }
+        private void OnValidate()
+        {
         }
         private void OnProjectChange()
         {

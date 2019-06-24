@@ -74,8 +74,8 @@ public abstract partial class ScriptableSkill : ScriptableObjectDictionary<Scrip
         StringBuilder tip = new StringBuilder(toolTip);
         tip.Replace("{名称}", name);
         tip.Replace("{等级}", level.ToString());
-        tip.Replace("{持续时间}", Utils.PrettySeconds(castTime.Get(level)));
-        tip.Replace("{冷却时间}", Utils.PrettySeconds(cooldown.Get(level)));
+        tip.Replace("{持续时间}", Utility.PrettySeconds(castTime.Get(level)));
+        tip.Replace("{冷却时间}", Utility.PrettySeconds(cooldown.Get(level)));
         tip.Replace("{施法距离}", castRange.Get(level).ToString());
         tip.Replace("{脑力消耗}", mindCosts.Get(level).ToString());
 
