@@ -464,9 +464,9 @@ namespace E.Tool
                 case EventType.KeyDown:
                     break;
                 case EventType.KeyUp:
-                    if (Input.GetKeyUp(KeyCode.KeypadEnter))
+                    if (Event.current.keyCode == KeyCode.Delete && CurrentNode != null)
                     {
-                        Debug.Log("!");
+                        CurrentStory.RemoveNode(CurrentNode);
                     }
                     break;
                 case EventType.ScrollWheel:

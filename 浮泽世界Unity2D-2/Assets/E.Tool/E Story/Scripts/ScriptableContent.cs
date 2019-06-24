@@ -28,7 +28,7 @@ namespace E.Tool
         public ScriptableContent()
         {
             IsReaded = false;
-            Time = new DateTime();
+            Time = new DateTime(2000, 1, 1, 0, 0, 0);
             Position = "";
             Summary = "";
             Type = ContentType.剧情对话;
